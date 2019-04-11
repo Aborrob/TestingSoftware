@@ -1,0 +1,183 @@
+<!-- AWP_In_Variable Name='"DataLogDB".P_TrigClkCreate' -->
+<!-- AWP_In_Variable Name='"DataLogDB".P_TrigClkOpen' -->
+<!-- AWP_In_Variable Name='"DataLogDB".P_TrigClkClear' -->
+<!-- AWP_In_Variable Name='"DataLogDB".P_TrigClkDelete' -->
+<!-- AWP_In_Variable Name='"DataLogDB".StartWrite' -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Pavegen Control</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="Styles.css" />
+    <script src="smoothie.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="wrapper tables">
+        <h1>Charge Controller Data</h1>
+        <table>
+            <caption>BUS IN DATA</caption>
+            <tr>
+                <th>Voltage</th>
+                <th>Current</th>
+                <th>Power Input</th>
+                <th>Power Drain</th>
+            </tr>
+            <tr>
+                <!--  -->
+                <td>:=DB3.DBW4:</td>
+                <!--  -->
+                <td>:=DB3.DBW2:</td>
+                <!--  -->
+                <td>:=DB3.DBD64:</td>
+                <!--  -->
+                <td>:=DB3.DBD72:</td>
+
+            </tr>
+        </table>
+
+        <!-- ___________________________________________________ -->
+        <table>
+            <caption>BUS OUT DATA</caption>
+            <tr>
+                <th>Voltage</th>
+                <th>Current</th>
+                <th>Power Input</th>
+                <th>Power Drain</th>
+            </tr>
+            <tr>
+                <!--  -->
+                <td>:=DB3.DBW4:</td>
+                <!--  -->
+                <td>:=DB3.DBW8:</td>
+                <!--  -->
+                <td>:=DB3.DBD168:</td>
+                <!--  -->
+                <td>:=DB3.DBD164:</td>
+
+            </tr>
+        </table>
+
+        <!-- ___________________________________________________ -->
+        <table>
+            <caption>CAP DATA</caption>
+            <tr>
+                <th>Voltage</th>
+                <th>Current</th>
+                <th>Power Input</th>
+                <th>Power Drain</th>
+            </tr>
+            <tr>
+                <!--  -->
+                <td>:=DB3.DBW4:</td>
+                <!--  -->
+                <td>:=DB3.DBW10:</td>
+                <!--  -->
+                <td>:=DB3.DBD96:</td>
+                <!--  -->
+                <td>:=DB3.DBD104:</td>
+
+            </tr>
+        </table>
+
+        <!-- ___________________________________________________ -->
+    </div>
+    <div class="ControlButtons">
+        <h1>Switch Controls</h1>
+        <a id="v12" class="v12-off button">V12 OFF</a>
+        <div class="download">
+            <a href="https://192.168.1.10/FileBrowser/Download?Path=%2FDataLogs%2Flogging.csv">Download Log File</a>
+        </div>
+    </div>
+
+    <!-- Plotting -->
+    <div class="PlottingArea">
+        <h1>Realtime Plots</h1>
+        <div class="Plots">
+            <canvas id="mycanvas1" width="800" height="200"></canvas>
+            <canvas id="mycanvas2" width="800" height="200"></canvas>
+        </div>
+
+    </div>
+
+    <div class="controls">
+        <div>
+            <h1>Trigger Control</h1>
+            <fieldset>
+                <legend>Create Record</legend>
+                <label id="CreateCurrentValue">Current Value: :=DB16.DBX0.0:</label><br>
+                <input id="CreateTrig" name='DB16.DBX0.0' type="text" />
+                <button id="LogCreateButton" type="submit">Submit</button>
+            </fieldset>
+        </div>
+        <div>
+
+            <fieldset>
+                <legend>Open Record</legend>
+                <label id="OpenCurrentValue">Current Value: :=DB16.DBX0.1:</label><br>
+                <input id="OpenTrig" name='DB16.DBX0.1' type="text" />
+                <button id="LogOpenButton" type="submit">Submit</button>
+            </fieldset>
+
+
+        </div>
+        <div>
+
+            <fieldset>
+                <legend>Clear Record</legend>
+                <label id="ClearCurrentValue">Current Value: :=DB16.DBX0.2:</label><br>
+                <input id="ClearTrig" name='DB16.DBX0.2' type="text" />
+                <button id="LogClearButton" type="submit">Submit</button>
+            </fieldset>
+
+
+        </div>
+        <div>
+
+            <fieldset>
+                <legend>Delete Record</legend>
+                <label id="DeleteCurrentValue">Current Value: :=DB16.DBX0.3:</label><br>
+                <input id="DeleteTrig" name='DB16.DBX0.3' type="text" />
+                <button id="LogDeleteButton" type="submit">Submit</button>
+            </fieldset>
+
+
+        </div>
+        <div>
+
+            <fieldset>
+                <legend>Start Writing command</legend>
+                <label id="WritingCommandCurrentValue">Current Value: :=DB16.DBX0.5:</label><br>
+                <input id="WriteTrig" name='DB16.DBX0.5' type="text" />
+                <button id="LogWriteButton" type="submit">Submit</button>
+            </fieldset>
+
+
+        </div>
+        <div>
+
+            <fieldset>
+                <legend>Start Reading</legend>
+                <label id="ReadingCurrentValue">Current Value: :=DB16.DBX0.4:</label><br>
+                <input id="ReadTrig" name='DB16.DBX0.4' type="text" />
+                <button id="StartReadButton" type="submit">Submit</button>
+            </fieldset>
+
+
+        </div>
+
+        <div id="testField">
+                :=DB7.ReadTrig:
+        </div>
+    </div>
+    <!-- ________________________________________Scripts_______________________________ -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+body {
+    background-image: linear-gradient(white, rgb(170, 255, 131));
+    margin: 0;
+    display: grid;
+    grid-template-columns: 40% auto;
+    grid-template-rows: 50% 50%;
+    grid-template-areas: "tableArea Plots" 
+                         "controls1 controls2";
+}
+h1{
+    margin: 0;
+}
+
+.PlottingArea{
+    /* background: #d8d8d8; */
+    grid-area: Plots;
+}
+
+.Plots{
+    margin: 50px auto auto 30px;
+}
+.PlottingArea>h1{
+    text-align: center;
+}
+.controls{
+    /* background: #e0e0e0; */
+    margin-top: 15px;
+    grid-area: controls1;
+}
+
+.controls h1{
+    text-align: center;
+}
+.ControlButtons{
+    /* background: #838383; */
+    margin: 15px 0 0 50px;
+    grid-area: controls2;
+}
+table {
+    width: 400px;
+}
+
+th {
+text-align: left;
+}
+
+table, th, td {
+    border: 1px black solid;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px;
+}
+
+.wrapper {
+    /* background: #ffffff; */
+    display: grid;
+    /* grid-template-columns: 10%; */
+    margin: 0;
+    /* width: 400px; */
+    grid-area: tableArea;
+    
+}
+.wrapper > table{
+background: rgb(247, 255, 175);
+padding: 3em;
+}
+
+.wrapper > table:nth-child(odd){
+    background: #dddddd;
+}
+
+#v12.v12-on{
+    background: rgb(51, 255, 0);
+    color: rgb(0, 0, 0);
+    font-family: calibri;
+    display: block;
+    width: 140px;
+    font-size: 24px;
+    text-transform: uppercase;
+    padding: 10px;
+    text-align: center;
+    margin-top: 50px;
+    margin-left: 10px;
+    cursor: pointer;
+    height: 40px;
+}
+#v12.v12-off{
+    background: rgb(255, 0, 0);
+    color: rgb(0, 0, 0);
+    font-family: calibri;
+    display: block;
+    width: 140px;
+    font-size: 24px;
+    text-transform: uppercase;
+    padding: 10px;
+    text-align: center;
+    margin-top: 50px;
+    margin-left: 10px;
+    cursor: pointer;
+    height: 40px;
+
+}
+
+.button:hover {
+opacity: 0.7;
+cursor: pointer;
+}
+
+.download>a  {
+    margin: 10px;
+    padding: 10px;
+    background: rgb(30, 250, 23);
+    width: 140px;
+    display: block; 
+    text-decoration: none;
+    text-align: center;
+    font-size: 17px;
+    color: black;
+}
