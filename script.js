@@ -1,5 +1,3 @@
-// Testing master commits
-
 $(document).ready(function () {
     // Button elements
     var v12_button = document.getElementById("v12");
