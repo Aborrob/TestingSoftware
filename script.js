@@ -1,4 +1,4 @@
-
+// Testing master commits
 
 $(document).ready(function () {
     // Button elements
