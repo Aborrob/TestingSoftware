@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <div class="grid-container">
         <div class="CCData">
@@ -66,19 +67,22 @@
         <div class="Plots">
             <h1>Realtime Plots</h1>
             <div id="CanvasArea">
-                <canvas class="mycanvas" id="mycanvas1" width= 600px height= 200px></canvas><br>
-                <canvas class="mycanvas" id="mycanvas2" width= 600px height= 200px></canvas>
+                <canvas class="mycanvas" id="mycanvas1" width=600px height=200px></canvas><br>
+                <canvas class="mycanvas" id="mycanvas2" width=600px height=200px></canvas>
             </div>
         </div>
         <div class="PlotButtons">
-            <button value=1 id="BusInCurrent" classclass="PlotControlButton">BusInCurrent</button><br>
-            <button id="BusOutCurrent" class="PlotControlButton">BusOutCurrent</button><br>
-            <button id="EnergyInGenerated" class="PlotControlButton">EnergyInGenerated</button><br>
-            <button id="EnergyOutGenerated" class="PlotControlButton">EnergyOutGenerated</button><br>
-            <button id="BusInPowerInput" class="PlotControlButton">BusInPowerInput</button><br>
-            <button id="BusOutPowerInput" class="PlotControlButton">BusOutPowerInput</button><br>
-            <button id="BusInPowerDrain" class="PlotControlButton">BusInPowerDrain</button><br>
-            <button id="BusOutPowerDrain" class="PlotControlButton">BusOutPowerDrain</button>
+            <h1>Plot Options</h1><br>
+            <div>
+                <button value=1 id="BusInCurrent" classclass="PlotControlButton">BusInCurrent</button><br>
+                <button id="BusOutCurrent" class="PlotControlButton">BusOutCurrent</button><br>
+                <button id="EnergyInGenerated" class="PlotControlButton">EnergyInGenerated</button><br>
+                <button id="EnergyOutGenerated" class="PlotControlButton">EnergyOutGenerated</button><br>
+                <button id="BusInPowerInput" class="PlotControlButton">BusInPowerInput</button><br>
+                <button id="BusOutPowerInput" class="PlotControlButton">BusOutPowerInput</button><br>
+                <button id="BusInPowerDrain" class="PlotControlButton">BusInPowerDrain</button><br>
+                <button id="BusOutPowerDrain" class="PlotControlButton">BusOutPowerDrain</button>
+            </div>
         </div>
         <div class="PLCControls">
             <div class="PLCControls1">
@@ -178,4 +182,5 @@
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -1,20 +1,21 @@
-*{
+* {
     margin: 3px;
 }
-body {
-    background-image: linear-gradient(white, rgb(44, 187, 197));
-    background-repeat: no-repeat;
-    margin: 0;
 
-}
-h1{
+body {
     margin: 0;
 }
+
+h1 {
+    margin: 0;
+}
+
 table, th, td {
     border: 1px black solid;
     border-collapse: collapse;
 }
-#v12.v12-on{
+
+#v12.v12-on {
     background: rgb(51, 255, 0);
     color: rgb(0, 0, 0);
     font-family: calibri;
@@ -29,7 +30,8 @@ table, th, td {
     cursor: pointer;
     height: 40px;
 }
-#v12.v12-off{
+
+#v12.v12-off {
     background: rgb(255, 0, 0);
     color: rgb(0, 0, 0);
     font-family: calibri;
@@ -44,52 +46,91 @@ table, th, td {
     cursor: pointer;
     height: 40px;
 }
+
 .button:hover {
-opacity: 0.7;
-cursor: pointer;
+    opacity: 0.7;
+    cursor: pointer;
 }
-.download  {
+
+.download {
     margin: 10px;
     padding: 10px;
     background: rgb(30, 250, 23);
     width: 140px;
-    display: block; 
+    display: block;
     text-decoration: none;
     text-align: center;
     font-size: 17px;
     color: black;
 }
+
 /* Grid___________________Grid____________________Grid */
+
 .grid-container {
+    background-image: linear-gradient(white, rgb(0, 0, 0));
+    background-repeat: no-repeat;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-areas: "CCData Plots Plots PlotButtons" "PLCControls PLCControls MiscButtons ." ". . . .";
-  }
-  
-  .CCData { grid-area: CCData; }
-  
-  .Plots { grid-area: Plots; }
-  
-  .PlotButtons {
-     grid-area: PlotButtons;
-     float: left;
-  }
-  .PlotButtons button{
-      width: 60%;
-      margin-top: 2%;
-  }
-  .PLCControls {
+}
+
+.CCData {
+    background-image: linear-gradient(white, rgb(0, 238, 255));
+    background-repeat: no-repeat;
+    grid-area: CCData;
+}
+
+.CCData div table {
+    /* text-align: justify; */
+    height: 50px;
+    width: 30em;
+}
+
+.Plots {
+    background-image: linear-gradient(white, rgb(18, 227, 241));
+    background-repeat: no-repeat;
+    grid-area: Plots;
+}
+
+.PlotButtons {
+    background-image: linear-gradient(white, rgb(101, 211, 219));
+    background-repeat: no-repeat;
+    grid-area: PlotButtons;
+    float: left;
+}
+
+.PlotButtons button {
+    width: 60%;
+    margin-top: 2%;
+}
+
+.PlotButtons div {
+    text-align: justify;
+}
+
+.PLCControls {
+    background-image: linear-gradient(white, rgb(0, 238, 255));
+    background-repeat: no-repeat;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     grid-template-areas: "PLCControls1 PLCControls2";
     grid-area: PLCControls;
-  }
-  
-  .PLCControls1 { grid-area: PLCControls1; }
-  
-  .PLCControls2 { grid-area: PLCControls2; }
-  
-  .MiscButtons { grid-area: MiscButtons; }
+}
+
+.PLCControls1 {
+    grid-area: PLCControls1;
+}
+
+.PLCControls2 {
+    grid-area: PLCControls2;
+}
+
+.MiscButtons {
+    background-image: linear-gradient(white, rgb(0, 238, 255));
+    background-repeat: no-repeat;
+    grid-area: MiscButtons;
+}
+
 /* Grid___________________Grid____________________Grid */
