@@ -1,9 +1,3 @@
-<!-- AWP_In_Variable Name='"DataLogDB".P_TrigClkCreate' -->
-<!-- AWP_In_Variable Name='"DataLogDB".P_TrigClkOpen' -->
-<!-- AWP_In_Variable Name='"DataLogDB".P_TrigClkClear' -->
-<!-- AWP_In_Variable Name='"DataLogDB".P_TrigClkDelete' -->
-<!-- AWP_In_Variable Name='"DataLogDB".StartWrite' -->
-
 <!DOCTYPE html>
 <html>
 
@@ -113,7 +107,6 @@
             <button id="BusOutPowerDrain" class="PlotControlButton">BusOutPowerDrain</button>
         </div>
     </div>
-
     <div class="controls">
         <div>
             <h1>Trigger Control</h1>
@@ -125,59 +118,76 @@
             </fieldset>
         </div>
         <div>
-
             <fieldset>
                 <legend>Open Record</legend>
                 <label id="OpenCurrentValue">Current Value: :=DB16.DBX0.1:</label><br>
                 <input id="OpenTrig" name='DB16.DBX0.1' type="text" />
                 <button id="LogOpenButton" type="submit">Submit</button>
             </fieldset>
-
-
         </div>
         <div>
-
             <fieldset>
                 <legend>Clear Record</legend>
                 <label id="ClearCurrentValue">Current Value: :=DB16.DBX0.2:</label><br>
                 <input id="ClearTrig" name='DB16.DBX0.2' type="text" />
                 <button id="LogClearButton" type="submit">Submit</button>
             </fieldset>
-
-
         </div>
         <div>
-
             <fieldset>
                 <legend>Delete Record</legend>
                 <label id="DeleteCurrentValue">Current Value: :=DB16.DBX0.3:</label><br>
                 <input id="DeleteTrig" name='DB16.DBX0.3' type="text" />
                 <button id="LogDeleteButton" type="submit">Submit</button>
             </fieldset>
-
-
         </div>
         <div>
-
             <fieldset>
                 <legend>Start Writing command</legend>
                 <label id="WritingCommandCurrentValue">Current Value: :=DB16.DBX0.5:</label><br>
                 <input id="WriteTrig" name='DB16.DBX0.5' type="text" />
                 <button id="LogWriteButton" type="submit">Submit</button>
             </fieldset>
-
-
         </div>
         <div>
-
             <fieldset>
                 <legend>Start Reading</legend>
                 <label id="ReadingCurrentValue">Current Value: :=DB16.DBX0.4:</label><br>
                 <input id="ReadTrig" name='DB16.DBX0.4' type="text" />
                 <button id="StartReadButton" type="submit">Submit</button>
             </fieldset>
-
-
+        </div>
+        <div>
+            <fieldset>
+                <legend>Starting Address</legend>
+                <label id="startAddressCurrentValue">Current Value: :=DB16.DBD4:</label><br>
+                <input id="StartAddress" name='DB16.DBD4' type="text" />
+                <button id="AddressButton" type="submit">Submit</button>
+            </fieldset>
+        </div>
+        <div>
+            <fieldset>
+                <legend>Data Length</legend>
+                <label id="DataLengthCurrentValue">Current Value: :=DB16.DBW2:</label><br>
+                <input id="DataLength" name='DB16.DBW2' type="text" />
+                <button id="DataLengthButton" type="submit">Submit</button>
+            </fieldset>
+        </div>
+        <div>
+            <fieldset>
+                <legend>Reading Duty cycle period (DT ON)</legend>
+                <label id="DutyCycleCurrentValue">Current Value: :=DB16.DBD8:</label><br>
+                <input id="DutyCycle" name='DB16.DBD8' type="text" placeholder="T#20ms for example" />
+                <button id="DTButton" type="submit">Submit</button>
+            </fieldset>
+        </div>
+        <div>
+            <fieldset>
+                <legend>Test Period</legend>
+                <label id="TestPeriodCurrentValue">Current Value: :=DB16.DBD12:</label><br>
+                <input id="TestPeriod" name='DB16.DBD12' type="text" placeholder="T#5s for example" />
+                <button id="TestPeriodButton" type="submit">Submit</button>
+            </fieldset>
         </div>
 
         <div id="testField">

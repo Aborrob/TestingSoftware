@@ -86,6 +86,11 @@ $(document).ready(function () {
                 $('#DeleteCurrentValue').text("Current Value: " + ccObject.DeleteLog);
                 $('#WritingCommandCurrentValue').text("Current Value: " + ccObject.StartWriteLog);
                 $('#ReadingCurrentValue').text("Current Value: " + ccObject.ReadTrig);
+                // Data Address and Data length Control
+                $('#startAddressCurrentValue').text("Current Value: " + ccObject.StartAddress);
+                // Timers Control for reading Modbus data (Req freq.)
+                $('#TestPeriodCurrentValue').text("Current Value: " + ccObject.TestPeriod);
+                $('#DutyCycleCurrentValue').text("Current Value: " + ccObject.DutyCycle);
             }
         });
         // $("#CreateCurrentValue").text("Current Value: " + ccObject.CreateLog);
@@ -139,6 +144,38 @@ $(document).ready(function () {
         url = "Outputs.htm";
         name = 'DB16.DBX0.4';
         val = $('input[id=ReadTrig]').val();
+        sdata = escape(name) + '=' + val;
+        $.post(url, sdata, function (result) { });
+    });
+
+    $("#DataLengthButton").click(function () {
+        url = "Outputs.htm";
+        name = 'DB16.DBW2';
+        val = $('input[id=DataLength]').val();
+        sdata = escape(name) + '=' + val;
+        $.post(url, sdata, function (result) { });
+    });
+
+    $("#AddressButton").click(function () {
+        url = "Outputs.htm";
+        name = 'DB16.DBD4';
+        val = $('input[id=StartAddress]').val();
+        sdata = escape(name) + '=' + val;
+        $.post(url, sdata, function (result) { });
+    });
+
+    $("#DTButton").click(function () {
+        url = "Outputs.htm";
+        name = 'DB16.DBD8';
+        val = $('input[id=DutyCycle]').val();
+        sdata = escape(name) + '=' + val;
+        $.post(url, sdata, function (result) { });
+    });
+
+    $("#TestPeriodButton").click(function () {
+        url = "Outputs.htm";
+        name = 'DB16.DBD12';
+        val = $('input[id=TestPeriod]').val();
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
