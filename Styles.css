@@ -71,8 +71,8 @@ table, th, td {
     background-repeat: no-repeat;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-areas: "CCData Plots Plots PlotButtons" "PLCControls PLCControls MiscButtons ." ". . . .";
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "CCData Plots Plots PlotButtons" "PLCControls PLCControls MiscButtons MiscButtons"
 }
 
 .CCData {
@@ -82,7 +82,6 @@ table, th, td {
 }
 
 .CCData div table {
-    /* text-align: justify; */
     height: 50px;
     width: 30em;
 }
@@ -106,7 +105,7 @@ table, th, td {
 }
 
 .PlotButtons div {
-    text-align: justify;
+    text-align: center;
 }
 
 .PLCControls {
