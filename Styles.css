@@ -18,6 +18,10 @@ table, th, td {
     border-collapse: collapse;
 }
 
+th, td {
+    text-align: center;
+}
+
 #v12.v12-on {
     background: rgb(51, 255, 0);
     color: rgb(0, 0, 0);
@@ -90,15 +94,12 @@ table, th, td {
 }
 
 .CCData div table {
+    width: 90%;
     height: 50px;
-}
-
-.CCData th {
-    width: 100%;
+    table-layout: fixed;
 }
 
 .Plots {
-
     grid-area: Plots;
     border: 2px solid rgb(0, 0, 0);
     border-radius: 2% 10%;
