@@ -11,13 +11,13 @@
 </head>
 
 <body>
-    <div class="grid-container">
-        <div class="header">
+    <div class="grid-container" style="width:100%">
+        <div class="header" style="width:100%">
             <img src="logo.png">
         </div>
         <div class="CCData">
             <h1>Charge Controller Data</h1>
-            <div>
+            <div style="width: 100%">
                 <table>
                     <caption>BUS IN DATA</caption>
                     <tr>
@@ -69,16 +69,16 @@
         </div>
         <div class="Plots">
             <h1>Realtime Plots</h1>
-            <div id="CanvasArea">
-                <canvas class="mycanvas" id="mycanvas1" width=600px height=200px></canvas><br>
-                <canvas class="mycanvas" id="mycanvas2" width=600px height=200px></canvas>
+            <div id="CanvasArea" style="text-align: center">
+                <canvas class="mycanvas" id="mycanvas1" style="width:90%; height:200px"></canvas><br>
+                <canvas class="mycanvas" id="mycanvas2" style="width:90%; height:200px"></canvas>
             </div>
         </div>
         <div class="PlotButtons">
             <h1>Plot Options</h1><br>
             <div class="PlotControlButton">
                 <button value=1 id="BusInCurrent">BusInCurrent</button><br>
-                <button id="BusOutCurrent">BusOutCurrent</button><br>
+                <button id="BusOutCurrent">Bus Out Current</button><br>
                 <button id="EnergyInGenerated">EnergyInGenerated</button><br>
                 <button id="EnergyOutGenerated">EnergyOutGenerated</button><br>
                 <button id="BusInPowerInput">BusInPowerInput</button><br>

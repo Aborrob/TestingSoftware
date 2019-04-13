@@ -1,5 +1,6 @@
 * {
     margin: 3px;
+    font-size: 1vw;
 }
 
 body {
@@ -8,6 +9,7 @@ body {
 
 h1 {
     margin: 0;
+    font-size: 2vw;
 }
 
 table, th, td {
@@ -95,7 +97,7 @@ table, th, td {
 
 .CCData div table {
     height: 50px;
-    width: 30em;
+    width: 97%;
 }
 
 .Plots {
@@ -109,11 +111,13 @@ table, th, td {
     background-repeat: no-repeat;
     grid-area: PlotButtons;
     float: left;
+    width: 100%;
 }
 
 .PlotButtons button {
     width: 60%;
     margin-top: 2%;
+    
 }
 
 .PlotButtons div {
@@ -143,4 +147,5 @@ table, th, td {
     background-repeat: no-repeat;
     grid-area: MiscButtons;
 }
+
 /* Grid_^^^^^^^^^^^^^^^^^^_Grid_^^^^^^^^^^^^^^^^^^^^^^^^_Grid */

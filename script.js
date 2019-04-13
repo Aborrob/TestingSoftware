@@ -17,26 +17,40 @@ $(document).ready(function () {
     };
     var ValueToBePlotted = ccObject.BusInCurrent;
     var plotText = "Bus In Current";
-    // Consider changing the interpolation (animation smoothness) to 'bezier', or just delete the 'step' and interpolation key value pair
-    var smoothie1 = new SmoothieChart({ minValue: 0, title: { text: 'Bus Voltage', fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' } });
-    var smoothie2 = new SmoothieChart({ minValue: 0, title: { text: plotText, fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' } });
+    var smoothie1 = new SmoothieChart({ responsive: true, minValue: 0, title: { text: 'Bus Voltage', fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' } });
+    var smoothie2 = new SmoothieChart({ responsive: true, minValue: 0, title: { text: plotText, fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' } });
     // _________________________________\/ \/ \/On Click \/ \/ \/ _______________
-    BusOutCutrrentB.onclick = function () {
-        console.log(this.value);
-        if (BusOutCutrrentB.value == 1) {
-            BusOutCutrrentB.value = 0;
-            ValueToBePlotted = ccObject.BusInCurrent;
-            plotText = "Bus In Current";
-            smoothie2.options.title.text = plotText;
-        }
-        else {
-            BusOutCutrrentB.value = 1;
-            ValueToBePlotted = ccObject.BusOutCurrent;
-            plotText = "Bus Out Current";
-            smoothie2.options.title.text = plotText;
-
-        }
-    };
+    // BusOutCutrrentB.onclick = function () {
+    //     console.log(this.value);
+    //     console.log(this.innerHTML);
+    //     // console.log(this.id);
+    //     if (BusOutCutrrentB.value == 1) {
+    //         BusOutCutrrentB.value = 0;
+    //         ValueToBePlotted = ccObject.BusInCurrent;
+    //         plotText = "Bus In Current";
+    //         smoothie2.options.title.text = plotText;
+    //     }
+    //     else {
+    //         BusOutCutrrentB.value = 1;
+    //         ValueToBePlotted = ccObject.BusOutCurrent;
+    //         plotText = "Bus Out Current";
+    //         smoothie2.options.title.text = plotText;
+    //     }
+    // };
+    // BusOutCutrrentB.onclick = changeGraph(this);
+    // function changeGraph(item) {
+    //     console.log(item.id);
+    //     var valueChange = item.id;
+    //     if (item.value == 1) {
+    //         return;
+    //     }
+    //     else {
+    //         item.value = 1;
+    //         ValueToBePlotted = ccObject.valueChange;
+    //         plotText = this.innerHTML;
+    //         smoothie2.options.title.text = plotText;
+    //     }
+    // }
     // BusOutPowerInputB
     // BusOutPowerDrainB
     // EnergyInGenerated
@@ -53,10 +67,10 @@ $(document).ready(function () {
             v12_button.className = "v12-off button";
             v12_button.innerHTML = "v12 off";
         }
-    };
+    }
     // ___________________________Stream To Canvas
-    smoothie1.streamTo(document.getElementById("mycanvas1"));
-    smoothie2.streamTo(document.getElementById("mycanvas2"));
+    smoothie1.streamTo(document.getElementById("mycanvas1"), 1000);
+    smoothie2.streamTo(document.getElementById("mycanvas2"), 1000);
     // smoothie2.streamTo(document.getElementById("mycanvas2"));
     // Data
     var line1 = new TimeSeries();
