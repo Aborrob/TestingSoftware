@@ -22,7 +22,7 @@ $(document).ready(function () {
     // _________________________________\/ \/ \/On Click \/ \/ \/ _______________
     // BusOutCutrrentB.onclick = function () {
     //     console.log(this.value);
-    //     console.log(this.innerHTML);
+    //     console.log(this);
     //     // console.log(this.id);
     //     if (BusOutCutrrentB.value == 1) {
     //         BusOutCutrrentB.value = 0;
@@ -36,21 +36,27 @@ $(document).ready(function () {
     //         plotText = "Bus Out Current";
     //         smoothie2.options.title.text = plotText;
     //     }
-    // };
-    // BusOutCutrrentB.onclick = changeGraph(this);
-    // function changeGraph(item) {
-    //     console.log(item.id);
-    //     var valueChange = item.id;
-    //     if (item.value == 1) {
-    //         return;
-    //     }
-    //     else {
-    //         item.value = 1;
-    //         ValueToBePlotted = ccObject.valueChange;
-    //         plotText = this.innerHTML;
-    //         smoothie2.options.title.text = plotText;
-    //     }
     // }
+    // $( BusOutCutrrentB ).on("click" ,changeGraph);
+    BusOutCutrrentB.onclick = changeGraph;
+    function changeGraph() {
+        console.log(this);
+        var valueChange = this.id;
+        if (this.value == 1) {
+            console.log("if");
+            return;
+        }
+        else {
+            this.value = 1;
+            console.log("it");
+
+            ValueToBePlotted = ccObject.valueChange;
+            // plotText = this.innerHTML;
+            // console.log(plotText);
+            // smoothie2.options.title.text = plotText;
+            return;
+        }
+    }
     // BusOutPowerInputB
     // BusOutPowerDrainB
     // EnergyInGenerated
@@ -68,9 +74,9 @@ $(document).ready(function () {
             v12_button.innerHTML = "v12 off";
         }
     }
-    // ___________________________Stream To Canvas
-    smoothie1.streamTo(document.getElementById("mycanvas1"), 1000);
-    smoothie2.streamTo(document.getElementById("mycanvas2"), 1000);
+    // ___________________________Stream To Canvas___second arument could be added for delay in ms___
+    smoothie1.streamTo(document.getElementById("mycanvas1"));
+    smoothie2.streamTo(document.getElementById("mycanvas2"));
     // smoothie2.streamTo(document.getElementById("mycanvas2"));
     // Data
     var line1 = new TimeSeries();

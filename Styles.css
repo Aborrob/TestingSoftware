@@ -22,15 +22,10 @@ table, th, td {
     color: rgb(0, 0, 0);
     font-family: calibri;
     display: block;
-    width: 140px;
-    font-size: 24px;
     text-transform: uppercase;
-    padding: 10px;
+    padding: 1%;
     text-align: center;
-    margin-top: 50px;
-    margin-left: 10px;
     cursor: pointer;
-    height: 40px;
 }
 
 #v12.v12-off {
@@ -38,15 +33,10 @@ table, th, td {
     color: rgb(0, 0, 0);
     font-family: calibri;
     display: block;
-    width: 140px;
-    font-size: 24px;
     text-transform: uppercase;
-    padding: 10px;
+    padding: 1%;
     text-align: center;
-    margin-top: 50px;
-    margin-left: 10px;
     cursor: pointer;
-    height: 40px;
 }
 
 .button:hover {
@@ -55,14 +45,11 @@ table, th, td {
 }
 
 .download {
-    margin: 10px;
-    padding: 10px;
-    background: rgb(30, 250, 23);
-    width: 140px;
+    padding: 1%;
+    background: rgb(15, 170, 28);
     display: block;
     text-decoration: none;
     text-align: center;
-    font-size: 17px;
     color: black;
 }
 
@@ -87,6 +74,7 @@ table, th, td {
     filter: invert(100%);
     width: 500px;
     height: 80px;
+    margin: 1%;
 }
 
 .CCData {
@@ -97,7 +85,10 @@ table, th, td {
 
 .CCData div table {
     height: 50px;
-    width: 97%;
+}
+
+.CCData th {
+    width: 100%;
 }
 
 .Plots {
@@ -117,7 +108,6 @@ table, th, td {
 .PlotButtons button {
     width: 60%;
     margin-top: 2%;
-    
 }
 
 .PlotButtons div {
@@ -146,6 +136,14 @@ table, th, td {
     background-image: linear-gradient(white, rgb(0, 238, 255));
     background-repeat: no-repeat;
     grid-area: MiscButtons;
+}
+
+.MiscButtons div a {
+    width: 20%;
+    margin: 1%;
+    float: left;
+    font-size: 1.4vw;
+    height: 3vw;
 }
 
 /* Grid_^^^^^^^^^^^^^^^^^^_Grid_^^^^^^^^^^^^^^^^^^^^^^^^_Grid */
