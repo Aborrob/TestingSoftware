@@ -21,7 +21,6 @@ $(document).ready(function () {
     var smoothie1 = new SmoothieChart({ minValue: 0, title: { text: 'Bus Voltage', fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' } });
     var smoothie2 = new SmoothieChart({ minValue: 0, title: { text: plotText, fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' } });
     // _________________________________\/ \/ \/On Click \/ \/ \/ _______________
-
     BusOutCutrrentB.onclick = function () {
         console.log(this.value);
         if (BusOutCutrrentB.value == 1) {
@@ -37,7 +36,6 @@ $(document).ready(function () {
             smoothie2.options.title.text = plotText;
 
         }
-
     };
     // BusOutPowerInputB
     // BusOutPowerDrainB
@@ -46,9 +44,7 @@ $(document).ready(function () {
     // BusInPowerInputB
     // BusInPowerDrainB
     // BusInCurrentB
-
     // _________________________________________/\/\/\/\/\On click /\/\/\/\/\_________
-
     v12_button.onclick = function () {
         if (v12_button.className == "v12-off button") {
             v12_button.className = "v12-on button";
@@ -57,10 +53,7 @@ $(document).ready(function () {
             v12_button.className = "v12-off button";
             v12_button.innerHTML = "v12 off";
         }
-
     };
-
-
     // ___________________________Stream To Canvas
     smoothie1.streamTo(document.getElementById("mycanvas1"));
     smoothie2.streamTo(document.getElementById("mycanvas2"));
@@ -68,7 +61,6 @@ $(document).ready(function () {
     // Data
     var line1 = new TimeSeries();
     var line2 = new TimeSeries();
-
     setInterval(function () {
         $.ajax({
             url: "Data.json",
@@ -107,7 +99,6 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-
     $("#LogOpenButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBX0.1';
@@ -115,7 +106,6 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-
     $("#LogClearButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBX0.2';
@@ -123,7 +113,6 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-
     $("#LogDeleteButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBX0.3';
@@ -131,7 +120,6 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-
     $("#LogWriteButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBX0.5';
@@ -139,7 +127,6 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-
     $("#StartReadButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBX0.4';
@@ -147,7 +134,6 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-
     $("#DataLengthButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBW2';
@@ -155,7 +141,6 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-
     $("#AddressButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBD4';
@@ -163,7 +148,6 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-
     $("#DTButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBD8';
@@ -171,7 +155,6 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-
     $("#TestPeriodButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBD12';
@@ -179,5 +162,4 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-
 }); 

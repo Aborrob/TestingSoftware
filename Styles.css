@@ -71,8 +71,20 @@ table, th, td {
     background-repeat: no-repeat;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas: "CCData Plots Plots PlotButtons" "PLCControls PLCControls MiscButtons MiscButtons"
+    grid-template-rows: auto 1fr 1fr;
+    grid-template-areas: "header header header header" "CCData Plots Plots PlotButtons" "PLCControls PLCControls MiscButtons MiscButtons"
+}
+
+.header {
+    background-image: radial-gradient(rgb(51, 51, 51), black);
+    grid-area: header;
+    text-align: left;
+}
+
+.header>img {
+    filter: invert(100%);
+    width: 500px;
+    height: 80px;
 }
 
 .CCData {
@@ -131,5 +143,4 @@ table, th, td {
     background-repeat: no-repeat;
     grid-area: MiscButtons;
 }
-
-/* Grid___________________Grid____________________Grid */
+/* Grid_^^^^^^^^^^^^^^^^^^_Grid_^^^^^^^^^^^^^^^^^^^^^^^^_Grid */
