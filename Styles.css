@@ -9,6 +9,7 @@ body {
 
 h1 {
     margin: 0;
+    margin-left: 1%;
     font-size: 2vw;
 }
 
@@ -64,6 +65,11 @@ table, th, td {
     grid-template-areas: "header header header header" "CCData Plots Plots PlotButtons" "PLCControls PLCControls MiscButtons MiscButtons"
 }
 
+#areaColor {
+    background-image: linear-gradient(rgb(255, 145, 0), rgb(255, 0, 0));
+    background-repeat: no-repeat;
+}
+
 .header {
     background-image: radial-gradient(rgb(51, 51, 51), black);
     grid-area: header;
@@ -78,9 +84,9 @@ table, th, td {
 }
 
 .CCData {
-    background-image: linear-gradient(white, rgb(0, 238, 255));
-    background-repeat: no-repeat;
     grid-area: CCData;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 2% 10%;
 }
 
 .CCData div table {
@@ -92,17 +98,17 @@ table, th, td {
 }
 
 .Plots {
-    background-image: linear-gradient(white, rgb(18, 227, 241));
-    background-repeat: no-repeat;
+
     grid-area: Plots;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 2% 10%;
 }
 
 .PlotButtons {
-    background-image: linear-gradient(white, rgb(101, 211, 219));
-    background-repeat: no-repeat;
     grid-area: PlotButtons;
     float: left;
-    width: 100%;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 2% 10%;
 }
 
 .PlotButtons button {
@@ -115,13 +121,13 @@ table, th, td {
 }
 
 .PLCControls {
-    background-image: linear-gradient(white, rgb(0, 238, 255));
-    background-repeat: no-repeat;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     grid-template-areas: "PLCControls1 PLCControls2";
     grid-area: PLCControls;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 2% 5%;
 }
 
 .PLCControls1 {
@@ -133,9 +139,9 @@ table, th, td {
 }
 
 .MiscButtons {
-    background-image: linear-gradient(white, rgb(0, 238, 255));
-    background-repeat: no-repeat;
     grid-area: MiscButtons;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 2% 10%;
 }
 
 .MiscButtons div a {
