@@ -80,7 +80,7 @@ $(document).ready(function () {
                 $('#WritingCommandCurrentValue').text("Current Value: " + ccObject.StartWriteLog);
                 if (ccObject.ReadTrig == 0) {
                     $('#ReadingCurrentValue').text("Status: <b>Reading is OFF</b>");
-                }else{
+                } else {
                     $('#ReadingCurrentValue').text("Status: <b>Reading is ON</b>");
                 }
                 // Data Address and Data length Control
@@ -135,7 +135,16 @@ $(document).ready(function () {
     $("#StartReadButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBX0.4';
-        val = $('input[id=ReadTrig]').val();
+        if (this.value == 1) {
+            val = 0;
+            this.value = 0;
+            this.innerHTML = "Start Reading";
+        }
+        else {
+            val = 1;
+            this.value = 1;
+            this.innerHTML = "Stop Reading";
+        }
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
