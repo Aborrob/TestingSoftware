@@ -51,18 +51,17 @@ th, td {
     grid-template-areas: "header header header header" "CCData Plots Plots PlotButtons" "PLCControls PLCControls MiscButtons MiscButtons";
     background-image: linear-gradient(white, rgb(0, 0, 0));
     background-repeat: no-repeat;
-    transition: background-image 300ms ease-in-out;
 }
 
 .areaColor {
-    background-image: radial-gradient(rgb(255, 255, 255), rgb(12, 172, 12));
+    background-image: radial-gradient(rgb(54, 151, 10), rgb(18, 73, 18));
     background-repeat: no-repeat;
-    background-image: radial-gradient(rgb(255, 255, 255), rgb(12, 172, 12));
-    transition: 700ms ease-in-out, background-image 300ms ease-in-out;
+    transition: 700ms ease-in-out;
 }
 
 .grid-container>div:not(.header):hover {
-    background-image: radial-gradient(rgb(158, 255, 93), rgb(255, 255, 255));
+    background-image:none;
+    background-color:rgb(110, 110, 110);
 }
 
 .header {
