@@ -69,8 +69,10 @@ th, td {
     grid-template-areas: "header header header header" "CCData Plots Plots PlotButtons" "PLCControls PLCControls MiscButtons MiscButtons"
 }
 
-#areaColor {
-    background-image: linear-gradient(rgb(255, 145, 0), rgb(255, 0, 0));
+.areaColor {
+    transition: 700ms ease-in-out, background-color 300ms ease-in-out;
+    /* background-image: radial-gradient(rgb(72, 255, 0), rgb(7, 100, 38)); */
+    background-color: rgb(203, 255, 188);
     background-repeat: no-repeat;
 }
 
@@ -93,6 +95,11 @@ th, td {
     border-radius: 2% 10%;
 }
 
+.grid-container>div:not(.header):hover {
+    background-color: rgb(143, 143, 143);
+    /* background-image: radial-gradient(rgb(255, 255, 255), rgb(81, 255, 0)); */
+}
+
 .CCData div table {
     width: 90%;
     height: 50px;
@@ -112,9 +119,15 @@ th, td {
     border-radius: 2% 10%;
 }
 
+.PlotButtons button:hover {
+    background-color: rgb(251, 255, 0);
+}
+
 .PlotButtons button {
+    transition: background-color 150ms linear;
     width: 60%;
     margin-top: 2%;
+    background-color: rgb(255, 255, 255);
 }
 
 .PlotButtons div {
