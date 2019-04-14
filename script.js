@@ -1,69 +1,54 @@
 $(document).ready(function () {
     // Button elements
     var v12_button = document.getElementById("v12");
-    var BusOutCutrrentB = document.getElementById("BusOutCurrent");
-    var BusOutPowerInputB = document.getElementById("BusOutPowerInput");
-    var BusOutPowerDrainB = document.getElementById("BusOutPowerDrain");
-    var EnergyInGenerated = document.getElementById("EnergyInGenerated");
-    var EnergyOutGeneratedB = document.getElementById("EnergyOutGenerated");
-    var BusInPowerInputB = document.getElementById("BusInPowerInput");
-    var BusInPowerDrainB = document.getElementById("BusInPowerDrain");
-    var BusInCurrentB = document.getElementById("BusInCurrent");
+    // var BusOutCutrrentB = document.getElementById("BusOutCurrent");
+    // var BusOutPowerInputB = document.getElementById("BusOutPowerInput");
+    // var BusOutPowerDrainB = document.getElementById("BusOutPowerDrain");
+    // var EnergyInGenerated = document.getElementById("EnergyInGenerated");
+    // var EnergyOutGeneratedB = document.getElementById("EnergyOutGenerated");
+    // var BusInPowerInputB = document.getElementById("BusInPowerInput");
+    // var BusInPowerDrainB = document.getElementById("BusInPowerDrain");
+    // var BusInCurrentB = document.getElementById("BusInCurrent");
+    var PlotControlButtons = document.querySelector(".PlotControlButton");
     // _________________________________^^^^^^^Buttons ^^^^^^___________________
+    // Initialisation_______________
     var ccObject = {
         'BusVoltage': 0,
         'BusInCurrent': 0,
-        'BusOutCurrent': 0
+        'BusInPowerInput': 0,
+        'BusInPowerDrain': 0,
+        'BusOutCurrent': 0,
+        'BusOutPowerInput': 0,
+        'BusOutPowerDrain': 0,
+        'CapCurrent': 0,
+        'CapPowerInput': 0,
+        'CapPowerDrain': 0,
+        'EnergyInGenerated': 0,
+        'EnergyOutGenerated': 0
     };
     var ValueToBePlotted = ccObject.BusInCurrent;
     var plotText = "Bus In Current";
     var smoothie1 = new SmoothieChart({ responsive: true, minValue: 0, title: { text: 'Bus Voltage', fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' } });
     var smoothie2 = new SmoothieChart({ responsive: true, minValue: 0, title: { text: plotText, fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' } });
-    // _________________________________\/ \/ \/On Click \/ \/ \/ _______________
-    // BusOutCutrrentB.onclick = function () {
-    //     console.log(this.value);
-    //     console.log(this);
-    //     // console.log(this.id);
-    //     if (BusOutCutrrentB.value == 1) {
-    //         BusOutCutrrentB.value = 0;
-    //         ValueToBePlotted = ccObject.BusInCurrent;
-    //         plotText = "Bus In Current";
-    //         smoothie2.options.title.text = plotText;
-    //     }
-    //     else {
-    //         BusOutCutrrentB.value = 1;
-    //         ValueToBePlotted = ccObject.BusOutCurrent;
-    //         plotText = "Bus Out Current";
-    //         smoothie2.options.title.text = plotText;
-    //     }
-    // }
-    // $( BusOutCutrrentB ).on("click" ,changeGraph);
-    BusOutCutrrentB.onclick = changeGraph;
-    function changeGraph() {
-        console.log(this);
-        var valueChange = this.id;
-        if (this.value == 1) {
-            console.log("if");
-            return;
-        }
-        else {
-            this.value = 1;
-            console.log("it");
+    smoothie1.streamTo(document.getElementById("mycanvas1"));
+    smoothie2.streamTo(document.getElementById("mycanvas2"));
+    var line1 = new TimeSeries();
+    var line2 = new TimeSeries();
+    //    ______________Initialisation Done____________
 
-            ValueToBePlotted = ccObject.valueChange;
-            // plotText = this.innerHTML;
-            // console.log(plotText);
-            // smoothie2.options.title.text = plotText;
-            return;
+    // _________________________________\/ \/ \/On Click \/ \/ \/ _______________
+    PlotControlButtons.addEventListener("click", changeGraph, false);
+    function changeGraph(e) {
+        if (e.target !== e.currentTarget) {
+            e.target.value = 1;
+            ValueToBePlotted = ccObject[e.target.id];
+            plotText = e.target.innerHTML;
+            smoothie2.options.title.text = e.target.innerHTML;
+            console.log(smoothie2.options.title.text);
+
         }
     }
-    // BusOutPowerInputB
-    // BusOutPowerDrainB
-    // EnergyInGenerated
-    // EnergyOutGeneratedB
-    // BusInPowerInputB
-    // BusInPowerDrainB
-    // BusInCurrentB
+
     // _________________________________________/\/\/\/\/\On click /\/\/\/\/\_________
     v12_button.onclick = function () {
         if (v12_button.className == "v12-off button") {
@@ -74,13 +59,7 @@ $(document).ready(function () {
             v12_button.innerHTML = "v12 off";
         }
     }
-    // ___________________________Stream To Canvas___second arument could be added for delay in ms___
-    smoothie1.streamTo(document.getElementById("mycanvas1"));
-    smoothie2.streamTo(document.getElementById("mycanvas2"));
-    // smoothie2.streamTo(document.getElementById("mycanvas2"));
-    // Data
-    var line1 = new TimeSeries();
-    var line2 = new TimeSeries();
+    // ___________________________Stream To Canvas___second argument could be added for delay in ms___
     setInterval(function () {
         $.ajax({
             url: "Data.json",
@@ -91,13 +70,19 @@ $(document).ready(function () {
                 ccObject = data;
                 line1.append(new Date().getTime(), ccObject.BusVoltage);
                 line2.append(new Date().getTime(), ValueToBePlotted);
+                // console.log(ValueToBePlotted);
+
                 // $('#testField').text(ccObject.CreateLog);
                 $('#CreateCurrentValue').text("Current Value: " + ccObject.CreateLog);
                 $('#OpenCurrentValue').text("Current Value: " + ccObject.OpenLog);
                 $('#ClearCurrentValue').text("Current Value: " + ccObject.ClearLog);
                 $('#DeleteCurrentValue').text("Current Value: " + ccObject.DeleteLog);
                 $('#WritingCommandCurrentValue').text("Current Value: " + ccObject.StartWriteLog);
-                $('#ReadingCurrentValue').text("Current Value: " + ccObject.ReadTrig);
+                if (ccObject.ReadTrig == 0) {
+                    $('#ReadingCurrentValue').text("Status: <b>Reading is OFF</b>");
+                }else{
+                    $('#ReadingCurrentValue').text("Status: <b>Reading is ON</b>");
+                }
                 // Data Address and Data length Control
                 $('#startAddressCurrentValue').text("Current Value: " + ccObject.StartAddress);
                 // Timers Control for reading Modbus data (Req freq.)

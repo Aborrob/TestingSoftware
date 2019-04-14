@@ -54,7 +54,7 @@ th, td {
 }
 
 .areaColor {
-    background-image: radial-gradient(rgb(54, 151, 10), rgb(18, 73, 18));
+    background-image: radial-gradient(rgb(255, 255, 255), rgb(16, 172, 16));
     background-repeat: no-repeat;
     transition: 700ms ease-in-out;
 }

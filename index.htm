@@ -78,14 +78,14 @@
         <div class="PlotButtons areaColor">
             <h1>Plot Options</h1><br>
             <div class="PlotControlButton">
-                <button value=1 id="BusInCurrent">BusInCurrent</button><br>
+                <button value=1 id="BusInCurrent">Bus In Current</button><br>
                 <button value=0 id="BusOutCurrent">Bus Out Current</button><br>
-                <button value=0 id="EnergyInGenerated">EnergyInGenerated</button><br>
-                <button value=0 id="EnergyOutGenerated">EnergyOutGenerated</button><br>
-                <button value=0 id="BusInPowerInput">BusInPowerInput</button><br>
-                <button value=0 id="BusOutPowerInput">BusOutPowerInput</button><br>
-                <button value=0 id="BusInPowerDrain">BusInPowerDrain</button><br>
-                <button value=0 id="BusOutPowerDrain">BusOutPowerDrain</button>
+                <button value=0 id="EnergyInGenerated">Energy In Generated</button><br>
+                <button value=0 id="EnergyOutGenerated">Energy Out Generated</button><br>
+                <button value=0 id="BusInPowerInput">Bus In Power Input</button><br>
+                <button value=0 id="BusOutPowerInput">Bus Out Power Input</button><br>
+                <button value=0 id="BusInPowerDrain">Bus In Power Drain</button><br>
+                <button value=0 id="BusOutPowerDrain">Bus Out Power Drain</button>
             </div>
         </div>
         <div class="PLCControls areaColor">
@@ -135,7 +135,7 @@
                 <div>
                     <fieldset>
                         <legend>Start Reading</legend>
-                        <label id="ReadingCurrentValue">Current Value: :=DB16.DBX0.4:</label><br>
+                        <label id="ReadingCurrentValue">Status: :=DB16.DBX0.4:</label><br>
                         <input id="ReadTrig" name='DB16.DBX0.4' type="text" />
                         <button id="StartReadButton" type="submit">Submit</button>
                     </fieldset>
