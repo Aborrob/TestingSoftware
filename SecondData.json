@@ -1,0 +1,20 @@
+{
+    "BusInPowerInput": ":=DB3.DBD64:",
+    "BusInPowerDrain": ":=DB3.DBD72:",
+    "BusOutCurrent": ":=DB3.DBW8:",
+    "BusOutPowerInput": ":=DB3.DBD168:",
+    "BusOutPowerDrain": ":=DB3.DBD164:",
+    "CapCurrent": ":=DB3.DBW10:",
+    "CapPowerInput": ":=DB3.DBD96:",
+    "CapPowerDrain": ":=DB3.DBD104:",
+    "CreateLog": ":=DB16.DBX0.0:",
+    "OpenLog": ":=DB16.DBX0.1:",
+    "ClearLog": ":=DB16.DBX0.2:",
+    "DeleteLog": ":=DB16.DBX0.3:",
+    "StartWriteLog": ":=DB16.DBX0.5:",
+    "ReadTrig": ":=DB16.DBX0.4:",
+    "StartAddress": ":=DB16.DBD4:",
+    "DataLength": ":=DB16.DBW2:",
+    "TestPeriod": ":=DB16.DBD12:",
+    "DutyCycle": ":=DB16.DBD8:"
+}
