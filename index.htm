@@ -1,14 +1,3 @@
-<!-- AWP_In_Variable Name='DB16.DBX0.0' -->
-<!-- AWP_In_Variable Name='DB16.DBX0.1' -->
-<!-- AWP_In_Variable Name='DB16.DBX0.2' -->
-<!-- AWP_In_Variable Name='DB16.DBX0.3' -->
-<!-- AWP_In_Variable Name='DB16.DBX0.5' -->
-<!-- AWP_In_Variable Name='DB16.DBX0.4' -->
-<!-- AWP_In_Variable Name='DB16.DBW2' -->
-<!-- AWP_In_Variable Name='DB16.DBD4' -->
-
-<!-- AWP_In_Variable Name='DB16.DBD8' -->
-<!-- AWP_In_Variable Name='DB16.DBD12' -->
 <!DOCTYPE html>
 <html>
 
@@ -79,12 +68,21 @@
                 </table>
             </div>
         </div>
-        <div class="Plots areaColor">
-            <h1>Realtime Plots</h1>
-            <div id="CanvasArea" style="text-align: center">
-                <canvas class="mycanvas" id="mycanvas1" style="width:90%; height:200px"></canvas><br>
-                <canvas class="mycanvas" id="mycanvas2" style="width:90%; height:200px"></canvas>
+        <div class="PlotsMain areaColor">
+            <div class="subPlots">
+                <h1>Realtime Plots</h1>
+                <div id="CanvasArea" style="text-align: center">
+                    <canvas class="mycanvas" id="mycanvas1" style="width:90%; height:200px"></canvas><br>
+                    <canvas class="mycanvas" id="mycanvas2" style="width:90%; height:200px"></canvas>
+                </div>
             </div>
+            <fieldset class="XHR">
+                <legend>XHR Control</legend>
+                <div id="RequestTime">is the section for XHR</div>
+                <input id="intervalInput" type="text" style="width: 10%">
+                <button id="ClearInterval">Stop Interval</button>
+                <button id="StartInterval">Start Interval</button>
+            </fieldset>
         </div>
         <div class="PlotButtons areaColor">
             <h1>Plot Options</h1><br>
@@ -98,9 +96,6 @@
                 <button value=0 id="BusInPowerDrain">Bus In Power Drain</button><br>
                 <button value=0 id="BusOutPowerDrain">Bus Out Power Drain</button>
             </div>
-        </div>
-        <div class="XHR">
-            
         </div>
         <div class="PLCControls areaColor">
             <div class="PLCControls1">

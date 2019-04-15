@@ -52,18 +52,26 @@ $(document).ready(function () {
             v12_button.innerHTML = "v12 off";
         }
     }
-    setInterval(function () {
+    var start_time = new Date().getTime();
+    var interval = null;
+    var intervalDuration = 100;
+    interval = setInterval(function () {
+        start_time = new Date().getTime();
         $.ajax({
             url: "Data.json",
             dataType: 'json',
             type: "get",
             cache: false,
-            success: function (data) { ccObject = data; }
+            success: function (data, status, xhr) {
+                ccObject = data;
+                var request_time = new Date().getTime() - start_time;
+                document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
+                // console.log(request_time);
+            }
         });
         line1.append(new Date().getTime(), ccObject.BusVoltage);
         line2.append(new Date().getTime(), ValueToBePlotted);
         // console.log(ccObject);
-
         $('#CreateCurrentValue').text("Current Value: " + ccObject.CreateLog);
         $('#OpenCurrentValue').text("Current Value: " + ccObject.OpenLog);
         $('#ClearCurrentValue').text("Current Value: " + ccObject.ClearLog);
@@ -79,10 +87,10 @@ $(document).ready(function () {
         // Timers Control for reading Modbus data (Req freq.)
         $('#TestPeriodCurrentValue').text("Current Value: " + ccObject.TestPeriod);
         $('#DutyCycleCurrentValue').text("Current Value: " + ccObject.DutyCycle);
-    }, 100);
-
-
-
+    }, intervalDuration);
+    // __________Stop interval when pressed
+    document.querySelector("#ClearInterval").onclick = () => clearInterval(interval);
+    document.querySelector("#StartInterval").onclick = () => { intervalDuration = document.querySelector("#intervalInput").value; interval() };
 
     $("#LogCreateButton").click(function () {
         url = "Outputs.htm";
