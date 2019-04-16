@@ -1,4 +1,25 @@
 $(document).ready(function () {
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+    
+    function startTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        // add a zero in front of numbers<10
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+        t = setTimeout(function () {
+            startTime()
+        }, 500);
+    }
+    startTime();
     // Button elements
     var v12_button = document.getElementById("v12");
     var PlotControlButtons = document.querySelector(".PlotControlButton");
@@ -171,4 +192,23 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-}); 
+
+    document.querySelector(".Tabs").onclick = function (e) {
+        // console.log(e.target.classList.contains("Tab1"));
+        if (e.target.classList.contains("Tab1")) {
+            console.log("I am tab1");
+            document.querySelector(".MiscButtons").classList.remove("hidden");
+            document.querySelector(".TestInfo").classList.add("hidden");
+
+        }
+        if (e.target.classList.contains("Tab2")) {
+            console.log("I am tab2");
+            document.querySelector(".MiscButtons").classList.add("hidden");
+            document.querySelector(".TestInfo").classList.remove("hidden");
+            // e.target.classList.toggle("hidden");
+        }
+    }
+
+
+});
+// _____Don't add below this line to stay inside the onready scope!!!_________

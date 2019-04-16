@@ -4,6 +4,19 @@
     box-sizing: border-box;
 }
 
+.hidden {
+    display: none;
+}
+
+#time {
+    color: whitesmoke;
+    float: right;
+    position: absolute;
+    right: 2%;
+    bottom: 2%;
+    font-size: 2em;
+}
+
 body {
     background-color: rgb(240, 240, 240);
     background-repeat: repeat;
@@ -71,7 +84,7 @@ th, td {
 }
 
 .Tabs>div:hover {
-    background-image: radial-gradient(rgb(114, 114, 114),rgb(0, 0, 0));
+    background-image: radial-gradient(rgb(114, 114, 114), rgb(0, 0, 0));
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
     /* margin: 1px; */
     border: 2px rgb(184, 184, 184) solid;
@@ -81,6 +94,7 @@ th, td {
     background-image: radial-gradient(rgb(68, 68, 68), black);
     grid-area: header;
     text-align: left;
+    position: relative;
 }
 
 .header>img {
@@ -228,18 +242,16 @@ th, td {
     width: 20%;
     margin: 1%;
     float: left;
-    font-size: 1.4vw;
+    font-size: 1.3vw;
     height: 3vw;
     border: 2px black solid;
     transition: background-color 100ms linear;
+    text-align: center;
 }
 
 .download {
-    padding: 1%;
     background-color: darkorange;
-    display: block;
     text-decoration: none;
-    text-align: center;
     color: black;
 }
 
@@ -257,4 +269,27 @@ input {
 
 input::-webkit-input-placeholder {
     font-size: 1em;
+}
+
+.TestInfo {
+    grid-area: MiscButtons;
+    padding-top: 2%;
+}
+
+.TestInfo fieldset {
+    margin: auto;
+    width: 90%;
+}
+
+.TestInfo fieldset legend {
+    font-size: 1.5em;
+}
+
+.TestInfo input, textarea {
+    width: 100%;
+    padding: 1% 1%;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }

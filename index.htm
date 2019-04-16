@@ -15,6 +15,7 @@
     <div class="grid-container">
         <div class="header">
             <img src="logo.png">
+            <div id="time"></div>
         </div>
         <div class="CCData areaColor">
             <h1>Charge Controller Data</h1>
@@ -189,12 +190,20 @@
                 <div class="Tab1 areaColor">Controls</div>
                 <div class="Tab2 areaColor">Test Info</div>
             </div>
-            
-            <div class="MiscButtons">
+            <div class="MiscButtons hidden">
                 <a id="v12" class="button v12-off">V12 OFF</a>
-                <a class="download"
-                    href="https://192.168.1.10/FileBrowser/Download?Path=%2FDataLogs%2Flogging.csv">Download
-                    Log File</a>
+                <a class="download" href="https://192.168.1.10/FileBrowser/Download?Path=%2FDataLogs%2Flogging.csv">Download Log File</a>
+            </div>
+            <div class="TestInfo">
+                <fieldset>
+                    <legend>Test Information</legend>
+                    <label>Title: </label>
+                    <input type="text" name="TestTitle">
+                    <label>Serial Number: </label>
+                    <input type="text" name="SerialNumber">
+                    <label>Description: </label>
+                    <textarea rows="4" cols="20" style="vertical-align:top"></textarea>
+                </fieldset>
             </div>
         </div>
     </div>
