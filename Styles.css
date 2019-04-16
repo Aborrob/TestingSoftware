@@ -38,6 +38,10 @@ th, td {
     text-align: center;
 }
 
+th {
+    font-size: 0.9em;
+}
+
 #v12.v12-on {
     background: rgb(51, 255, 0);
     color: rgb(0, 0, 0);
@@ -60,12 +64,20 @@ th, td {
 
 /* Grid___________________Grid____________________Grid */
 
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "header" "wrapper";
+}
+
 .grid-container {
     display: grid;
     grid-gap: 1%;
+    grid-area: wrapper;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto 1fr 1fr;
-    grid-template-areas: "header header header header" "CCData Plots Plots PlotButtons" "PLCControls PLCControls MiscButtonsMain MiscButtonsMain";
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "CCData Plots Plots PlotButtons" "PLCControls PLCControls MiscButtonsMain MiscButtonsMain";
 }
 
 .areaColor {
@@ -95,6 +107,7 @@ th, td {
     grid-area: header;
     text-align: left;
     position: relative;
+    margin-bottom: 1%;
 }
 
 .header>img {
@@ -109,9 +122,39 @@ th, td {
 }
 
 .CCData div table {
-    width: 90%;
+    margin: auto;
+    margin-bottom: 8%;
+    width: 95%;
     height: 50px;
     table-layout: fixed;
+    align-self: center;
+}
+
+.CCDataState {
+    display: inline-flex;
+    margin-left: 2%;
+    /* background: tomato; */
+    vertical-align: middle;
+    font-size: 1.1em;
+    color: whitesmoke;
+}
+
+.ActiveCCData {
+    margin-left: 10%;
+    height: 20px;
+    width: 20px;
+    float: left;
+    background: rgb(18, 168, 13);
+    border: 1px black solid;
+}
+
+.InActiveCCData {
+    margin-left: 10%;
+    height: 20px;
+    width: 20px;
+    float: left;
+    background: rgb(255, 0, 0);
+    border: 1px rgb(0, 0, 0) solid;
 }
 
 .PlotsMain {
@@ -192,6 +235,37 @@ th, td {
 
 .PLCControls2 {
     grid-area: PLCControls2;
+}
+
+.TagsState {
+    display: inline-flex;
+    margin-left: 2%;
+    margin-top: 10%;
+    /* background: tomato; */
+    vertical-align: middle;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+
+.ActiveTags {
+    margin-left: 10%;
+    margin-top: 10%;
+    height: 20px;
+    width: 20px;
+    float: left;
+    background: rgb(18, 168, 13);
+    border: 1px black solid;
+}
+
+.InActiveTags {
+    margin-left: 10%;
+    margin-top: 10%;
+    height: 20px;
+    width: 20px;
+    float: left;
+    background: rgb(255, 0, 0);
+    border: 1px rgb(0, 0, 0) solid;
 }
 
 .MiscButtonsMain {
@@ -292,4 +366,9 @@ input::-webkit-input-placeholder {
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+.submitted {
+    width: 90%;
+    margin: auto;
 }

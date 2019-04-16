@@ -12,198 +12,219 @@
 </head>
 
 <body>
-    <div class="grid-container">
+    <div class="wrapper">
         <div class="header">
             <img src="logo.png">
             <div id="time"></div>
         </div>
-        <div class="CCData areaColor">
-            <h1>Charge Controller Data</h1>
-            <div>
-                <table>
-                    <caption>BUS IN DATA</caption>
-                    <tr>
-                        <th>Voltage</th>
-                        <th>Current</th>
-                        <th>Power Input</th>
-                        <th>Power Drain</th>
-                    </tr>
-                    <tr>
-                        <td>:=DB3.DBW4:</td>
-                        <td>:=DB3.DBW2:</td>
-                        <td>:=DB3.DBD64:</td>
-                        <td>:=DB3.DBD72:</td>
-                    </tr>
-                </table>
-                <!-- ___________________________________________________ -->
-                <table>
-                    <caption>BUS OUT DATA</caption>
-                    <tr>
-                        <th>Voltage</th>
-                        <th>Current</th>
-                        <th>Power Input</th>
-                        <th>Power Drain</th>
-                    </tr>
-                    <tr>
-                        <td>:=DB3.DBW4:</td>
-                        <td>:=DB3.DBW8:</td>
-                        <td>:=DB3.DBD168:</td>
-                        <td>:=DB3.DBD164:</td>
-                    </tr>
-                </table>
-                <!-- ___________________________________________________ -->
-                <table>
-                    <caption>CAP DATA</caption>
-                    <tr>
-                        <th>Voltage</th>
-                        <th>Current</th>
-                        <th>Power Input</th>
-                        <th>Power Drain</th>
-                    </tr>
-                    <tr>
-                        <td>:=DB3.DBW4:</td>
-                        <td>:=DB3.DBW10:</td>
-                        <td>:=DB3.DBD96:</td>
-                        <td>:=DB3.DBD104:</td>
-                    </tr>
-                </table>
+        <div class="grid-container" style="width:98%; margin: auto">
+
+            <div class="CCData areaColor">
+                <h1 style="margin-bottom:10%">Charge Controller Data</h1>
+                <div>
+                    <table>
+                        <caption>BUS IN DATA</caption>
+                        <tr>
+                            <th>Voltage</th>
+                            <th>Current</th>
+                            <th>Power Input</th>
+                            <th>Power Drain</th>
+                        </tr>
+                        <tr>
+                            <td>:=DB3.DBW4:</td>
+                            <td>:=DB3.DBW2:</td>
+                            <td>:=DB3.DBD64:</td>
+                            <td>:=DB3.DBD72:</td>
+                        </tr>
+                    </table>
+                    <!-- ___________________________________________________ -->
+                    <table>
+                        <caption>BUS OUT DATA</caption>
+                        <tr>
+                            <th>Voltage</th>
+                            <th>Current</th>
+                            <th>Power Input</th>
+                            <th>Power Drain</th>
+                        </tr>
+                        <tr>
+                            <td>:=DB3.DBW4:</td>
+                            <td>:=DB3.DBW8:</td>
+                            <td>:=DB3.DBD168:</td>
+                            <td>:=DB3.DBD164:</td>
+                        </tr>
+                    </table>
+                    <!-- ___________________________________________________ -->
+                    <table>
+                        <caption>CAP DATA</caption>
+                        <tr>
+                            <th>Voltage</th>
+                            <th>Current</th>
+                            <th>Power Input</th>
+                            <th>Power Drain</th>
+                        </tr>
+                        <tr>
+                            <td>:=DB3.DBW4:</td>
+                            <td>:=DB3.DBW10:</td>
+                            <td>:=DB3.DBD96:</td>
+                            <td>:=DB3.DBD104:</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="CCDataState">Active state: InActive</div>
+                <div class="InActiveCCData"></div>
             </div>
-        </div>
-        <div class="PlotsMain areaColor">
-            <div class="subPlots">
-                <h1>Realtime Plots</h1>
-                <div id="CanvasArea" style="text-align: center">
-                    <canvas class="mycanvas" id="mycanvas1" style="width:90%; height:200px"></canvas><br>
-                    <canvas class="mycanvas" id="mycanvas2" style="width:90%; height:200px"></canvas>
+            <div class="PlotsMain areaColor">
+                <div class="subPlots">
+                    <h1>Realtime Plots</h1>
+                    <div id="CanvasArea" style="text-align: center">
+                        <canvas class="mycanvas" id="mycanvas1" style="width:90%; height:200px"></canvas><br>
+                        <canvas class="mycanvas" id="mycanvas2" style="width:90%; height:200px"></canvas>
+                    </div>
                 </div>
-            </div>
-            <fieldset class="XHR">
-                <legend>XHR Control</legend>
-                <div id="RequestTime">is the section for XHR</div>
-                <input id="intervalInput" type="text" style="width: 10%" placeholder="time in ms">
-                <button id="ClearInterval">Stop Interval</button>
-                <button id="StartInterval">Start Interval</button>
-            </fieldset>
-        </div>
-        <div class="PlotButtons areaColor">
-            <h1>Plot Options</h1><br>
-            <div class="PlotControlButton">
-                <button value=1 id="BusInCurrent">Bus In Current</button><br>
-                <button value=0 id="BusOutCurrent">Bus Out Current</button><br>
-                <button value=0 id="EnergyInGenerated">Energy In Generated</button><br>
-                <button value=0 id="EnergyOutGenerated">Energy Out Generated</button><br>
-                <button value=0 id="BusInPowerInput">Bus In Power Input</button><br>
-                <button value=0 id="BusOutPowerInput">Bus Out Power Input</button><br>
-                <button value=0 id="BusInPowerDrain">Bus In Power Drain</button><br>
-                <button value=0 id="BusOutPowerDrain">Bus Out Power Drain</button>
-            </div>
-        </div>
-        <div class="PLCControls areaColor">
-            <h1>Tag Values</h1>
-            <div class="PLCControls1">
-                <div>
-                    <fieldset>
-                        <legend>Create Record</legend>
-                        <label id="CreateCurrentValue">Current Value: :=DB16.DBX0.0:</label><br>
-                        <input id="CreateTrig" name='DB16.DBX0.0' type="text" />
-                        <button id="LogCreateButton" type="submit">Submit</button>
-                    </fieldset>
-                </div>
-                <div>
-                    <fieldset>
-                        <legend>Open Record</legend>
-                        <label id="OpenCurrentValue">Current Value: :=DB16.DBX0.1:</label><br>
-                        <input id="OpenTrig" name='DB16.DBX0.1' type="text" />
-                        <button id="LogOpenButton" type="submit">Submit</button>
-                    </fieldset>
-                </div>
-                <div>
-                    <fieldset>
-                        <legend>Clear Record</legend>
-                        <label id="ClearCurrentValue">Current Value: :=DB16.DBX0.2:</label><br>
-                        <input id="ClearTrig" name='DB16.DBX0.2' type="text" />
-                        <button id="LogClearButton" type="submit">Submit</button>
-                    </fieldset>
-                </div>
-                <div>
-                    <fieldset>
-                        <legend>Delete Record</legend>
-                        <label id="DeleteCurrentValue">Current Value: :=DB16.DBX0.3:</label><br>
-                        <input id="DeleteTrig" name='DB16.DBX0.3' type="text" />
-                        <button id="LogDeleteButton" type="submit">Submit</button>
-                    </fieldset>
-                </div>
-                <div>
-                    <fieldset>
-                        <legend>Start Writing command</legend>
-                        <label id="WritingCommandCurrentValue">Current Value: :=DB16.DBX0.5:</label><br>
-                        <input id="WriteTrig" name='DB16.DBX0.5' type="text" />
-                        <button id="LogWriteButton" type="submit">Submit</button>
-                    </fieldset>
-                </div>
-            </div>
-            <div class="PLCControls2">
-                <div>
-                    <fieldset>
-                        <legend>Start Reading</legend>
-                        <label id="ReadingCurrentValue">Status: :=DB16.DBX0.4:</label><br>
-                        <input id="ReadTrig" name='DB16.DBX0.4' type="text" />
-                        <button id="StartReadButton" type="submit" value=0>Start Reading</button>
-                    </fieldset>
-                </div>
-                <div>
-                    <fieldset>
-                        <legend>Starting Address</legend>
-                        <label id="startAddressCurrentValue">Current Value: :=DB16.DBD4:</label><br>
-                        <input id="StartAddress" name='DB16.DBD4' type="text" />
-                        <button id="AddressButton" type="submit">Submit</button>
-                    </fieldset>
-                </div>
-                <div>
-                    <fieldset>
-                        <legend>Data Length</legend>
-                        <label id="DataLengthCurrentValue">Current Value: :=DB16.DBW2:</label><br>
-                        <input id="DataLength" name='DB16.DBW2' type="text" />
-                        <button id="DataLengthButton" type="submit">Submit</button>
-                    </fieldset>
-                </div>
-                <div>
-                    <fieldset>
-                        <legend>Reading Duty cycle period (DT ON)</legend>
-                        <label id="DutyCycleCurrentValue">Current Value: :=DB16.DBD8:</label><br>
-                        <input id="DutyCycle" name='DB16.DBD8' type="text" placeholder="T#20ms for example" />
-                        <button id="DTButton" type="submit">Submit</button>
-                    </fieldset>
-                </div>
-                <div>
-                    <fieldset>
-                        <legend>Test Period</legend>
-                        <label id="TestPeriodCurrentValue">Current Value: :=DB16.DBD12:</label><br>
-                        <input id="TestPeriod" name='DB16.DBD12' type="text" placeholder="T#5s for example" />
-                        <button id="TestPeriodButton" type="submit">Submit</button>
-                    </fieldset>
-                </div>
-            </div>
-        </div>
-        <div class="MiscButtonsMain areaColor">
-            <div class="Tabs">
-                <div class="Tab1 areaColor">Controls</div>
-                <div class="Tab2 areaColor">Test Info</div>
-            </div>
-            <div class="MiscButtons hidden">
-                <a id="v12" class="button v12-off">V12 OFF</a>
-                <a class="download" href="https://192.168.1.10/FileBrowser/Download?Path=%2FDataLogs%2Flogging.csv">Download Log File</a>
-            </div>
-            <div class="TestInfo">
-                <fieldset>
-                    <legend>Test Information</legend>
-                    <label>Title: </label>
-                    <input type="text" name="TestTitle">
-                    <label>Serial Number: </label>
-                    <input type="text" name="SerialNumber">
-                    <label>Description: </label>
-                    <textarea rows="4" cols="20" style="vertical-align:top"></textarea>
+                <fieldset class="XHR">
+                    <legend>XHR Control</legend>
+                    <div id="RequestTime">XHR not started</div>
+                    <input id="intervalInput" type="text" style="width: 10%" placeholder="time in ms" value="100">
+                    <button id="ClearInterval">Stop Interval</button>
+                    <button id="StartInterval">Start Interval</button>
                 </fieldset>
+            </div>
+            <div class="PlotButtons areaColor">
+                <h1>Plot Options</h1><br>
+                <div class="PlotControlButton">
+                    <button value=1 id="BusInCurrent">Bus In Current</button><br>
+                    <button value=0 id="BusOutCurrent">Bus Out Current</button><br>
+                    <button value=0 id="EnergyInGenerated">Energy In Generated</button><br>
+                    <button value=0 id="EnergyOutGenerated">Energy Out Generated</button><br>
+                    <button value=0 id="BusInPowerInput">Bus In Power Input</button><br>
+                    <button value=0 id="BusOutPowerInput">Bus Out Power Input</button><br>
+                    <button value=0 id="BusInPowerDrain">Bus In Power Drain</button><br>
+                    <button value=0 id="BusOutPowerDrain">Bus Out Power Drain</button>
+                </div>
+            </div>
+            <div class="PLCControls areaColor">
+                <h1>Tag Values</h1>
+                <div class="PLCControls1">
+                    <div>
+                        <fieldset>
+                            <legend>Create Record</legend>
+                            <label id="CreateCurrentValue">Current Value: :=DB16.DBX0.0:</label><br>
+                            <input id="CreateTrig" name='DB16.DBX0.0' type="text" />
+                            <button id="LogCreateButton" type="submit">Submit</button>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <legend>Open Record</legend>
+                            <label id="OpenCurrentValue">Current Value: :=DB16.DBX0.1:</label><br>
+                            <input id="OpenTrig" name='DB16.DBX0.1' type="text" />
+                            <button id="LogOpenButton" type="submit">Submit</button>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <legend>Clear Record</legend>
+                            <label id="ClearCurrentValue">Current Value: :=DB16.DBX0.2:</label><br>
+                            <input id="ClearTrig" name='DB16.DBX0.2' type="text" />
+                            <button id="LogClearButton" type="submit">Submit</button>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <legend>Delete Record</legend>
+                            <label id="DeleteCurrentValue">Current Value: :=DB16.DBX0.3:</label><br>
+                            <input id="DeleteTrig" name='DB16.DBX0.3' type="text" />
+                            <button id="LogDeleteButton" type="submit">Submit</button>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <legend>Start Writing command</legend>
+                            <label id="WritingCommandCurrentValue">Current Value: :=DB16.DBX0.5:</label><br>
+                            <input id="WriteTrig" name='DB16.DBX0.5' type="text" />
+                            <button id="LogWriteButton" type="submit">Submit</button>
+                        </fieldset>
+                    </div>
+                    <div class="TagsState">Active state: InActive</div>
+                    <div class="InActiveTags"></div>
+                </div>
+                <div class="PLCControls2">
+                    <div>
+                        <fieldset>
+                            <legend>Start Reading</legend>
+                            <label id="ReadingCurrentValue">Status: :=DB16.DBX0.4:</label><br>
+                            <input id="ReadTrig" name='DB16.DBX0.4' type="text" />
+                            <button id="StartReadButton" type="submit" value=0>Start Reading</button>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <legend>Starting Address</legend>
+                            <label id="startAddressCurrentValue">Current Value: :=DB16.DBD4:</label><br>
+                            <input id="StartAddress" name='DB16.DBD4' type="text" />
+                            <button id="AddressButton" type="submit">Submit</button>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <legend>Data Length</legend>
+                            <label id="DataLengthCurrentValue">Current Value: :=DB16.DBW2:</label><br>
+                            <input id="DataLength" name='DB16.DBW2' type="text" />
+                            <button id="DataLengthButton" type="submit">Submit</button>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <legend>Reading Duty cycle period (DT ON)</legend>
+                            <label id="DutyCycleCurrentValue">Current Value: :=DB16.DBD8:</label><br>
+                            <input id="DutyCycle" name='DB16.DBD8' type="text" placeholder="T#20ms for example" />
+                            <button id="DTButton" type="submit">Submit</button>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <legend>Test Period</legend>
+                            <label id="TestPeriodCurrentValue">Current Value: :=DB16.DBD12:</label><br>
+                            <input id="TestPeriod" name='DB16.DBD12' type="text" placeholder="T#5s for example" />
+                            <button id="TestPeriodButton" type="submit">Submit</button>
+                        </fieldset>
+                    </div>
+                </div>
+
+            </div>
+            <div class="MiscButtonsMain areaColor">
+                <div class="Tabs">
+                    <div class="Tab1 areaColor">Controls</div>
+                    <div class="Tab2 areaColor">Test Info</div>
+                </div>
+                <div class="MiscButtons hidden">
+                    <a id="v12" class="button v12-off">V12 OFF</a>
+                    <a class="download"
+                        href="https://192.168.1.10/FileBrowser/Download?Path=%2FDataLogs%2Flogging.csv">Download Log
+                        File</a>
+                </div>
+                <div class="TestInfo">
+                    <fieldset class="">
+                        <legend>Test Information</legend>
+                        <label>Title: </label>
+                        <input type="text" name="TestTitle">
+                        <label>Serial Number: </label>
+                        <input type="text" name="SerialNumber">
+                        <label>Description: </label>
+                        <textarea rows="4" cols="20" style="vertical-align:top"></textarea>
+                        <Button>Submit</Button>
+                    </fieldset>
+                    <div class="submitted hidden">
+                        <h1 style="color:rgba(0, 0, 0, 0.877)"> Test Details Edited Successfully</h1>
+                        <h1 style="margin-top: 5%">Title</h1>
+                        <p id="testTitle" style="margin-top: 5%; color:rgba(0, 0, 0, 0.5)"></p>
+                        <h1>SerialNumber</h1>
+                        <p id="testSerial" style="margin-top: 5%; color:rgba(0, 0, 0, 0.5)"></p>
+                        <h1>Description</h1>
+                        <p id="testDescription" style="margin-top: 5%; color:rgba(0, 0, 0, 0.5)"></p>
+                        <button>Edit Information</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
