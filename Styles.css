@@ -1,6 +1,7 @@
 * {
     /* margin: 3px; */
     font-size: 1vw;
+    box-sizing: border-box;
 }
 
 body {
@@ -51,7 +52,7 @@ th, td {
     grid-gap: 1%;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto 1fr 1fr;
-    grid-template-areas: "header header header header" "CCData Plots Plots PlotButtons" "PLCControls PLCControls MiscButtons MiscButtons";
+    grid-template-areas: "header header header header" "CCData Plots Plots PlotButtons" "PLCControls PLCControls MiscButtonsMain MiscButtonsMain";
 }
 
 .areaColor {
@@ -67,6 +68,13 @@ th, td {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
     margin: 1px;
     border: 2px rgb(35, 66, 0) solid;
+}
+
+.Tabs>div:hover {
+    background-image: radial-gradient(rgb(114, 114, 114),rgb(0, 0, 0));
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    /* margin: 1px; */
+    border: 2px rgb(184, 184, 184) solid;
 }
 
 .header {
@@ -172,11 +180,51 @@ th, td {
     grid-area: PLCControls2;
 }
 
+.MiscButtonsMain {
+    grid-area: MiscButtonsMain;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "Tabs Tabs" "MiscButtons MiscButtons";
+    /* background: tomato; */
+}
+
+.Tabs {
+    height: 50px;
+    grid-area: Tabs;
+    /* background: blue; */
+}
+
+.Tab1 {
+    background-image: radial-gradient(rgb(56, 56, 56), black);
+    font-size: 1.5em;
+    text-align: center;
+    color: whitesmoke;
+    padding-top: 2%;
+    float: left;
+    height: 100%;
+    width: 50%;
+    /* background: rgb(255, 0, 0); */
+}
+
+.Tab2 {
+    background-image: radial-gradient(rgb(56, 56, 56), black);
+    font-size: 1.5em;
+    text-align: center;
+    color: whitesmoke;
+    padding-top: 2%;
+    float: left;
+    height: 100%;
+    width: 50%;
+    /* background: chartreuse; */
+}
+
 .MiscButtons {
+    /* background: teal; */
     grid-area: MiscButtons;
 }
 
-.MiscButtons div a {
+.MiscButtonsMain div a {
     width: 20%;
     margin: 1%;
     float: left;
@@ -195,12 +243,18 @@ th, td {
     color: black;
 }
 
-.MiscButtons div a:hover {
+.MiscButtonsMain div a:hover {
     background-color: rgb(255, 208, 0);
 }
 
-.MiscButtons div #v12:hover {
+.MiscButtonsMain div #v12:hover {
     background-color: rgb(255, 208, 0);
 }
 
-/* Grid_^^^^^^^^^^^^^^^^^^_Grid_^^^^^^^^^^^^^^^^^^^^^^^^_Grid */
+input {
+    font-size: 1em;
+}
+
+input::-webkit-input-placeholder {
+    font-size: 1em;
+}

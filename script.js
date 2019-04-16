@@ -62,7 +62,7 @@ $(document).ready(function () {
             dataType: 'json',
             type: "get",
             cache: false,
-            success: function (data, status, xhr) {
+            success: function (data) {
                 ccObject = data;
                 var request_time = new Date().getTime() - start_time;
                 document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;

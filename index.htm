@@ -79,7 +79,7 @@
             <fieldset class="XHR">
                 <legend>XHR Control</legend>
                 <div id="RequestTime">is the section for XHR</div>
-                <input id="intervalInput" type="text" style="width: 10%">
+                <input id="intervalInput" type="text" style="width: 10%" placeholder="time in ms">
                 <button id="ClearInterval">Stop Interval</button>
                 <button id="StartInterval">Start Interval</button>
             </fieldset>
@@ -184,9 +184,13 @@
                 </div>
             </div>
         </div>
-        <div class="MiscButtons areaColor">
-            <h1>Switch Controls</h1>
-            <div>
+        <div class="MiscButtonsMain areaColor">
+            <div class="Tabs">
+                <div class="Tab1 areaColor">Controls</div>
+                <div class="Tab2 areaColor">Test Info</div>
+            </div>
+            
+            <div class="MiscButtons">
                 <a id="v12" class="button v12-off">V12 OFF</a>
                 <a class="download"
                     href="https://192.168.1.10/FileBrowser/Download?Path=%2FDataLogs%2Flogging.csv">Download
