@@ -278,9 +278,8 @@ th {
 }
 
 .Tabs {
-    height: 50px;
+    height: 4em;
     grid-area: Tabs;
-    /* background: blue; */
 }
 
 .Tab1 {
@@ -292,7 +291,9 @@ th {
     float: left;
     height: 100%;
     width: 50%;
-    /* background: rgb(255, 0, 0); */
+    margin-bottom: 2%;
+    border-right: 1px #ccc solid;
+    border-collapse: collapse;
 }
 
 .Tab2 {
@@ -304,11 +305,11 @@ th {
     float: left;
     height: 100%;
     width: 50%;
-    /* background: chartreuse; */
+    border-left: 1px #ccc solid;
+    border-collapse: collapse;
 }
 
 .MiscButtons {
-    /* background: teal; */
     grid-area: MiscButtons;
 }
 
