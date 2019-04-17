@@ -5,7 +5,6 @@ $(document).ready(function () {
         }
         return i;
     }
-
     function startTime() {
         var today = new Date();
         var h = today.getHours();
@@ -56,9 +55,11 @@ $(document).ready(function () {
     //    ______________Initialisation Done____________
     // _________________________________\/ \/ \/On Click \/ \/ \/ _______________
     PlotControlButtons.addEventListener("click", changeGraph, false);
+    var ccObjectIndex;
     function changeGraph(e) {
         if (e.target !== e.currentTarget) {
             e.target.value = 1;
+            ccObjectIndex = e.target.id;
             ValueToBePlotted = ccObject[e.target.id];
             smoothie2.options.title.text = e.target.innerHTML;
         }
@@ -75,55 +76,65 @@ $(document).ready(function () {
     }
     var start_time = new Date().getTime();
     var interval = null;
+    var request_time = null;
     var intervalDuration = 100;
-    var intervalState = false;
-    function intervalManager() {
-        interval = setInterval(function () {
-            start_time = new Date().getTime();
-            $.ajax({
-                url: "Data.json",
-                dataType: 'json',
-                type: "get",
-                cache: false,
-                success: function (data) {
-                    ccObject = data;
-                    var request_time = new Date().getTime() - start_time;
-                    document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-                    // console.log(request_time);
-                }
-            });
-            line1.append(new Date().getTime(), ccObject.BusVoltage);
-            line2.append(new Date().getTime(), ValueToBePlotted);
-            // console.log(ccObject);
-            $('#CreateCurrentValue').text("Current Value: " + ccObject.CreateLog);
-            $('#OpenCurrentValue').text("Current Value: " + ccObject.OpenLog);
-            $('#ClearCurrentValue').text("Current Value: " + ccObject.ClearLog);
-            $('#DeleteCurrentValue').text("Current Value: " + ccObject.DeleteLog);
-            $('#WritingCommandCurrentValue').text("Current Value: " + ccObject.StartWriteLog);
-            // if (ccObject.ReadTrig == 0) {
-            //     $('#ReadingCurrentValue').text("Status: Reading is OFF");
-            // } else {
-            //     $('#ReadingCurrentValue').text("Status: Reading is ON");
-            // }
-            // Data Address and Data length Control
-            $('#startAddressCurrentValue').text("Current Value: " + ccObject.StartAddress);
-            // Timers Control for reading Modbus data (Req freq.)
-            $('#TestPeriodCurrentValue').text("Current Value: " + ccObject.TestPeriod);
-            $('#DutyCycleCurrentValue').text("Current Value: " + ccObject.DutyCycle);
-        }, intervalDuration);
+    var xhr = new XMLHttpRequest();
+    function intervalFunction() {
+        // $.ajax({
+        //     url: "Data.json",
+        //     dataType: 'json',
+        //     type: "get",
+        //     cache: false,
+        //     success: function (data) {
+        //         ccObject = data;
+        //         var request_time = new Date().getTime() - start_time;
+        //         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
+        //     }
+        // });
+        xhr.open('get', 'Data.json');
+        start_time = new Date().getTime();
+        xhr.send();
+        line1.append(new Date().getTime(), ccObject.BusVoltage);
+        line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+        // console.log(ccObject);
+        document.querySelector('#CreateCurrentValue').innerHTML = "Current Value: " + ccObject.CreateLog;
+        document.querySelector('#OpenCurrentValue').innerHTML = "Current Value: " + ccObject.OpenLog;
+        document.querySelector('#ClearCurrentValue').innerHTML = "Current Value: " + ccObject.ClearLog;
+        document.querySelector('#DeleteCurrentValue').innerHTML = "Current Value: " + ccObject.DeleteLog;
+        document.querySelector('#WritingCommandCurrentValue').innerHTML = "Current Value: " + ccObject.StartWriteLog;
+        // if (ccObject.ReadTrig == 0) {
+        //     document.querySelector('#ReadingCurrentValue').innerHTML("Status: Reading is OFF");
+        // } else {
+        //     document.querySelector('#ReadingCurrentValue').innerHTML("Status: Reading is ON");
+        // }
+        // Data Address and Data length Control
+        document.querySelector('#startAddressCurrentValue').innerHTML = "Current Value: " + ccObject.StartAddress;
+        // Timers Control for reading Modbus data (Req freq.)
+        document.querySelector('#TestPeriodCurrentValue').innerHTML = "Current Value: " + ccObject.TestPeriod;
+        document.querySelector('#DutyCycleCurrentValue').innerHTML = "Current Value: " + ccObject.DutyCycle;
     }
-
+    xhr.onreadystatechange = function () {
+        request_time = new Date().getTime() - start_time;
+        document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
+        if (this.status == 200) {
+            try {
+                ccObject = JSON.parse(this.responseText);
+            } catch (e) {
+                console.warn("There was an error in the JSON. Could not parse!");
+            }
+        } else {
+            console.warn("did not receive 200 OK from server!")
+        }
+    }
     // __________Stop interval when pressed
     document.querySelector("#ClearInterval").onclick = function () {
         clearInterval(interval);
-        intervalState = false;
     }
     document.querySelector("#StartInterval").onclick = function () {
         clearInterval(interval);
         intervalDuration = document.querySelector("#intervalInput").value;
-        intervalManager();
+        interval = setInterval(intervalFunction, intervalDuration);
     }
-
     $("#LogCreateButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBX0.0';
@@ -131,7 +142,6 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-
     $("#LogOpenButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBX0.1';
@@ -139,7 +149,6 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-
     $("#LogClearButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBX0.2';
@@ -147,7 +156,6 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-
     $("#LogDeleteButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBX0.3';
@@ -155,7 +163,6 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-
     $("#LogWriteButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBX0.5';
@@ -163,7 +170,6 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-
     // $("#StartReadButton").click(function () {
     //     url = "Outputs.htm";
     //     name = 'DB16.DBX0.4';
@@ -208,7 +214,6 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata, function (result) { });
     });
-
     document.querySelector(".Tabs").onclick = function (e) {
         // console.log(e.target.classList.contains("Tab1"));
         if (e.target.classList.contains("Tab1")) {
@@ -229,7 +234,6 @@ $(document).ready(function () {
         SerialNmber: "",
         Description: ""
     }
-
     document.querySelector(".TestInfo button").onclick = function (e) {
         TestInfo.title = e.target.parentElement.children[2].value;
         TestInfo.SerialNmber = e.target.parentElement.children[4].value;
