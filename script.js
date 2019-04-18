@@ -145,6 +145,7 @@ $(document).ready(function () {
         sdata = escape(name) + '=1';
         $.post(url, sdata, function () {
             sdata = escape(name) + '=0';
+            $.post(url, sdata);
         });
     });
     $("#LogOpenButton").click(function (e) {
@@ -153,6 +154,7 @@ $(document).ready(function () {
         sdata = escape(name) + '=1';
         $.post(url, sdata, function () {
             sdata = escape(name) + '=0';
+            $.post(url, sdata);
         });
     });
     $("#LogClearButton").click(function (e) {
@@ -161,6 +163,7 @@ $(document).ready(function () {
         sdata = escape(name) + '=1';
         $.post(url, sdata, function () {
             sdata = escape(name) + '=0';
+            $.post(url, sdata);
         });
     });
     $("#LogDeleteButton").click(function (e) {
@@ -169,6 +172,7 @@ $(document).ready(function () {
         sdata = escape(name) + '=1';
         $.post(url, sdata, function () {
             sdata = escape(name) + '=0';
+            $.post(url, sdata);
         });
     });
     $("#LogWriteButton").click(function (e) {
@@ -185,6 +189,7 @@ $(document).ready(function () {
         sdata = escape(name) + '=1';
         $.post(url, sdata, function () {
             sdata = escape(name) + '=0';
+            $.post(url, sdata);
         });
     });
     $("#DataLengthButton").click(function () {
