@@ -48,7 +48,7 @@ $(document).ready(function () {
     smoothie1.streamTo(document.getElementById("mycanvas1"));
     var line1 = new TimeSeries();
     smoothie1.addTimeSeries(line1, { strokeStyle: 'rgb(0, 255, 0)', fillStyle: 'rgba(0, 255, 0, 0.4)', lineWidth: 3 });
-    var smoothie2 = new SmoothieChart({ responsive: true, minValue: 0, title: { text: plotText, fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' } });
+    var smoothie2 = new SmoothieChart({ responsive: true, title: { text: plotText, fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' } });
     smoothie2.streamTo(document.getElementById("mycanvas2"));
     var line2 = new TimeSeries();
     smoothie2.addTimeSeries(line2, { strokeStyle: 'rgb(0, 255, 0)', fillStyle: 'rgba(0, 255, 0, 0.4)', lineWidth: 3 });
@@ -78,23 +78,27 @@ $(document).ready(function () {
     var interval = null;
     var request_time = null;
     var intervalDuration = 100;
-    var xhr = new XMLHttpRequest();
+    // var xhr = new XMLHttpRequest();
     function intervalFunction() {
-        // $.ajax({
-        //     url: "Data.json",
-        //     dataType: 'json',
-        //     type: "get",
-        //     cache: false,
-        //     success: function (data) {
-        //         ccObject = data;
-        //         var request_time = new Date().getTime() - start_time;
-        //         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-        //     }
-        // });
-        xhr.open('get', 'Data.json');
         start_time = new Date().getTime();
-        xhr.send();
+        $.ajax({
+            url: "Data.json",
+            dataType: 'json',
+            type: "get",
+            cache: false,
+            success: function (data) {
+                ccObject = data;
+                request_time = new Date().getTime() - start_time;
+                document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
+            }
+        });
+        // start_time = new Date().getTime();
+        // xhr.open('get', 'Data.json');
+        // xhr.send();
         line1.append(new Date().getTime(), ccObject.BusVoltage);
+        if (ccObjectIndex == "BusOutCurrent") {
+            ValueToBePlotted = -((~ccObject[ccObjectIndex] & ((2 ^ 16) - 1)) + 1);
+        }
         line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
         // console.log(ccObject);
         document.querySelector('#CreateCurrentValue').innerHTML = "Current Value: " + ccObject.CreateLog;
@@ -113,19 +117,19 @@ $(document).ready(function () {
         document.querySelector('#TestPeriodCurrentValue').innerHTML = "Current Value: " + ccObject.TestPeriod;
         document.querySelector('#DutyCycleCurrentValue').innerHTML = "Current Value: " + ccObject.DutyCycle;
     }
-    xhr.onreadystatechange = function () {
-        request_time = new Date().getTime() - start_time;
-        document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-        if (this.status == 200) {
-            try {
-                ccObject = JSON.parse(this.responseText);
-            } catch (e) {
-                console.warn("There was an error in the JSON. Could not parse!");
-            }
-        } else {
-            console.warn("did not receive 200 OK from server!")
-        }
-    }
+    // xhr.onload = function () {
+    //     request_time = new Date().getTime() - start_time;
+    //     document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
+    //     if (this.status == 200) {
+    //         try {
+    //             ccObject = JSON.parse(this.responseText);
+    //         } catch (e) {
+    //             console.warn("There was an error in the JSON. Could not parse!");
+    //         }
+    //     } else {
+    //         console.warn("did not receive 200 OK from server!")
+    //     }
+    // }
     // __________Stop interval when pressed
     document.querySelector("#ClearInterval").onclick = function () {
         clearInterval(interval);
@@ -135,84 +139,81 @@ $(document).ready(function () {
         intervalDuration = document.querySelector("#intervalInput").value;
         interval = setInterval(intervalFunction, intervalDuration);
     }
-    $("#LogCreateButton").click(function () {
+    $("#LogCreateButton").click(function (e) {
         url = "Outputs.htm";
         name = 'DB16.DBX0.0';
-        val = $("#CreateTrig").val();
-        sdata = escape(name) + '=' + val;
-        $.post(url, sdata, function (result) { });
+        sdata = escape(name) + '=1';
+        $.post(url, sdata, function () {
+            sdata = escape(name) + '=0';
+        });
     });
-    $("#LogOpenButton").click(function () {
+    $("#LogOpenButton").click(function (e) {
         url = "Outputs.htm";
         name = 'DB16.DBX0.1';
-        val = $('input[id=OpenTrig]').val();
-        sdata = escape(name) + '=' + val;
-        $.post(url, sdata, function (result) { });
+        sdata = escape(name) + '=1';
+        $.post(url, sdata, function () {
+            sdata = escape(name) + '=0';
+        });
     });
-    $("#LogClearButton").click(function () {
+    $("#LogClearButton").click(function (e) {
         url = "Outputs.htm";
         name = 'DB16.DBX0.2';
-        val = $('input[id=ClearTrig]').val();
-        sdata = escape(name) + '=' + val;
-        $.post(url, sdata, function (result) { });
+        sdata = escape(name) + '=1';
+        $.post(url, sdata, function () {
+            sdata = escape(name) + '=0';
+        });
     });
-    $("#LogDeleteButton").click(function () {
+    $("#LogDeleteButton").click(function (e) {
         url = "Outputs.htm";
         name = 'DB16.DBX0.3';
-        val = $('input[id=DeleteTrig]').val();
-        sdata = escape(name) + '=' + val;
-        $.post(url, sdata, function (result) { });
+        sdata = escape(name) + '=1';
+        $.post(url, sdata, function () {
+            sdata = escape(name) + '=0';
+        });
     });
-    $("#LogWriteButton").click(function () {
+    $("#LogWriteButton").click(function (e) {
         url = "Outputs.htm";
         name = 'DB16.DBX0.5';
-        val = $('input[id=WriteTrig]').val();
-        sdata = escape(name) + '=' + val;
-        $.post(url, sdata, function (result) { });
+        sdata = escape(name) + '=1';
+        $.post(url, sdata, function () {
+            sdata = escape(name) + '=0';
+        });
     });
-    // $("#StartReadButton").click(function () {
-    //     url = "Outputs.htm";
-    //     name = 'DB16.DBX0.4';
-    //     if (this.value == 1) {
-    //         val = 0;
-    //         this.value = 0;
-    //         this.innerHTML = "Start Reading";
-    //     }
-    //     else {
-    //         val = 1;
-    //         this.value = 1;
-    //         this.innerHTML = "Stop Reading";
-    //     }
-    //     sdata = escape(name) + '=' + val;
-    //     $.post(url, sdata, function (result) { });
-    // });
+    $("#StartReadButton").click(function (e) {
+        url = "Outputs.htm";
+        name = 'DB16.DBX0.4';
+        sdata = escape(name) + '=1';
+        $.post(url, sdata, function () {
+            sdata = escape(name) + '=0';
+        });
+    });
     $("#DataLengthButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBW2';
         val = $('input[id=DataLength]').val();
         sdata = escape(name) + '=' + val;
-        $.post(url, sdata, function (result) { });
+        $.post(url, sdata);
     });
     $("#AddressButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBD4';
         val = $('input[id=StartAddress]').val();
         sdata = escape(name) + '=' + val;
-        $.post(url, sdata, function (result) { });
+        $.post(url, sdata);
     });
     $("#DTButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBD8';
         val = $('input[id=DutyCycle]').val();
         sdata = escape(name) + '=' + val;
-        $.post(url, sdata, function (result) { });
+        $.post(url, sdata);
     });
     $("#TestPeriodButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBD12';
         val = $('input[id=TestPeriod]').val();
         sdata = escape(name) + '=' + val;
-        $.post(url, sdata, function (result) { });
+        $.post(url, sdata);
     });
     document.querySelector(".Tabs").onclick = function (e) {
         // console.log(e.target.classList.contains("Tab1"));
