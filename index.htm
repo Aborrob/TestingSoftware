@@ -23,7 +23,7 @@
             <div class="CCData areaColor">
                 <h1 style="margin-bottom:10%">Charge Controller Data</h1>
                 <div>
-                    <table>
+                    <table id="BusInTable">
                         <caption>BUS IN DATA</caption>
                         <tr>
                             <th>Voltage</th>
@@ -39,7 +39,7 @@
                         </tr>
                     </table>
                     <!-- ___________________________________________________ -->
-                    <table>
+                    <table id="BusOutTable">
                         <caption>BUS OUT DATA</caption>
                         <tr>
                             <th>Voltage</th>
@@ -55,7 +55,7 @@
                         </tr>
                     </table>
                     <!-- ___________________________________________________ -->
-                    <table>
+                    <table id="CapTable">
                         <caption>CAP DATA</caption>
                         <tr>
                             <th>Voltage</th>
@@ -72,8 +72,8 @@
                     </table>
                 </div>
                 <div class="CCDataState">Active state: InActive</div>
-                <div class="InActiveCCData"></div>
-                <button>Activate</button>
+                <div id="CCdataState" class="InActiveCCData"></div>
+                <button id="CCDataButton">Activate</button>
             </div>
             <div class="PlotsMain areaColor">
                 <div class="subPlots">
@@ -94,14 +94,15 @@
             <div class="PlotButtons areaColor">
                 <h1>Plot Options</h1><br>
                 <div class="PlotControlButton">
-                    <button value=1 id="BusInCurrent">Bus In Current</button><br>
-                    <button value=0 id="BusOutCurrent">Bus Out Current</button><br>
-                    <button value=0 id="EnergyInGenerated">Energy In Generated</button><br>
-                    <button value=0 id="EnergyOutGenerated">Energy Out Generated</button><br>
-                    <button value=0 id="BusInPowerInput">Bus In Power Input</button><br>
-                    <button value=0 id="BusOutPowerInput">Bus Out Power Input</button><br>
-                    <button value=0 id="BusInPowerDrain">Bus In Power Drain</button><br>
-                    <button value=0 id="BusOutPowerDrain">Bus Out Power Drain</button>
+                    <button id="BusInCurrent" class="PlotButtonInActive" value=1>Bus In Current</button><br>
+                    <button id="BusOutCurrent" class="PlotButtonInActive" value=2>Bus Out Current</button><br>
+                    <button id="EnergyInGenerated" class="PlotButtonInActive" value=3>Energy In Generated</button><br>
+                    <button id="EnergyOutGenerated" class="PlotButtonInActive" value=4>Energy Out Generated</button><br>
+                    <button id="BusInPowerInput" class="PlotButtonInActive" value=5>Bus In Power Input</button><br>
+                    <button id="BusOutPowerInput" class="PlotButtonInActive" value=6>Bus Out Power Input</button><br>
+                    <button id="BusInPowerDrain" class="PlotButtonInActive" value=7>Bus In Power Drain</button><br>
+                    <button id="BusOutPowerDrain" class="PlotButtonInActive" value=8>Bus Out Power Drain</button>
+                    <button id="CAPData" class="PlotButtonInActive" value=10>Capacitor / Battery</button>
                 </div>
             </div>
             <div class="PLCControls areaColor">
@@ -111,7 +112,6 @@
                         <fieldset>
                             <legend>Create Record</legend>
                             <label id="CreateCurrentValue">Current Value: :=DB16.DBX0.0:</label><br>
-                            <input id="CreateTrig" name='DB16.DBX0.0' type="text" />
                             <button id="LogCreateButton" type="submit" value="0">Submit</button>
                         </fieldset>
                     </div>
@@ -119,7 +119,6 @@
                         <fieldset>
                             <legend>Open Record</legend>
                             <label id="OpenCurrentValue">Current Value: :=DB16.DBX0.1:</label><br>
-                            <input id="OpenTrig" name='DB16.DBX0.1' type="text" />
                             <button id="LogOpenButton" type="submit">Submit</button>
                         </fieldset>
                     </div>
@@ -127,7 +126,6 @@
                         <fieldset>
                             <legend>Clear Record</legend>
                             <label id="ClearCurrentValue">Current Value: :=DB16.DBX0.2:</label><br>
-                            <input id="ClearTrig" name='DB16.DBX0.2' type="text" />
                             <button id="LogClearButton" type="submit">Submit</button>
                         </fieldset>
                     </div>
@@ -135,7 +133,6 @@
                         <fieldset>
                             <legend>Delete Record</legend>
                             <label id="DeleteCurrentValue">Current Value: :=DB16.DBX0.3:</label><br>
-                            <input id="DeleteTrig" name='DB16.DBX0.3' type="text" />
                             <button id="LogDeleteButton" type="submit" value="0">Submit</button>
                         </fieldset>
                     </div>
@@ -148,15 +145,14 @@
                         </fieldset>
                     </div>
                     <div class="TagsState">Active state: InActive</div>
-                    <div class="InActiveTags"></div>
-                    <button>Activate</button>
+                    <div id="TagsState" class="InActiveTags"></div>
+                    <button id="TagButton">Activate</button>
                 </div>
                 <div class="PLCControls2">
                     <div>
                         <fieldset>
                             <legend>Start Reading</legend>
                             <label id="ReadingCurrentValue">Status: :=DB16.DBX0.4:</label><br>
-                            <input id="ReadTrig" name='DB16.DBX0.4' type="text" />
                             <button id="StartReadButton" type="submit" value=0>Start Reading</button>
                         </fieldset>
                     </div>
@@ -193,7 +189,6 @@
                         </fieldset>
                     </div>
                 </div>
-
             </div>
             <div class="MiscButtonsMain areaColor">
                 <div class="Tabs">
@@ -201,7 +196,7 @@
                     <div class="Tab2 areaColor">Test Info</div>
                 </div>
                 <div class="MiscButtons hidden">
-                    <a id="v12" class="button v12-off">V12 OFF</a>
+                    <a id="v12" class="v12-off button">V12 OFF</a>
                     <a class="download"
                         href="https://192.168.1.10/FileBrowser/Download?Path=%2FDataLogs%2Flogging.csv">Download Log
                         File</a>
