@@ -32,6 +32,7 @@ $(document).ready(function () {
         'BusOutCurrent': 0,
         'BusOutPowerInput': 0,
         'BusOutPowerDrain': 0,
+        'CapVoltage': 0,
         'CapCurrent': 0,
         'CapPowerInput': 0,
         'CapPowerDrain': 0,
@@ -42,8 +43,9 @@ $(document).ready(function () {
         'TestPeriod': 5,
         'DutyCycle': 10
     };
-    var ValueToBePlotted = ccObject.BusInCurrent;
+    // var ValueToBePlotted = ccObject.BusInCurrent;
     var plotText = "Bus In Current";
+    var ccObjectIndex = 'BusInCurrent';
     var smoothie1 = new SmoothieChart({ responsive: true, minValue: 0, title: { text: 'Bus Voltage', fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' } });
     smoothie1.streamTo(document.getElementById("mycanvas1"));
     var line1 = new TimeSeries();
@@ -55,7 +57,6 @@ $(document).ready(function () {
     //    ______________Initialisation Done____________
     // _________________________________\/ \/ \/On Click \/ \/ \/ _______________
     PlotControlButtons.addEventListener("click", changeGraph, false);
-    var ccObjectIndex;
     function changeGraph(e) {
         if (e.target !== e.currentTarget) {
             e.target.value = 1;
@@ -78,23 +79,141 @@ $(document).ready(function () {
     var interval = null;
     var request_time = null;
     var intervalDuration = 100;
+    var requestIdentifier = 1;
     // var xhr = new XMLHttpRequest();
     function intervalFunction() {
         start_time = new Date().getTime();
-        $.ajax({
-            url: "Data.json",
-            dataType: 'json',
-            type: "get",
-            cache: false,
-            success: function (data) {
-                ccObject = data;
-                request_time = new Date().getTime() - start_time;
-                document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-            }
-        });
-        // start_time = new Date().getTime();
-        // xhr.open('get', 'Data.json');
-        // xhr.send();
+        switch (requestIdentifier) {
+            case 1:
+                $.ajax({
+                    url: "Data1.json",
+                    dataType: 'json',
+                    type: "get",
+                    cache: false,
+                    timeout: intervalDuration - 10,
+                    error: function () {
+                        console.warn("There has been an error with the ajax request");
+                    },
+                    success: function (data) {
+                        ccObject = data;
+                        request_time = new Date().getTime() - start_time;
+                        document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
+                    }
+                });
+                break;
+            case 2:
+                $.ajax({
+                    url: "Data2.json",
+                    dataType: 'json',
+                    type: "get",
+                    cache: false,
+                    timeout: intervalDuration - 10,
+                    success: function (data) {
+                        ccObject = data;
+                        request_time = new Date().getTime() - start_time;
+                        document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
+                    }
+                });
+                break;
+            case 3:
+                $.ajax({
+                    url: "Data3.json",
+                    dataType: 'json',
+                    type: "get",
+                    cache: false,
+                    timeout: intervalDuration - 10,
+                    success: function (data) {
+                        ccObject = data;
+                        request_time = new Date().getTime() - start_time;
+                        document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
+                    }
+                });
+                break;
+            case 4:
+                $.ajax({
+                    url: "Data4.json",
+                    dataType: 'json',
+                    type: "get",
+                    cache: false,
+                    timeout: intervalDuration - 10,
+                    success: function (data) {
+                        ccObject = data;
+                        request_time = new Date().getTime() - start_time;
+                        document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
+                    }
+                });
+                break;
+            case 5:
+                $.ajax({
+                    url: "Data5.json",
+                    dataType: 'json',
+                    type: "get",
+                    cache: false,
+                    timeout: intervalDuration - 10,
+                    success: function (data) {
+                        ccObject = data;
+                        request_time = new Date().getTime() - start_time;
+                        document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
+                    }
+                });
+                break;
+            case 6:
+                $.ajax({
+                    url: "Data6.json",
+                    dataType: 'json',
+                    type: "get",
+                    cache: false,
+                    timeout: intervalDuration - 10,
+                    success: function (data) {
+                        ccObject = data;
+                        request_time = new Date().getTime() - start_time;
+                        document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
+                    }
+                });
+                break;
+            case 7:
+                $.ajax({
+                    url: "Data7.json",
+                    dataType: 'json',
+                    type: "get",
+                    cache: false,
+                    timeout: intervalDuration - 10,
+                    success: function (data) {
+                        ccObject = data;
+                        request_time = new Date().getTime() - start_time;
+                        document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
+                    }
+                });
+                break;
+            case 8:
+                $.ajax({
+                    url: "Data8.json",
+                    dataType: 'json',
+                    type: "get",
+                    cache: false,
+                    timeout: intervalDuration - 10,
+                    success: function (data) {
+                        ccObject = data;
+                        request_time = new Date().getTime() - start_time;
+                        document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
+                    }
+                });
+                break;
+            case 9:
+                $.ajax({
+                    url: "Data9.json",
+                    dataType: 'json',
+                    type: "get",
+                    cache: false,
+                    timeout: intervalDuration - 10,
+                    success: function (data) {
+                        ccObject = data;
+                        request_time = new Date().getTime() - start_time;
+                        document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
+                    }
+                });
+                break;
+        }
         line1.append(new Date().getTime(), ccObject.BusVoltage);
         if (ccObjectIndex == "BusOutCurrent") {
             ValueToBePlotted = -((~ccObject[ccObjectIndex] & ((2 ^ 16) - 1)) + 1);
@@ -106,30 +225,16 @@ $(document).ready(function () {
         document.querySelector('#ClearCurrentValue').innerHTML = "Current Value: " + ccObject.ClearLog;
         document.querySelector('#DeleteCurrentValue').innerHTML = "Current Value: " + ccObject.DeleteLog;
         document.querySelector('#WritingCommandCurrentValue').innerHTML = "Current Value: " + ccObject.StartWriteLog;
-        // if (ccObject.ReadTrig == 0) {
-        //     document.querySelector('#ReadingCurrentValue').innerHTML("Status: Reading is OFF");
-        // } else {
-        //     document.querySelector('#ReadingCurrentValue').innerHTML("Status: Reading is ON");
-        // }
-        // Data Address and Data length Control
+        if (ccObject.ReadTrig == 0) {
+            document.querySelector('#ReadingCurrentValue').innerHTML = "Status: Reading is OFF";
+        } else {
+            document.querySelector('#ReadingCurrentValue').innerHTML = "Status: Reading is ON";
+        }
         document.querySelector('#startAddressCurrentValue').innerHTML = "Current Value: " + ccObject.StartAddress;
-        // Timers Control for reading Modbus data (Req freq.)
+        document.querySelector('#DataLengthCurrentValue').innerHTML = "Current Value: " + ccObject.DataLength;
         document.querySelector('#TestPeriodCurrentValue').innerHTML = "Current Value: " + ccObject.TestPeriod;
         document.querySelector('#DutyCycleCurrentValue').innerHTML = "Current Value: " + ccObject.DutyCycle;
     }
-    // xhr.onload = function () {
-    //     request_time = new Date().getTime() - start_time;
-    //     document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-    //     if (this.status == 200) {
-    //         try {
-    //             ccObject = JSON.parse(this.responseText);
-    //         } catch (e) {
-    //             console.warn("There was an error in the JSON. Could not parse!");
-    //         }
-    //     } else {
-    //         console.warn("did not receive 200 OK from server!")
-    //     }
-    // }
     // __________Stop interval when pressed
     document.querySelector("#ClearInterval").onclick = function () {
         clearInterval(interval);
@@ -186,11 +291,9 @@ $(document).ready(function () {
     $("#StartReadButton").click(function (e) {
         url = "Outputs.htm";
         name = 'DB16.DBX0.4';
-        sdata = escape(name) + '=1';
-        $.post(url, sdata, function () {
-            sdata = escape(name) + '=0';
-            $.post(url, sdata);
-        });
+        val = $('input[id=ReadTrig]').val();
+        sdata = escape(name) + '=' + val;
+        $.post(url, sdata);
     });
     $("#DataLengthButton").click(function () {
         url = "Outputs.htm";

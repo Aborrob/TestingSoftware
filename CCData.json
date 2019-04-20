@@ -1,0 +1,13 @@
+{
+    "BusVoltage": ":=DB3.DBW4:",
+    "BusInCurrent": ":=DB5.DBW2:",
+    "BusInPowerInput": ":=DB3.DBD64:",
+    "BusInPowerDrain": ":=DB3.DBD72:",
+    "BusOutCurrent": ":=DB3.DBW8:",
+    "BusOutPowerInput": ":=DB3.DBD168:",
+    "BusOutPowerDrain": ":=DB3.DBD164:",
+    "CapVoltage": ":=DB5.DBW6",
+    "CapCurrent": ":=DB3.DBW10:",
+    "CapPowerInput": ":=DB3.DBD96:",
+    "CapPowerDrain": ":=DB3.DBD104:"
+}

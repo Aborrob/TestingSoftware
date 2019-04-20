@@ -161,10 +161,11 @@ th {
     background: rgb(255, 0, 0);
     border: 1px rgb(0, 0, 0) solid;
 }
-.CCData button{
+
+.CCData button {
     margin: auto;
     margin-left: 5%;
-    margin-top:5%;
+    margin-top: 5%;
     display: block;
 }
 
@@ -250,7 +251,7 @@ th {
 
 .TagsState {
     display: inline-flex;
-    margin-left:5%;
+    margin-left: 5%;
     margin-top: 10%;
     /* background: tomato; */
     vertical-align: middle;
@@ -278,12 +279,14 @@ th {
     background: rgb(255, 0, 0);
     border: 1px rgb(0, 0, 0) solid;
 }
-.InActiveTags+button{
+
+.InActiveTags+button {
     margin: auto;
     margin-left: 5%;
-    margin-top:5%;
+    margin-top: 5%;
     display: block;
 }
+
 .MiscButtonsMain {
     grid-area: MiscButtonsMain;
     display: grid;
@@ -390,7 +393,7 @@ input::-webkit-input-placeholder {
     margin: auto;
 }
 
-.submitted p{
+.submitted p {
     width: 90%;
     margin: 3% 2%;
 }
