@@ -43,7 +43,7 @@ $(document).ready(function () {
     var interval = null;
     var request_time = null;
     var intervalDuration = 100;
-    var requestIdentifier = 1;
+    var requestIdentifier = "1";
     var plotText = "Bus In Current";
     var ccObjectIndex = 'BusInCurrent';
     var smoothie1 = new SmoothieChart({ responsive: true, minValue: 0, title: { text: 'Bus Voltage', fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' } });
@@ -61,6 +61,8 @@ $(document).ready(function () {
         if (e.target !== e.currentTarget) {
             ccObjectIndex = e.target.id;
             requestIdentifier = e.target.value;
+            document.querySelector("#CCDataActivity").className = "InActiveCCData";
+            document.querySelector("#TagsState").className = "InActiveTags";
             Array.from(e.target.parentElement.children).forEach(function (element) {
                 element.className = "PlotButtonInActive";
             });
@@ -81,24 +83,24 @@ $(document).ready(function () {
     var start_time = new Date().getTime();
     function intervalFunction() {
         start_time = new Date().getTime();
-        if (requestIdentifier == 9) {
-            document.querySelector("#CCdataState").className = "ActiveCCData";
+        if (requestIdentifier == "9") {
+            document.querySelector("#CCDataActivity").className = "ActiveCCData";
             document.querySelector("#TagsState").className = "InActiveTags";
-        } else if (requestIdentifier == 11) {
-            document.querySelector("#CCdataState").className = "InActiveCCData";
+        } else if (requestIdentifier == "11") {
+            document.querySelector("#CCDataActivity").className = "InActiveCCData";
             document.querySelector("#TagsState").className = "ActiveTags";
         } else {
-            document.querySelector("#CCdataState").className = "InActiveCCData";
+            document.querySelector("#CCDataActivity").className = "InActiveCCData";
             document.querySelector("#TagsState").className = "InActiveTags";
         }
         switch (requestIdentifier) {
-            case 1:
+            case "1":
                 $.ajax({
                     url: "Data1.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
-                    timeout: intervalDuration - 10,
+                    timeout: intervalDuration + 10,
                     error: function () {
                         console.warn("There has been an error with the ajax request");
                     },
@@ -111,13 +113,13 @@ $(document).ready(function () {
                     }
                 });
                 break;
-            case 2:
+            case "2":
                 $.ajax({
                     url: "Data2.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
-                    timeout: intervalDuration - 10,
+                    timeout: intervalDuration + 10,
                     success: function (data) {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
@@ -127,13 +129,13 @@ $(document).ready(function () {
                     }
                 });
                 break;
-            case 3:
+            case "3":
                 $.ajax({
                     url: "Data3.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
-                    timeout: intervalDuration - 10,
+                    timeout: intervalDuration + 10,
                     success: function (data) {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
@@ -143,13 +145,13 @@ $(document).ready(function () {
                     }
                 });
                 break;
-            case 4:
+            case "4":
                 $.ajax({
                     url: "Data4.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
-                    timeout: intervalDuration - 10,
+                    timeout: intervalDuration + 10,
                     success: function (data) {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
@@ -159,13 +161,13 @@ $(document).ready(function () {
                     }
                 });
                 break;
-            case 5:
+            case "5":
                 $.ajax({
                     url: "Data5.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
-                    timeout: intervalDuration - 10,
+                    timeout: intervalDuration + 10,
                     success: function (data) {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
@@ -175,13 +177,13 @@ $(document).ready(function () {
                     }
                 });
                 break;
-            case 6:
+            case "6":
                 $.ajax({
                     url: "Data6.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
-                    timeout: intervalDuration - 10,
+                    timeout: intervalDuration + 10,
                     success: function (data) {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
@@ -191,13 +193,13 @@ $(document).ready(function () {
                     }
                 });
                 break;
-            case 7:
+            case "7":
                 $.ajax({
                     url: "Data7.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
-                    timeout: intervalDuration - 10,
+                    timeout: intervalDuration + 10,
                     success: function (data) {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
@@ -207,13 +209,13 @@ $(document).ready(function () {
                     }
                 });
                 break;
-            case 8:
+            case "8":
                 $.ajax({
                     url: "Data8.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
-                    timeout: intervalDuration - 10,
+                    timeout: intervalDuration + 10,
                     success: function (data) {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
@@ -223,39 +225,39 @@ $(document).ready(function () {
                     }
                 });
                 break;
-            case 9:
+            case "9":
                 $.ajax({
                     url: "CCData.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
-                    timeout: intervalDuration - 10,
+                    timeout: intervalDuration + 10,
                     success: function (data) {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-                        document.querySelectorAll("#BusInTable tr")[1].children[0] = ccObject.BusVoltage;
-                        document.querySelectorAll("#BusInTable tr")[1].children[1] = ccObject.BusInCurrent;
-                        document.querySelectorAll("#BusInTable tr")[1].children[2] = ccObject.BusInPowerInput;
-                        document.querySelectorAll("#BusInTable tr")[1].children[3] = ccObject.BusInPowerDrain;
+                        document.querySelectorAll("#BusInTable tr")[1].children[0].innerHTML = ccObject.BusVoltage;
+                        document.querySelectorAll("#BusInTable tr")[1].children[1].innerHTML = ccObject.BusInCurrent;
+                        document.querySelectorAll("#BusInTable tr")[1].children[2].innerHTML = ccObject.BusInPowerInput;
+                        document.querySelectorAll("#BusInTable tr")[1].children[3].innerHTML = ccObject.BusInPowerDrain;
 
-                        document.querySelectorAll("#BusOutTable tr")[1].children[1] = ccObject.BusOutCurrent;
-                        document.querySelectorAll("#BusOutTable tr")[1].children[2] = ccObject.BusOutPowerInput;
-                        document.querySelectorAll("#BusOutTable tr")[1].children[3] = ccObject.BusOutPowerDrain;
+                        document.querySelectorAll("#BusOutTable tr")[1].children[1].innerHTML = ccObject.BusOutCurrent;
+                        document.querySelectorAll("#BusOutTable tr")[1].children[2].innerHTML = ccObject.BusOutPowerInput;
+                        document.querySelectorAll("#BusOutTable tr")[1].children[3].innerHTML = ccObject.BusOutPowerDrain;
 
-                        document.querySelectorAll("#CapTable tr")[1].children[1] = ccObject.CapCurrent;
-                        document.querySelectorAll("#CapTable tr")[1].children[2] = ccObject.CapPowerInput;
-                        document.querySelectorAll("#CapTable tr")[1].children[3] = ccObject.CapPowerDrain;
+                        document.querySelectorAll("#CapTable tr")[1].children[1].innerHTML = ccObject.CapCurrent;
+                        document.querySelectorAll("#CapTable tr")[1].children[2].innerHTML = ccObject.CapPowerInput;
+                        document.querySelectorAll("#CapTable tr")[1].children[3].innerHTML = ccObject.CapPowerDrain;
                     }
                 });
                 break;
-            case 10:
+            case "10":
                 $.ajax({
                     url: "CAP.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
-                    timeout: intervalDuration - 10,
+                    timeout: intervalDuration + 10,
                     success: function (data) {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
@@ -265,13 +267,13 @@ $(document).ready(function () {
                     }
                 });
                 break;
-            case 11:
+            case "11":
                 $.ajax({
                     url: "PLCControl.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
-                    timeout: intervalDuration - 10,
+                    timeout: intervalDuration + 10,
                     success: function (data) {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
@@ -298,7 +300,7 @@ $(document).ready(function () {
     // __________Stop interval when pressed
     document.querySelector("#ClearInterval").onclick = function () {
         clearInterval(interval);
-        document.querySelector("#CCdataState").className = "InActiveCCData";
+        document.querySelector("#CCDataActivity").className = "InActiveCCData";
         document.querySelector("#TagsState").className = "InActiveTags";
     }
     document.querySelector("#StartInterval").onclick = function () {
@@ -309,13 +311,13 @@ $(document).ready(function () {
     document.querySelector("#CCDataButton").onclick = function () {
         clearInterval(interval);
         intervalDuration = 1000;
-        requestIdentifier = 9;
+        requestIdentifier = "9";
         interval = setInterval(intervalFunction, intervalDuration);
     }
     document.querySelector("#TagButton").onclick = function () {
         clearInterval(interval);
         intervalDuration = 1000;
-        requestIdentifier = 11;
+        requestIdentifier = "11";
         interval = setInterval(intervalFunction, intervalDuration);
     }
     $("#LogCreateButton").click(function (e) {
