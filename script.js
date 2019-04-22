@@ -41,6 +41,7 @@ $(document).ready(function () {
         'DutyCycle': 10
     };
     var interval = null;
+    var clearFlag = 0;
     var request_time = null;
     var intervalDuration = 100;
     var requestIdentifier = "1";
@@ -59,6 +60,7 @@ $(document).ready(function () {
     PlotControlButtons.addEventListener("click", changeGraph, false);
     function changeGraph(e) {
         if (e.target !== e.currentTarget) {
+            clearFlag = 1;
             ccObjectIndex = e.target.id;
             requestIdentifier = e.target.value;
             document.querySelector("#CCDataActivity").className = "InActiveCCData";
@@ -69,6 +71,10 @@ $(document).ready(function () {
             e.target.className = "PlotButtonActive";
             ValueToBePlotted = ccObject[e.target.id];
             smoothie2.options.title.text = e.target.innerHTML;
+            clearTimeout(interval);
+            clearFlag = 0;
+            intervalFunction();
+
         }
     }
     v12_button.onclick = function () {
@@ -86,12 +92,18 @@ $(document).ready(function () {
         if (requestIdentifier == "9") {
             document.querySelector("#CCDataActivity").className = "ActiveCCData";
             document.querySelector("#TagsState").className = "InActiveTags";
+            document.querySelector("#PlotActivityState").className = "InActivePlot";
+
         } else if (requestIdentifier == "11") {
             document.querySelector("#CCDataActivity").className = "InActiveCCData";
             document.querySelector("#TagsState").className = "ActiveTags";
+            document.querySelector("#PlotActivityState").className = "InActivePlot";
+
         } else {
             document.querySelector("#CCDataActivity").className = "InActiveCCData";
             document.querySelector("#TagsState").className = "InActiveTags";
+            document.querySelector("#PlotActivityState").className = "ActivePlot";
+In
         }
         switch (requestIdentifier) {
             case "1":
@@ -100,7 +112,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     type: "get",
                     cache: false,
-                    timeout: intervalDuration + 10,
+                    // timeout: intervalDuration + 10,
                     error: function () {
                         console.warn("There has been an error with the ajax request");
                     },
@@ -110,6 +122,9 @@ $(document).ready(function () {
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
                         line1.append(new Date().getTime(), ccObject.BusVoltage);
                         line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+                        if (clearFlag == 0) {
+                            intervalFunction();
+                        }
                     }
                 });
                 break;
@@ -126,6 +141,9 @@ $(document).ready(function () {
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
                         line1.append(new Date().getTime(), ccObject.BusVoltage);
                         line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+                        if (clearFlag == 0) {
+                            intervalFunction();
+                        }
                     }
                 });
                 break;
@@ -142,6 +160,9 @@ $(document).ready(function () {
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
                         line1.append(new Date().getTime(), ccObject.BusVoltage);
                         line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+                        if (clearFlag == 0) {
+                            intervalFunction();
+                        }
                     }
                 });
                 break;
@@ -158,6 +179,9 @@ $(document).ready(function () {
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
                         line1.append(new Date().getTime(), ccObject.BusVoltage);
                         line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+                        if (clearFlag == 0) {
+                            intervalFunction();
+                        }
                     }
                 });
                 break;
@@ -174,6 +198,9 @@ $(document).ready(function () {
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
                         line1.append(new Date().getTime(), ccObject.BusVoltage);
                         line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+                        if (clearFlag == 0) {
+                            intervalFunction();
+                        }
                     }
                 });
                 break;
@@ -190,6 +217,9 @@ $(document).ready(function () {
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
                         line1.append(new Date().getTime(), ccObject.BusVoltage);
                         line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+                        if (clearFlag == 0) {
+                            intervalFunction();
+                        }
                     }
                 });
                 break;
@@ -206,6 +236,9 @@ $(document).ready(function () {
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
                         line1.append(new Date().getTime(), ccObject.BusVoltage);
                         line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+                        if (clearFlag == 0) {
+                            intervalFunction();
+                        }
                     }
                 });
                 break;
@@ -222,6 +255,9 @@ $(document).ready(function () {
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
                         line1.append(new Date().getTime(), ccObject.BusVoltage);
                         line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+                        if (clearFlag == 0) {
+                            intervalFunction();
+                        }
                     }
                 });
                 break;
@@ -231,7 +267,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     type: "get",
                     cache: false,
-                    timeout: intervalDuration + 10,
+                    // timeout: intervalDuration + 10,
                     success: function (data) {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
@@ -248,6 +284,9 @@ $(document).ready(function () {
                         document.querySelectorAll("#CapTable tr")[1].children[1].innerHTML = ccObject.CapCurrent;
                         document.querySelectorAll("#CapTable tr")[1].children[2].innerHTML = ccObject.CapPowerInput;
                         document.querySelectorAll("#CapTable tr")[1].children[3].innerHTML = ccObject.CapPowerDrain;
+                        if (clearFlag == 0) {
+                            intervalFunction();
+                        }
                     }
                 });
                 break;
@@ -264,6 +303,9 @@ $(document).ready(function () {
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
                         line1.append(new Date().getTime(), ccObject.CapVoltage);
                         line2.append(new Date().getTime(), ccObject.CapCurrent);
+                        if (clearFlag == 0) {
+                            intervalFunction();
+                        }
                     }
                 });
                 break;
@@ -292,6 +334,9 @@ $(document).ready(function () {
                         document.querySelector('#DataLengthCurrentValue').innerHTML = "Current Value: " + ccObject.DataLength;
                         document.querySelector('#TestPeriodCurrentValue').innerHTML = "Current Value: " + ccObject.TestPeriod;
                         document.querySelector('#DutyCycleCurrentValue').innerHTML = "Current Value: " + ccObject.DutyCycle;
+                        if (clearFlag == 0) {
+                            intervalFunction();
+                        }
                     }
                 });
                 break;
@@ -299,26 +344,34 @@ $(document).ready(function () {
     }
     // __________Stop interval when pressed
     document.querySelector("#ClearInterval").onclick = function () {
-        clearInterval(interval);
+        // clearTimeout(interval);
+        clearFlag = 1; //if flag is set then next interval function call won't execute
+        clearTimeout(interval);
         document.querySelector("#CCDataActivity").className = "InActiveCCData";
         document.querySelector("#TagsState").className = "InActiveTags";
+        document.querySelector("#PlotActivityState").className = "InActivePlot";
     }
     document.querySelector("#StartInterval").onclick = function () {
-        clearInterval(interval);
+        clearFlag = 0;
+        clearTimeout(interval);
         intervalDuration = document.querySelector("#intervalInput").value;
-        interval = setInterval(intervalFunction, intervalDuration);
+        // interval = setTimeout(intervalFunction, intervalDuration);
+        document.querySelector("#PlotActivityState").className = "ActivePlot";
+        interval = setTimeout(intervalFunction, intervalDuration);
     }
     document.querySelector("#CCDataButton").onclick = function () {
-        clearInterval(interval);
+        clearFlag = 0;
+        clearTimeout(interval);
         intervalDuration = 1000;
         requestIdentifier = "9";
-        interval = setInterval(intervalFunction, intervalDuration);
+        interval = setTimeout(intervalFunction, intervalDuration);
     }
     document.querySelector("#TagButton").onclick = function () {
-        clearInterval(interval);
+        clearFlag = 0;
+        clearTimeout(interval);
         intervalDuration = 1000;
         requestIdentifier = "11";
-        interval = setInterval(intervalFunction, intervalDuration);
+        interval = setTimeout(intervalFunction, intervalDuration);
     }
     $("#LogCreateButton").click(function (e) {
         url = "Outputs.htm";

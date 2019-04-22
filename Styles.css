@@ -197,9 +197,33 @@ th {
     grid-column-end: 1;
 }
 
+#intervalInput, #ClearInterval, #StartInterval {
+    vertical-align: middle;
+}
+
 #RequestTime {
     float: left;
-    width: 20%;
+    width: 17%;
+}
+
+.ActivePlot {
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+    margin-left: 2%;
+    vertical-align: middle;
+    background: rgb(18, 168, 13);
+    border: 1px black solid;
+}
+
+.InActivePlot {
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+    margin-left: 2%;
+    vertical-align: middle;
+    background: rgb(255, 0, 0);
+    border: 1px rgb(0, 0, 0) solid;
 }
 
 .PlotButtons {
