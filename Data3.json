@@ -1,4 +1,4 @@
 {
-    "BusVoltage": ":=DB3.DBW4:",
-    "EnergyInGenerated": ""
+    "BusVoltage": ":=DB3.DBD240:",
+    "EnergyInGenerated": ":=DB3.DBD256:"
 }

@@ -1,4 +1,4 @@
 {
-    "BusVoltage": ":=DB3.DBW4:",
-    "BusOutPowerInput": ":=DB3.DBD168:"
+    "BusVoltage": ":=DB3.DBD240:",
+    "BusOutPowerInput": ":=DB3.DBD192:"
 }

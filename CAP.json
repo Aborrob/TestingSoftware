@@ -1,4 +1,4 @@
 {
-    "CapVoltage": ":=DB5.DBW6",
-    "CapCurrent": ":=DB3.DBW10:"
+    "CapVoltage": ":=DB3.DBD244",
+    "CapCurrent": ":=DB3.DBD248"
 }

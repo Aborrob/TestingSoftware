@@ -19,6 +19,31 @@ $(document).ready(function () {
         }, 500);
     }
     startTime();
+    function HexToReal(number){ // 32 Bit - single prescision -- just for normalized numbers
+		var sign		= (number & 0x80000000);		// sign: 0=positive
+		var exponent	= (number & 0x7F800000) >> 23;	// exponent
+		var mantissa	= (number & 0x007FFFFF);		// mantissa
+
+		if(exponent == 0x0000){									// special: zero
+			if(mantissa != 0)									// positive denormalized
+				return Number.NaN;
+			else												// normalized numbers
+				return sign ? -0.0 : +0.0;
+		}
+		else if(exponent == 0x00FF){							// 255 - special: ±INF or NaN
+			if(mantissa != 0){									// is mantissa non-zero? indicates NaN
+				return Number.NaN;
+			}
+			else{												// otherwise it's ±INF
+				return sign ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
+			}
+		}
+		mantissa |= 0x00800000;
+
+		exponent -= 127;										// adjust by BIAS
+		var float_val = mantissa * Math.pow(2, exponent-23);			// compute absolute result
+		return sign ? -float_val : +float_val;					// and return positive or negative depending on sign
+	}
     var v12_button = document.getElementById("v12");
     var PlotControlButtons = document.querySelector(".PlotControlButton");
     var ccObject = {
@@ -103,10 +128,9 @@ $(document).ready(function () {
             document.querySelector("#CCDataActivity").className = "InActiveCCData";
             document.querySelector("#TagsState").className = "InActiveTags";
             document.querySelector("#PlotActivityState").className = "ActivePlot";
-In
         }
         switch (requestIdentifier) {
-            case "1":
+            case "1"://bus in current and voltage
                 $.ajax({
                     url: "Data1.json",
                     dataType: 'json',
@@ -118,17 +142,18 @@ In
                     },
                     success: function (data) {
                         ccObject = data;
+                        
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-                        line1.append(new Date().getTime(), ccObject.BusVoltage);
-                        line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+                        line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage));
+                        line2.append(new Date().getTime(), HexToReal(ccObject[ccObjectIndex]));
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
                     }
                 });
                 break;
-            case "2":
+            case "2"://bus out current and voltage
                 $.ajax({
                     url: "Data2.json",
                     dataType: 'json',
@@ -147,7 +172,7 @@ In
                     }
                 });
                 break;
-            case "3":
+            case "3"://energy in generted and bus voltage
                 $.ajax({
                     url: "Data3.json",
                     dataType: 'json',
@@ -166,7 +191,7 @@ In
                     }
                 });
                 break;
-            case "4":
+            case "4"://Energy out generated and bus voltage
                 $.ajax({
                     url: "Data4.json",
                     dataType: 'json',
@@ -185,7 +210,7 @@ In
                     }
                 });
                 break;
-            case "5":
+            case "5"://bus in power input and bus voltage
                 $.ajax({
                     url: "Data5.json",
                     dataType: 'json',
@@ -204,7 +229,7 @@ In
                     }
                 });
                 break;
-            case "6":
+            case "6"://bus out power input and bus voltage
                 $.ajax({
                     url: "Data6.json",
                     dataType: 'json',
@@ -223,7 +248,7 @@ In
                     }
                 });
                 break;
-            case "7":
+            case "7"://bus in power drain and bus voltage
                 $.ajax({
                     url: "Data7.json",
                     dataType: 'json',
@@ -242,7 +267,7 @@ In
                     }
                 });
                 break;
-            case "8":
+            case "8"://bus out power drain and bus voltage
                 $.ajax({
                     url: "Data8.json",
                     dataType: 'json',
@@ -261,7 +286,7 @@ In
                     }
                 });
                 break;
-            case "9":
+            case "9"://all data for the tables section
                 $.ajax({
                     url: "CCData.json",
                     dataType: 'json',
@@ -290,7 +315,7 @@ In
                     }
                 });
                 break;
-            case "10":
+            case "10"://cap current and cap voltage
                 $.ajax({
                     url: "CAP.json",
                     dataType: 'json',
@@ -309,7 +334,7 @@ In
                     }
                 });
                 break;
-            case "11":
+            case "11"://plc triggers section values
                 $.ajax({
                     url: "PLCControl.json",
                     dataType: 'json',
