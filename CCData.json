@@ -3,11 +3,11 @@
     "BusInCurrent": ":=DB3.DBD236:",
     "BusInPowerInput": ":=DB3.DBD184:",
     "BusInPowerDrain": ":=DB3.DBD188:",
-    "BusOutCurrent": ":=DB3.DBD184:",
+    "BusOutCurrent": ":=DB3.DBD232:",
     "BusOutPowerInput": ":=DB3.DBD192:",
     "BusOutPowerDrain": ":=DB3.DBD196:",
-    "CapVoltage": ":=DB3.DBD244",
-    "CapCurrent": ":=DB3.DBD248",
+    "CapVoltage": ":=DB3.DBD244:",
+    "CapCurrent": ":=DB3.DBD248:",
     "CapPowerInput": ":=DB3.DBD200:",
     "CapPowerDrain": ":=DB3.DBD204:"
 }

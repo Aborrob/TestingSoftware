@@ -19,31 +19,31 @@ $(document).ready(function () {
         }, 500);
     }
     startTime();
-    function HexToReal(number){ // 32 Bit - single prescision -- just for normalized numbers
-		var sign		= (number & 0x80000000);		// sign: 0=positive
-		var exponent	= (number & 0x7F800000) >> 23;	// exponent
-		var mantissa	= (number & 0x007FFFFF);		// mantissa
+    function HexToReal(number) { // 32 Bit - single prescision -- just for normalized numbers
+        var sign = (number & 0x80000000);		// sign: 0=positive
+        var exponent = (number & 0x7F800000) >> 23;	// exponent
+        var mantissa = (number & 0x007FFFFF);		// mantissa
 
-		if(exponent == 0x0000){									// special: zero
-			if(mantissa != 0)									// positive denormalized
-				return Number.NaN;
-			else												// normalized numbers
-				return sign ? -0.0 : +0.0;
-		}
-		else if(exponent == 0x00FF){							// 255 - special: ±INF or NaN
-			if(mantissa != 0){									// is mantissa non-zero? indicates NaN
-				return Number.NaN;
-			}
-			else{												// otherwise it's ±INF
-				return sign ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
-			}
-		}
-		mantissa |= 0x00800000;
+        if (exponent == 0x0000) {									// special: zero
+            if (mantissa != 0)									// positive denormalized
+                return Number.NaN;
+            else												// normalized numbers
+                return sign ? -0.0 : +0.0;
+        }
+        else if (exponent == 0x00FF) {							// 255 - special: ±INF or NaN
+            if (mantissa != 0) {									// is mantissa non-zero? indicates NaN
+                return Number.NaN;
+            }
+            else {												// otherwise it's ±INF
+                return sign ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
+            }
+        }
+        mantissa |= 0x00800000;
 
-		exponent -= 127;										// adjust by BIAS
-		var float_val = mantissa * Math.pow(2, exponent-23);			// compute absolute result
-		return sign ? -float_val : +float_val;					// and return positive or negative depending on sign
-	}
+        exponent -= 127;										// adjust by BIAS
+        var float_val = mantissa * Math.pow(2, exponent - 23);			// compute absolute result
+        return sign ? -float_val : +float_val;					// and return positive or negative depending on sign
+    }
     var v12_button = document.getElementById("v12");
     var PlotControlButtons = document.querySelector(".PlotControlButton");
     var ccObject = {
@@ -72,14 +72,25 @@ $(document).ready(function () {
     var requestIdentifier = "1";
     var plotText = "Bus In Current";
     var ccObjectIndex = 'BusInCurrent';
-    var smoothie1 = new SmoothieChart({ responsive: true, minValue: 0, title: { text: 'Bus Voltage', fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' } });
+
+    var smoothie1 = new SmoothieChart({
+        showIntermediateLabels: true, minValueScale: 1, maxValueScale: 1, 
+        tooltip: true, responsive: true, minValue: 0,
+        title: { text: 'Bus Voltage', fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' }
+    });
+
     smoothie1.streamTo(document.getElementById("mycanvas1"));
     var line1 = new TimeSeries();
-    smoothie1.addTimeSeries(line1, { strokeStyle: 'rgb(0, 255, 0)', fillStyle: 'rgba(0, 255, 0, 0.4)', lineWidth: 3 });
-    var smoothie2 = new SmoothieChart({ responsive: true, title: { text: plotText, fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' } });
+    smoothie1.addTimeSeries(line1, { strokeStyle: 'rgb(255, 255, 255)', fillStyle: 'rgba(255,255,255,0.56)', lineWidth: 3 });
+
+    var smoothie2 = new SmoothieChart({
+        minValueScale: 1, maxValueScale: 1, tooltip: true, responsive: true,
+        title: { text: plotText, fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' }
+    });
+
     smoothie2.streamTo(document.getElementById("mycanvas2"));
     var line2 = new TimeSeries();
-    smoothie2.addTimeSeries(line2, { strokeStyle: 'rgb(0, 255, 0)', fillStyle: 'rgba(0, 255, 0, 0.4)', lineWidth: 3 });
+    smoothie2.addTimeSeries(line2, { strokeStyle: 'rgb(255, 255, 255)', fillStyle: 'rgba(255,255,255,0.56)', lineWidth: 3 });
 
 
     PlotControlButtons.addEventListener("click", changeGraph, false);
@@ -95,7 +106,24 @@ $(document).ready(function () {
             });
             e.target.className = "PlotButtonActive";
             ValueToBePlotted = ccObject[e.target.id];
-            smoothie2.options.title.text = e.target.innerHTML;
+            switch (requestIdentifier) {
+                case "1":
+                case "2":
+                case "10":
+                    smoothie2.options.title.text = e.target.innerHTML + " Current (A)";
+                    break;
+                case "3":
+                case "4":
+                    smoothie2.options.title.text = e.target.innerHTML + " (J)";
+                    break;
+                case "5":
+                case "6":
+                case "7":
+                case "8":
+                    smoothie2.options.title.text = e.target.innerHTML + " (mW)";
+                    break;
+
+            }
             clearTimeout(interval);
             clearFlag = 0;
             intervalFunction();
@@ -142,7 +170,7 @@ $(document).ready(function () {
                     },
                     success: function (data) {
                         ccObject = data;
-                        
+
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
                         line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage));
@@ -164,8 +192,8 @@ $(document).ready(function () {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-                        line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage) );
-                        line2.append(new Date().getTime(), HexToReal(ccObject[ccObjectIndex]));
+                        line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage));
+                        line2.append(new Date().getTime(), -1 * HexToReal(ccObject[ccObjectIndex]));
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
@@ -222,7 +250,7 @@ $(document).ready(function () {
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
                         line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage));
-                        line2.append(new Date().getTime(), HexToReal(ccObject[ccObjectIndex]));
+                        line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
@@ -241,7 +269,7 @@ $(document).ready(function () {
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
                         line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage));
-                        line2.append(new Date().getTime(), HexToReal(ccObject[ccObjectIndex]));
+                        line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
@@ -260,7 +288,7 @@ $(document).ready(function () {
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
                         line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage));
-                        line2.append(new Date().getTime(), HexToReal(ccObject[ccObjectIndex]));
+                        line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
@@ -279,7 +307,7 @@ $(document).ready(function () {
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
                         line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage));
-                        line2.append(new Date().getTime(), HexToReal(ccObject[ccObjectIndex]));
+                        line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
@@ -297,18 +325,20 @@ $(document).ready(function () {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-                        document.querySelectorAll("#BusInTable tr")[1].children[0].innerHTML = HexToReal(ccObject.BusVoltage);
-                        document.querySelectorAll("#BusInTable tr")[1].children[1].innerHTML = HexToReal(ccObject.BusInCurrent);
-                        document.querySelectorAll("#BusInTable tr")[1].children[2].innerHTML = HexToReal(ccObject.BusInPowerInput);
-                        document.querySelectorAll("#BusInTable tr")[1].children[3].innerHTML = HexToReal(ccObject.BusInPowerDrain);
+                        document.querySelectorAll("#BusInTable tr")[1].children[0].innerHTML = HexToReal(ccObject.BusVoltage).toFixed(2);
+                        document.querySelectorAll("#BusInTable tr")[1].children[1].innerHTML = HexToReal(ccObject.BusInCurrent).toFixed(2);
+                        document.querySelectorAll("#BusInTable tr")[1].children[2].innerHTML = ccObject.BusInPowerInput;
+                        document.querySelectorAll("#BusInTable tr")[1].children[3].innerHTML = ccObject.BusInPowerDrain;
 
-                        document.querySelectorAll("#BusOutTable tr")[1].children[1].innerHTML = HexToReal(ccObject.BusOutCurrent);
-                        document.querySelectorAll("#BusOutTable tr")[1].children[2].innerHTML = HexToReal(ccObject.BusOutPowerInput);
-                        document.querySelectorAll("#BusOutTable tr")[1].children[3].innerHTML = HexToReal(ccObject.BusOutPowerDrain);
+                        document.querySelectorAll("#BusOutTable tr")[1].children[0].innerHTML = HexToReal(ccObject.BusVoltage).toFixed(2);
+                        document.querySelectorAll("#BusOutTable tr")[1].children[1].innerHTML = -1 * HexToReal(ccObject.BusOutCurrent).toFixed(2);
+                        document.querySelectorAll("#BusOutTable tr")[1].children[2].innerHTML = ccObject.BusOutPowerInput;
+                        document.querySelectorAll("#BusOutTable tr")[1].children[3].innerHTML = ccObject.BusOutPowerDrain;
 
-                        document.querySelectorAll("#CapTable tr")[1].children[1].innerHTML = HexToReal(ccObject.CapCurrent);
-                        document.querySelectorAll("#CapTable tr")[1].children[2].innerHTML = HexToReal(ccObject.CapPowerInput);
-                        document.querySelectorAll("#CapTable tr")[1].children[3].innerHTML = HexToReal(ccObject.CapPowerDrain);
+                        document.querySelectorAll("#CapTable tr")[1].children[0].innerHTML = HexToReal(ccObject.CapVoltage).toFixed(2);
+                        document.querySelectorAll("#CapTable tr")[1].children[1].innerHTML = HexToReal(ccObject.CapCurrent).toFixed(2);
+                        document.querySelectorAll("#CapTable tr")[1].children[2].innerHTML = ccObject.CapPowerInput;
+                        document.querySelectorAll("#CapTable tr")[1].children[3].innerHTML = ccObject.CapPowerDrain;
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
@@ -400,7 +430,7 @@ $(document).ready(function () {
     }
     $("#LogCreateButton").click(function (e) {
         url = "Outputs.htm";
-        name = 'DB16.DBX0.0';
+        name = 'DB16.DBX16.0';
         sdata = escape(name) + '=1';
         $.post(url, sdata, function () {
             sdata = escape(name) + '=0';
@@ -409,7 +439,7 @@ $(document).ready(function () {
     });
     $("#LogOpenButton").click(function (e) {
         url = "Outputs.htm";
-        name = 'DB16.DBX0.1';
+        name = 'DB16.DBX16.1';
         sdata = escape(name) + '=1';
         $.post(url, sdata, function () {
             sdata = escape(name) + '=0';
@@ -418,7 +448,7 @@ $(document).ready(function () {
     });
     $("#LogClearButton").click(function (e) {
         url = "Outputs.htm";
-        name = 'DB16.DBX0.2';
+        name = 'DB16.DBX16.2';
         sdata = escape(name) + '=1';
         $.post(url, sdata, function () {
             sdata = escape(name) + '=0';
@@ -427,7 +457,7 @@ $(document).ready(function () {
     });
     $("#LogDeleteButton").click(function (e) {
         url = "Outputs.htm";
-        name = 'DB16.DBX0.3';
+        name = 'DB16.DBX16.3';
         sdata = escape(name) + '=1';
         $.post(url, sdata, function () {
             sdata = escape(name) + '=0';
@@ -436,7 +466,7 @@ $(document).ready(function () {
     });
     $("#LogWriteButton").click(function (e) {
         url = "Outputs.htm";
-        name = 'DB16.DBX0.5';
+        name = 'DB16.DBX16.5';
         sdata = escape(name) + '=1';
         $.post(url, sdata, function () {
             sdata = escape(name) + '=0';
@@ -444,28 +474,28 @@ $(document).ready(function () {
     });
     $("#StartReadButton").click(function (e) {
         url = "Outputs.htm";
-        name = 'DB16.DBX0.4';
+        name = 'DB16.DBX16.4';
         val = $('input[id=ReadTrig]').val();
         sdata = escape(name) + '=' + val;
         $.post(url, sdata);
     });
     $("#DataLengthButton").click(function () {
         url = "Outputs.htm";
-        name = 'DB16.DBW2';
+        name = 'DB16.DBW18';
         val = $('input[id=DataLength]').val();
         sdata = escape(name) + '=' + val;
         $.post(url, sdata);
     });
     $("#AddressButton").click(function () {
         url = "Outputs.htm";
-        name = 'DB16.DBD4';
+        name = 'DB16.DBD20';
         val = $('input[id=StartAddress]').val();
         sdata = escape(name) + '=' + val;
         $.post(url, sdata);
     });
     $("#DTButton").click(function () {
         url = "Outputs.htm";
-        name = 'DB16.DBD8';
+        name = 'DB16.DBD24';
         val = $('input[id=DutyCycle]').val();
         sdata = escape(name) + '=' + val;
         $.post(url, sdata);
@@ -510,4 +540,4 @@ $(document).ready(function () {
         e.target.parentElement.classList.add("hidden");
     }
 });
-// _____Don't add below this line to stay inside the onready scope!!!_________
+// _____Don't add lines below this line to stay inside the onready scope!!!_________

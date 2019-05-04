@@ -88,7 +88,7 @@ th {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.50);
 }
 
-.grid-container>div:not(.header):hover {
+.grid-container>div:not(.header):not(.PlotsMain):hover {
     background-image: none;
     background-color: rgb(184, 184, 184);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
