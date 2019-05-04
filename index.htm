@@ -72,7 +72,7 @@
                     </table>
                 </div>
                 <div style="margin-left:5%;">Units: Voltage = (V), Current = (A), Power = (mW)</div>
-                <div class="CCDataState">Active state: InActive</div>
+                <div class="CCDataState">Status: Inactive</div>
                 <div id="CCDataActivity" class="InActiveCCData"></div>
                 <button id="CCDataButton">Activate</button>
             </div>
@@ -92,9 +92,12 @@
                     <button id="StartInterval">Start Interval</button>
                     <div id="PlotActivityState" class="InActivePlot"></div>
                     <button id="plotSettings">Plot Settings</button>
-                    <span id="panSpeedText" class="hidden" style="margin-right:5%;">Set Pan Speed</span>
-                    <input id="panSpeed" class="hidden" type="text" placeholder="default = 20" style="width:20%">
-                    <button id="panSpeedButton" class="hidden">Set</button>
+                    <span id="panSpeedText" class="hidden" style="margin-right:1%;">Pan Speed:</span>
+                    <input id="panSpeed" class="hidden" type="text" placeholder="default = 20" style="width:15%">
+                    <button id="panSpeedButton" class="hidden" style="margin-right:3%">Set</button>
+                    <span id="minYText" class="hidden" style="margin-right:1%;">lower y-axis:</span>
+                    <input id="minY" class="hidden" type="text" placeholder="default = 0" style="width:15%">
+                    <button id="minYButton" class="hidden">Set</button>
                 </fieldset>
             </div>
             <div class="PlotButtons areaColor">
@@ -149,7 +152,7 @@
                             <button id="LogWriteButton" type="submit">Submit</button>
                         </fieldset>
                     </div>
-                    <div class="TagsState">Active state: InActive</div>
+                    <div class="TagsState">Status: Inactive</div>
                     <div id="TagsState" class="InActiveTags"></div>
                     <button id="TagButton">Activate</button>
                 </div>

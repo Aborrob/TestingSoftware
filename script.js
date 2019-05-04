@@ -63,7 +63,8 @@ $(document).ready(function () {
         'StartAddress': 40001,
         'DataLength': 2,
         'TestPeriod': 5,
-        'DutyCycle': 10
+        'DutyCycle': 10,
+        'WritingOutputState': 0
     };
     var interval = null;
     var clearFlag = 0;
@@ -72,7 +73,7 @@ $(document).ready(function () {
     var requestIdentifier = "1";
     var plotText = "Choose from Plot Options";
     var ccObjectIndex = 'BusInCurrent';
-
+    var writeRequestFlag = 0;
     var smoothie1 = new SmoothieChart({
         showIntermediateLabels: true, minValueScale: 1.2, maxValueScale: 1.2,
         tooltip: true, responsive: true, minValue: 0,
@@ -84,7 +85,7 @@ $(document).ready(function () {
     smoothie1.addTimeSeries(line1, { strokeStyle: 'rgb(255, 255, 255)', fillStyle: 'rgba(255,255,255,0.56)', lineWidth: 3 });
 
     var smoothie2 = new SmoothieChart({
-        minValueScale: 1.2, maxValueScale: 1.2, tooltip: true, responsive: true,
+        minValueScale: 1.2, maxValueScale: 1.2, tooltip: true, responsive: true, minValue: 0,
         title: { text: plotText, fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' }
     });
 
@@ -146,17 +147,23 @@ $(document).ready(function () {
         start_time = new Date().getTime();
         if (requestIdentifier == "9") {
             document.querySelector("#CCDataActivity").className = "ActiveCCData";
+            document.querySelector(".CCDataState").innerHTML = "Status: Active";
             document.querySelector("#TagsState").className = "InActiveTags";
+            document.querySelector(".TagsState").innerHTML = "Status: Inactive";
             document.querySelector("#PlotActivityState").className = "InActivePlot";
-
+            
         } else if (requestIdentifier == "11") {
             document.querySelector("#CCDataActivity").className = "InActiveCCData";
+            document.querySelector(".CCDataState").innerHTML = "Status: Inactive";
             document.querySelector("#TagsState").className = "ActiveTags";
+            document.querySelector(".TagsState").innerHTML = "Status: Active";
             document.querySelector("#PlotActivityState").className = "InActivePlot";
-
+            
         } else {
             document.querySelector("#CCDataActivity").className = "InActiveCCData";
+            document.querySelector(".CCDataState").innerHTML = "Status: Inactive";
             document.querySelector("#TagsState").className = "InActiveTags";
+            document.querySelector(".TagsState").innerHTML = "Status: Inactive";
             document.querySelector("#PlotActivityState").className = "ActivePlot";
         }
         switch (requestIdentifier) {
@@ -387,6 +394,10 @@ $(document).ready(function () {
                         } else {
                             document.querySelector('#ReadingCurrentValue').innerHTML = "Status: Reading is ON";
                         }
+                        if (ccObject.WritingOutputState == 0 && writeRequestFlag == 1) {
+                            $.post("Outputs.htm", 'DB16.DBX16.5=0')
+                            writeRequestFlag = 0;
+                        }
                         document.querySelector('#startAddressCurrentValue').innerHTML = "Current Value: " + ccObject.StartAddress;
                         document.querySelector('#DataLengthCurrentValue').innerHTML = "Current Value: " + ccObject.DataLength;
                         document.querySelector('#TestPeriodCurrentValue').innerHTML = "Current Value: " + ccObject.TestPeriod;
@@ -406,10 +417,13 @@ $(document).ready(function () {
         clearTimeout(interval);
         line1.clear();
         line2.clear();
-        smoothie1.options.millisPerPixel = 20;
         document.querySelector("#CCDataActivity").className = "InActiveCCData";
         document.querySelector("#TagsState").className = "InActiveTags";
         document.querySelector("#PlotActivityState").className = "InActivePlot";
+        document.querySelector(".CCDataState").innerHTML = "Status: Inactive";
+        document.querySelector(".TagsState").innerHTML = "Status: Inactive";
+
+
     }
     document.querySelector("#StartInterval").onclick = function () {
         clearFlag = 0;
@@ -417,7 +431,6 @@ $(document).ready(function () {
         line1.clear();
         line2.clear();
         intervalDuration = document.querySelector("#intervalInput").value;
-        // interval = setTimeout(intervalFunction, intervalDuration);
         document.querySelector("#PlotActivityState").className = "ActivePlot";
         interval = setTimeout(intervalFunction, intervalDuration);
     }
@@ -433,6 +446,9 @@ $(document).ready(function () {
             document.querySelector("#panSpeed").classList.remove("hidden");
             document.querySelector("#panSpeedText").classList.remove("hidden");
             document.querySelector("#panSpeedButton").classList.remove("hidden");
+            document.querySelector("#minYText").classList.remove("hidden");
+            document.querySelector("#minY").classList.remove("hidden");
+            document.querySelector("#minYButton").classList.remove("hidden");
         } else {
             document.querySelector("#plotSettings").innerHTML = "Plot Settings";
             Array.from(document.querySelector(".XHR").children).forEach(function (element) {
@@ -445,6 +461,9 @@ $(document).ready(function () {
             document.querySelector("#panSpeed").classList.add("hidden");
             document.querySelector("#panSpeedText").classList.add("hidden");
             document.querySelector("#panSpeedButton").classList.add("hidden");
+            document.querySelector("#minYText").classList.add("hidden");
+            document.querySelector("#minY").classList.add("hidden");
+            document.querySelector("#minYButton").classList.add("hidden");
         }
         document.querySelector("#panSpeedButton").onclick = function () {
             if (document.querySelector("#panSpeed").value <= 100 && document.querySelector("#panSpeed").value >= 10) {
@@ -455,6 +474,10 @@ $(document).ready(function () {
                 smoothie2.options.millisPerPixel = 20;
 
             }
+        }
+        document.querySelector("#minYButton").onclick = function () {
+            smoothie2.options.minValue = document.querySelector("#minY").value;
+
         }
 
     }
@@ -517,7 +540,7 @@ $(document).ready(function () {
         name = 'DB16.DBX16.5';
         sdata = escape(name) + '=1';
         $.post(url, sdata, function () {
-            sdata = escape(name) + '=0';
+            writeRequestFlag = 1;
         });
     });
     $("#StartReadButton").click(function (e) {

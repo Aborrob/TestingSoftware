@@ -8,5 +8,6 @@
     "StartAddress": ":=DB16.DBD20:",
     "DataLength": ":=DB16.DBW18:",
     "TestPeriod": ":=DB16.DBD28:",
-    "DutyCycle": ":=DB16.DBD24:"
+    "DutyCycle": ":=DB16.DBD24:",
+    "WritingOutputState": ":=M60.1:"
 }
