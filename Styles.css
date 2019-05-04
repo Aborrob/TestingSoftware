@@ -226,6 +226,12 @@ th {
     border: 1px rgb(0, 0, 0) solid;
 }
 
+#plotSettings {
+    float: right;
+}
+.hidden{
+    display: none;
+}
 .PlotButtons {
     grid-area: PlotButtons;
     float: left;

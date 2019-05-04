@@ -88,9 +88,13 @@
                     <legend>XHR Control</legend>
                     <div id="RequestTime">XHR not started</div>
                     <input id="intervalInput" type="text" style="width: 10%" placeholder="time in ms" value="100">
-                    <button id="ClearInterval">Stop Interval</button>
+                    <button id="ClearInterval">Clear Interval</button>
                     <button id="StartInterval">Start Interval</button>
                     <div id="PlotActivityState" class="InActivePlot"></div>
+                    <button id="plotSettings">Plot Settings</button>
+                    <span id="panSpeedText" class="hidden" style="margin-right:5%;">Set Pan Speed</span>
+                    <input id="panSpeed" class="hidden" type="text" placeholder="default = 20" style="width:20%">
+                    <button id="panSpeedButton" class="hidden">Set</button>
                 </fieldset>
             </div>
             <div class="PlotButtons areaColor">

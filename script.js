@@ -70,13 +70,13 @@ $(document).ready(function () {
     var request_time = null;
     var intervalDuration = 100;
     var requestIdentifier = "1";
-    var plotText = "Bus In Current";
+    var plotText = "Choose from Plot Options";
     var ccObjectIndex = 'BusInCurrent';
 
     var smoothie1 = new SmoothieChart({
-        showIntermediateLabels: true, minValueScale: 1, maxValueScale: 1, 
+        showIntermediateLabels: true, minValueScale: 1.2, maxValueScale: 1.2,
         tooltip: true, responsive: true, minValue: 0,
-        title: { text: 'Bus Voltage', fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' }
+        title: { text: 'Bus Voltage (V)', fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' }
     });
 
     smoothie1.streamTo(document.getElementById("mycanvas1"));
@@ -84,7 +84,7 @@ $(document).ready(function () {
     smoothie1.addTimeSeries(line1, { strokeStyle: 'rgb(255, 255, 255)', fillStyle: 'rgba(255,255,255,0.56)', lineWidth: 3 });
 
     var smoothie2 = new SmoothieChart({
-        minValueScale: 1, maxValueScale: 1, tooltip: true, responsive: true,
+        minValueScale: 1.2, maxValueScale: 1.2, tooltip: true, responsive: true,
         title: { text: plotText, fillStyle: '#ffffff', fontSize: 15, fontFamily: 'sans-serif', verticalAlign: 'top' }
     });
 
@@ -96,6 +96,8 @@ $(document).ready(function () {
     PlotControlButtons.addEventListener("click", changeGraph, false);
     function changeGraph(e) {
         if (e.target !== e.currentTarget) {
+            line1.clear();
+            line2.clear();
             clearFlag = 1;
             ccObjectIndex = e.target.id;
             requestIdentifier = e.target.value;
@@ -402,6 +404,9 @@ $(document).ready(function () {
         // clearTimeout(interval);
         clearFlag = 1; //if flag is set then next interval function call won't execute
         clearTimeout(interval);
+        line1.clear();
+        line2.clear();
+        smoothie1.options.millisPerPixel = 20;
         document.querySelector("#CCDataActivity").className = "InActiveCCData";
         document.querySelector("#TagsState").className = "InActiveTags";
         document.querySelector("#PlotActivityState").className = "InActivePlot";
@@ -409,14 +414,55 @@ $(document).ready(function () {
     document.querySelector("#StartInterval").onclick = function () {
         clearFlag = 0;
         clearTimeout(interval);
+        line1.clear();
+        line2.clear();
         intervalDuration = document.querySelector("#intervalInput").value;
         // interval = setTimeout(intervalFunction, intervalDuration);
         document.querySelector("#PlotActivityState").className = "ActivePlot";
         interval = setTimeout(intervalFunction, intervalDuration);
     }
+    document.querySelector("#plotSettings").onclick = function () {
+        if (document.querySelector("#plotSettings").innerHTML == "Plot Settings") {
+            Array.from(document.querySelector(".XHR").children).forEach(function (element) {
+                element.classList.add("hidden");
+            })
+            document.querySelector(".XHR legend").innerHTML = "Plot Settings";
+            document.querySelector(".XHR legend").classList.remove("hidden");
+            document.querySelector("#plotSettings").classList.remove("hidden");
+            document.querySelector("#plotSettings").innerHTML = "XHR settings";
+            document.querySelector("#panSpeed").classList.remove("hidden");
+            document.querySelector("#panSpeedText").classList.remove("hidden");
+            document.querySelector("#panSpeedButton").classList.remove("hidden");
+        } else {
+            document.querySelector("#plotSettings").innerHTML = "Plot Settings";
+            Array.from(document.querySelector(".XHR").children).forEach(function (element) {
+                element.classList.remove("hidden");
+            })
+            document.querySelector(".XHR legend").innerHTML = "XHR Control";
+            document.querySelector(".XHR legend").classList.remove("hidden");
+            document.querySelector("#plotSettings").classList.remove("hidden");
+            document.querySelector("#plotSettings").innerHTML = "Plot Settings";
+            document.querySelector("#panSpeed").classList.add("hidden");
+            document.querySelector("#panSpeedText").classList.add("hidden");
+            document.querySelector("#panSpeedButton").classList.add("hidden");
+        }
+        document.querySelector("#panSpeedButton").onclick = function () {
+            if (document.querySelector("#panSpeed").value <= 100 && document.querySelector("#panSpeed").value >= 10) {
+                smoothie1.options.millisPerPixel = document.querySelector("#panSpeed").value;
+                smoothie2.options.millisPerPixel = document.querySelector("#panSpeed").value;
+            } else {
+                smoothie1.options.millisPerPixel = 20;
+                smoothie2.options.millisPerPixel = 20;
+
+            }
+        }
+
+    }
     document.querySelector("#CCDataButton").onclick = function () {
         clearFlag = 0;
         clearTimeout(interval);
+        line1.clear();
+        line2.clear();
         intervalDuration = 1000;
         requestIdentifier = "9";
         interval = setTimeout(intervalFunction, intervalDuration);
@@ -424,6 +470,8 @@ $(document).ready(function () {
     document.querySelector("#TagButton").onclick = function () {
         clearFlag = 0;
         clearTimeout(interval);
+        line1.clear();
+        line2.clear();
         intervalDuration = 1000;
         requestIdentifier = "11";
         interval = setTimeout(intervalFunction, intervalDuration);
