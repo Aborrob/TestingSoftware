@@ -164,8 +164,8 @@ $(document).ready(function () {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-                        line1.append(new Date().getTime(), ccObject.BusVoltage);
-                        line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+                        line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage) );
+                        line2.append(new Date().getTime(), HexToReal(ccObject[ccObjectIndex]));
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
@@ -183,8 +183,8 @@ $(document).ready(function () {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-                        line1.append(new Date().getTime(), ccObject.BusVoltage);
-                        line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+                        line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage));
+                        line2.append(new Date().getTime(), HexToReal(ccObject[ccObjectIndex]));
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
@@ -202,8 +202,8 @@ $(document).ready(function () {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-                        line1.append(new Date().getTime(), ccObject.BusVoltage);
-                        line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+                        line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage));
+                        line2.append(new Date().getTime(), HexToReal(ccObject[ccObjectIndex]));
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
@@ -221,8 +221,8 @@ $(document).ready(function () {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-                        line1.append(new Date().getTime(), ccObject.BusVoltage);
-                        line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+                        line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage));
+                        line2.append(new Date().getTime(), HexToReal(ccObject[ccObjectIndex]));
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
@@ -240,8 +240,8 @@ $(document).ready(function () {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-                        line1.append(new Date().getTime(), ccObject.BusVoltage);
-                        line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+                        line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage));
+                        line2.append(new Date().getTime(), HexToReal(ccObject[ccObjectIndex]));
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
@@ -259,8 +259,8 @@ $(document).ready(function () {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-                        line1.append(new Date().getTime(), ccObject.BusVoltage);
-                        line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+                        line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage));
+                        line2.append(new Date().getTime(), HexToReal(ccObject[ccObjectIndex]));
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
@@ -278,8 +278,8 @@ $(document).ready(function () {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-                        line1.append(new Date().getTime(), ccObject.BusVoltage);
-                        line2.append(new Date().getTime(), ccObject[ccObjectIndex]);
+                        line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage));
+                        line2.append(new Date().getTime(), HexToReal(ccObject[ccObjectIndex]));
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
@@ -297,18 +297,18 @@ $(document).ready(function () {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-                        document.querySelectorAll("#BusInTable tr")[1].children[0].innerHTML = ccObject.BusVoltage;
-                        document.querySelectorAll("#BusInTable tr")[1].children[1].innerHTML = ccObject.BusInCurrent;
-                        document.querySelectorAll("#BusInTable tr")[1].children[2].innerHTML = ccObject.BusInPowerInput;
-                        document.querySelectorAll("#BusInTable tr")[1].children[3].innerHTML = ccObject.BusInPowerDrain;
+                        document.querySelectorAll("#BusInTable tr")[1].children[0].innerHTML = HexToReal(ccObject.BusVoltage);
+                        document.querySelectorAll("#BusInTable tr")[1].children[1].innerHTML = HexToReal(ccObject.BusInCurrent);
+                        document.querySelectorAll("#BusInTable tr")[1].children[2].innerHTML = HexToReal(ccObject.BusInPowerInput);
+                        document.querySelectorAll("#BusInTable tr")[1].children[3].innerHTML = HexToReal(ccObject.BusInPowerDrain);
 
-                        document.querySelectorAll("#BusOutTable tr")[1].children[1].innerHTML = ccObject.BusOutCurrent;
-                        document.querySelectorAll("#BusOutTable tr")[1].children[2].innerHTML = ccObject.BusOutPowerInput;
-                        document.querySelectorAll("#BusOutTable tr")[1].children[3].innerHTML = ccObject.BusOutPowerDrain;
+                        document.querySelectorAll("#BusOutTable tr")[1].children[1].innerHTML = HexToReal(ccObject.BusOutCurrent);
+                        document.querySelectorAll("#BusOutTable tr")[1].children[2].innerHTML = HexToReal(ccObject.BusOutPowerInput);
+                        document.querySelectorAll("#BusOutTable tr")[1].children[3].innerHTML = HexToReal(ccObject.BusOutPowerDrain);
 
-                        document.querySelectorAll("#CapTable tr")[1].children[1].innerHTML = ccObject.CapCurrent;
-                        document.querySelectorAll("#CapTable tr")[1].children[2].innerHTML = ccObject.CapPowerInput;
-                        document.querySelectorAll("#CapTable tr")[1].children[3].innerHTML = ccObject.CapPowerDrain;
+                        document.querySelectorAll("#CapTable tr")[1].children[1].innerHTML = HexToReal(ccObject.CapCurrent);
+                        document.querySelectorAll("#CapTable tr")[1].children[2].innerHTML = HexToReal(ccObject.CapPowerInput);
+                        document.querySelectorAll("#CapTable tr")[1].children[3].innerHTML = HexToReal(ccObject.CapPowerDrain);
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
@@ -326,8 +326,8 @@ $(document).ready(function () {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-                        line1.append(new Date().getTime(), ccObject.CapVoltage);
-                        line2.append(new Date().getTime(), ccObject.CapCurrent);
+                        line1.append(new Date().getTime(), HexToReal(ccObject.CapVoltage));
+                        line2.append(new Date().getTime(), HexToReal(ccObject.CapCurrent));
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
