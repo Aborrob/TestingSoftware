@@ -229,9 +229,11 @@ th {
 #plotSettings {
     float: right;
 }
-.hidden{
+
+.hidden {
     display: none;
 }
+
 .PlotButtons {
     grid-area: PlotButtons;
     float: left;
@@ -429,4 +431,36 @@ input::-webkit-input-placeholder {
 .submitted p {
     width: 90%;
     margin: 3% 2%;
+}
+
+/********************************************/
+
+/*	Graph Styles							*/
+
+/********************************************/
+
+#DatalogGraph {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.graph-container {
+    box-sizing: border-box;
+    width: 90%;
+    height: 70%;
+    padding: 20px 15px 15px 15px;
+    margin: 15px auto 15px auto;
+    border: 1px solid #ddd;
+    background: #fff;
+    background: linear-gradient(#f6f6f6 0, #fff 50px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+#graph-placeholder {
+    width: 100%;
+    height: 100%;
+    line-height: 1.2em;
+    background: #fff;
 }
