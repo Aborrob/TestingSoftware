@@ -29,6 +29,15 @@ h1 {
     font-size: 2vw;
 }
 
+button {
+    transition: background-color 150ms linear;
+}
+
+button:hover {
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+
 table, th, td {
     border: 1px black solid;
     border-collapse: collapse;
@@ -267,9 +276,20 @@ th {
     grid-area: PLCControls;
 }
 
+.PLCControls fieldset {
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
 .PLCControls h1 {
     grid-area: header;
     margin-bottom: 2%;
+}
+
+.PLCControls h2 {
+    /* text-align: center; */
+    margin-left: 5%;
+    font-size: 1.2vw;
 }
 
 .PLCControls input {
@@ -278,6 +298,19 @@ th {
 
 .PLCControls1 {
     grid-area: PLCControls1;
+}
+
+.PLCControls1 fieldset, .PLCControls2 fieldset {
+    width: 90%;
+    margin: auto;
+}
+
+.PLCControls1 button {
+    width: 20%;
+}
+
+.PLCControls label {
+    margin-left: 5%;
 }
 
 .PLCControls2 {
@@ -463,4 +496,14 @@ input::-webkit-input-placeholder {
     height: 100%;
     line-height: 1.2em;
     background: #fff;
+}
+
+#updData {
+    width: 60%;
+    transition: background-color 150ms linear;
+}
+
+#updData:hover {
+    background-color: rgb(0, 0, 0);
+    color: white;
 }

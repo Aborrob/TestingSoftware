@@ -66,6 +66,7 @@ $(document).ready(function () {
         'DutyCycle': 10,
         'WritingOutputState': 0
     };
+    var plcType = "1200";
     var interval = null;
     var clearFlag = 0;
     var request_time = null;
@@ -384,11 +385,11 @@ $(document).ready(function () {
                         ccObject = data;
                         request_time = new Date().getTime() - start_time;
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
-                        document.querySelector('#CreateCurrentValue').innerHTML = "Current Value: " + ccObject.CreateLog;
-                        document.querySelector('#OpenCurrentValue').innerHTML = "Current Value: " + ccObject.OpenLog;
-                        document.querySelector('#ClearCurrentValue').innerHTML = "Current Value: " + ccObject.ClearLog;
-                        document.querySelector('#DeleteCurrentValue').innerHTML = "Current Value: " + ccObject.DeleteLog;
-                        document.querySelector('#WritingCommandCurrentValue').innerHTML = "Current Value: " + ccObject.StartWriteLog;
+                        document.querySelector('#CreateCurrentValue').innerHTML = "Value= " + ccObject.CreateLog;
+                        document.querySelector('#OpenCurrentValue').innerHTML = "Value= " + ccObject.OpenLog;
+                        document.querySelector('#ClearCurrentValue').innerHTML = "Value= " + ccObject.ClearLog;
+                        document.querySelector('#DeleteCurrentValue').innerHTML = "Value= " + ccObject.DeleteLog;
+                        document.querySelector('#WritingCommandCurrentValue').innerHTML = "Value= " + ccObject.StartWriteLog;
                         if (ccObject.ReadTrig == 0) {
                             document.querySelector('#ReadingCurrentValue').innerHTML = "Status: Reading is OFF";
                         } else {
@@ -398,10 +399,10 @@ $(document).ready(function () {
                             $.post("Outputs.htm", 'DB16.DBX16.5=0')
                             writeRequestFlag = 0;
                         }
-                        document.querySelector('#startAddressCurrentValue').innerHTML = "Current Value: " + ccObject.StartAddress;
-                        document.querySelector('#DataLengthCurrentValue').innerHTML = "Current Value: " + ccObject.DataLength;
-                        document.querySelector('#TestPeriodCurrentValue').innerHTML = "Current Value: " + ccObject.TestPeriod;
-                        document.querySelector('#DutyCycleCurrentValue').innerHTML = "Current Value: " + ccObject.DutyCycle;
+                        document.querySelector('#startAddressCurrentValue').innerHTML = "Value= " + ccObject.StartAddress;
+                        document.querySelector('#DataLengthCurrentValue').innerHTML = "Value= " + ccObject.DataLength;
+                        document.querySelector('#TestPeriodCurrentValue').innerHTML = "Value= " + ccObject.TestPeriod;
+                        document.querySelector('#DutyCycleCurrentValue').innerHTML = "Value= " + ccObject.DutyCycle;
                         if (clearFlag == 0) {
                             intervalFunction();
                         }
@@ -430,7 +431,7 @@ $(document).ready(function () {
         clearTimeout(interval);
         line1.clear();
         line2.clear();
-        intervalDuration = document.querySelector("#intervalInput").value;
+        intervalDuration = 10;
         document.querySelector("#PlotActivityState").className = "ActivePlot";
         interval = setTimeout(intervalFunction, intervalDuration);
     }
@@ -543,13 +544,15 @@ $(document).ready(function () {
             writeRequestFlag = 1;
         });
     });
-    $("#StartReadButton").click(function (e) {
-        url = "Outputs.htm";
-        name = 'DB16.DBX16.4';
-        val = $('input[id=ReadTrig]').val();
-        sdata = escape(name) + '=' + val;
-        $.post(url, sdata);
-    });
+
+    //Read input field is removed from the html page, only reading stutus is shown isntead
+    // $("#StartReadButton").click(function (e) {
+    //     url = "Outputs.htm";
+    //     name = 'DB16.DBX16.4';
+    //     val = $('input[id=ReadTrig]').val();
+    //     sdata = escape(name) + '=' + val;
+    //     $.post(url, sdata);
+    // });
     $("#DataLengthButton").click(function () {
         url = "Outputs.htm";
         name = 'DB16.DBW18';
@@ -612,9 +615,6 @@ $(document).ready(function () {
     }
 
     // Datalog Graph__________________________________
-    var plcType;
-    plcType = "1200";
-    $.init();
     $.init = function () {
         S7Framework.initialize(plcType, "");
         S7Framework.readDataLog("logging", "Read Datalog failed", decodeCSV); //read the dataLog with the name SinusUndCosinus and give the data to the function decodeCSV
@@ -762,5 +762,6 @@ $(document).ready(function () {
             }
         );
     }
+    $.init();
 });
 // _____Don't add lines below this line to stay inside the onready scope!!!_________

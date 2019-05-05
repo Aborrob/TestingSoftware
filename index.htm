@@ -88,7 +88,7 @@
                 <fieldset class="XHR">
                     <legend>XHR Control</legend>
                     <div id="RequestTime">XHR not started</div>
-                    <input id="intervalInput" type="text" style="width: 10%" placeholder="time in ms" value="100">
+                    <!-- <input id="intervalInput" type="text" style="width: 10%" placeholder="time in ms" value="100"> -->
                     <button id="ClearInterval">Clear Interval</button>
                     <button id="StartInterval">Start Interval</button>
                     <div id="PlotActivityState" class="InActivePlot"></div>
@@ -118,39 +118,40 @@
             <div class="PLCControls areaColor">
                 <h1>PLC Tag Values</h1>
                 <div class="PLCControls1">
+                    <h2>Datalog Controls</h2>
                     <div>
                         <fieldset>
                             <legend>Create Record</legend>
-                            <label id="CreateCurrentValue">Current Value: </label><br>
-                            <button id="LogCreateButton" type="submit" value="0">Submit</button>
+                            <button id="LogCreateButton" type="submit" value="0">Create</button>
+                            <label id="CreateCurrentValue">Value= </label><br>
                         </fieldset>
                     </div>
                     <div>
                         <fieldset>
                             <legend>Open Record</legend>
-                            <label id="OpenCurrentValue">Current Value: </label><br>
-                            <button id="LogOpenButton" type="submit">Submit</button>
+                            <button id="LogOpenButton" type="submit">Open</button>
+                            <label id="OpenCurrentValue">Value= </label><br>
                         </fieldset>
                     </div>
                     <div>
                         <fieldset>
                             <legend>Clear Record</legend>
-                            <label id="ClearCurrentValue">Current Value: </label><br>
-                            <button id="LogClearButton" type="submit">Submit</button>
+                            <button id="LogClearButton" type="submit">Clear</button>
+                            <label id="ClearCurrentValue">Value= </label><br>
                         </fieldset>
                     </div>
                     <div>
                         <fieldset>
                             <legend>Delete Record</legend>
-                            <label id="DeleteCurrentValue">Current Value: </label><br>
-                            <button id="LogDeleteButton" type="submit" value="0">Submit</button>
+                            <button id="LogDeleteButton" type="submit" value="0">Delete</button>
+                            <label id="DeleteCurrentValue">Value= </label><br>
                         </fieldset>
                     </div>
                     <div>
                         <fieldset>
                             <legend>Start Writing command</legend>
-                            <label id="WritingCommandCurrentValue">Current Value: </label><br>
-                            <button id="LogWriteButton" type="submit">Submit</button>
+                            <button id="LogWriteButton" type="submit">Write</button>
+                            <label id="WritingCommandCurrentValue">Value= </label><br>
                         </fieldset>
                     </div>
                     <div class="TagsState">Status: Inactive</div>
@@ -158,43 +159,44 @@
                     <button id="TagButton">Activate</button>
                 </div>
                 <div class="PLCControls2">
+                    <h2>Address and Time Controls</h2>
                     <div>
                         <fieldset>
-                            <legend>Start Reading</legend>
+                            <legend>Reading Status</legend>
+                            <!-- <button id="StartReadButton" type="submit" value=0>Start Reading</button> -->
                             <label id="ReadingCurrentValue">Status: </label><br>
-                            <button id="StartReadButton" type="submit" value=0>Start Reading</button>
                         </fieldset>
                     </div>
                     <div>
                         <fieldset>
                             <legend>Starting Address</legend>
-                            <label id="startAddressCurrentValue">Current Value: </label><br>
-                            <input id="StartAddress" name='DB16.DBD4' type="text" />
+                            <input id="StartAddress" name='DB16.DBD4' type="text" placeholder="40001"/>
                             <button id="AddressButton" type="submit">Submit</button>
+                            <label id="startAddressCurrentValue">Value= </label><br>
                         </fieldset>
                     </div>
                     <div>
                         <fieldset>
                             <legend>Data Length</legend>
-                            <label id="DataLengthCurrentValue">Current Value: </label><br>
-                            <input id="DataLength" name='DB16.DBW2' type="text" />
+                            <input id="DataLength" name='DB16.DBW2' type="text" placeholder="68"/>
                             <button id="DataLengthButton" type="submit">Submit</button>
+                            <label id="DataLengthCurrentValue">Value= </label><br>
                         </fieldset>
                     </div>
                     <div>
                         <fieldset>
                             <legend>Reading Duty cycle period (DT ON)</legend>
-                            <label id="DutyCycleCurrentValue">Current Value: </label><br>
-                            <input id="DutyCycle" name='DB16.DBD8' type="text" placeholder="T#20ms for example" />
+                            <input id="DutyCycle" name='DB16.DBD8' type="text" placeholder="10" />
                             <button id="DTButton" type="submit">Submit</button>
+                            <label id="DutyCycleCurrentValue">Value= </label><br>
                         </fieldset>
                     </div>
                     <div>
                         <fieldset>
                             <legend>Test Period</legend>
-                            <label id="TestPeriodCurrentValue">Current Value: </label><br>
-                            <input id="TestPeriod" name='DB16.DBD12' type="text" placeholder="T#5s for example" />
+                            <input id="TestPeriod" name='DB16.DBD12' type="text" placeholder="5000" />
                             <button id="TestPeriodButton" type="submit">Submit</button>
+                            <label id="TestPeriodCurrentValue">Value= </label><br>
                         </fieldset>
                     </div>
                 </div>
@@ -212,7 +214,7 @@
                 </div>
                 <div class="TestInfo">
                     <div id="DatalogGraph" class="">
-                        <h1><span>Graph - data of the datalog file</span></h1>
+                        <h1><span>Graph - data taken from datalog file</span></h1>
                         <div class="graph-container">
                             <div id="graph-placeholder"></div>
                         </div>
