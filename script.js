@@ -100,6 +100,8 @@ $(document).ready(function () {
         if (e.target !== e.currentTarget) {
             line1.clear();
             line2.clear();
+            smoothie1.start();
+            smoothie2.start();
             clearFlag = 1;
             ccObjectIndex = e.target.id;
             requestIdentifier = e.target.value;
@@ -418,6 +420,8 @@ $(document).ready(function () {
         clearTimeout(interval);
         line1.clear();
         line2.clear();
+        smoothie1.stop();
+        smoothie2.stop();
         document.querySelector("#CCDataActivity").className = "InActiveCCData";
         document.querySelector("#TagsState").className = "InActiveTags";
         document.querySelector("#PlotActivityState").className = "InActivePlot";
@@ -431,6 +435,8 @@ $(document).ready(function () {
         clearTimeout(interval);
         line1.clear();
         line2.clear();
+        smoothie1.start()
+        smoothie2.start();
         intervalDuration = 10;
         document.querySelector("#PlotActivityState").className = "ActivePlot";
         interval = setTimeout(intervalFunction, intervalDuration);
@@ -487,6 +493,8 @@ $(document).ready(function () {
         clearTimeout(interval);
         line1.clear();
         line2.clear();
+        smoothie1.stop();
+        smoothie2.stop();
         intervalDuration = 1000;
         requestIdentifier = "9";
         interval = setTimeout(intervalFunction, intervalDuration);
@@ -496,6 +504,8 @@ $(document).ready(function () {
         clearTimeout(interval);
         line1.clear();
         line2.clear();
+        smoothie1.stop();
+        smoothie2.stop();
         intervalDuration = 1000;
         requestIdentifier = "11";
         interval = setTimeout(intervalFunction, intervalDuration);
