@@ -172,7 +172,7 @@ $(document).ready(function () {
         switch (requestIdentifier) {
             case "1"://bus in current and voltage
                 $.ajax({
-                    url: "Data1.json",
+                    url: "json/Data1.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
@@ -195,7 +195,7 @@ $(document).ready(function () {
                 break;
             case "2"://bus out current and voltage
                 $.ajax({
-                    url: "Data2.json",
+                    url: "json/Data2.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
@@ -214,7 +214,7 @@ $(document).ready(function () {
                 break;
             case "3"://energy in generted and bus voltage
                 $.ajax({
-                    url: "Data3.json",
+                    url: "json/Data3.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
@@ -233,7 +233,7 @@ $(document).ready(function () {
                 break;
             case "4"://Energy out generated and bus voltage
                 $.ajax({
-                    url: "Data4.json",
+                    url: "json/Data4.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
@@ -252,7 +252,7 @@ $(document).ready(function () {
                 break;
             case "5"://bus in power input and bus voltage
                 $.ajax({
-                    url: "Data5.json",
+                    url: "json/Data5.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
@@ -271,7 +271,7 @@ $(document).ready(function () {
                 break;
             case "6"://bus out power input and bus voltage
                 $.ajax({
-                    url: "Data6.json",
+                    url: "json/Data6.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
@@ -290,7 +290,7 @@ $(document).ready(function () {
                 break;
             case "7"://bus in power drain and bus voltage
                 $.ajax({
-                    url: "Data7.json",
+                    url: "json/Data7.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
@@ -309,7 +309,7 @@ $(document).ready(function () {
                 break;
             case "8"://bus out power drain and bus voltage
                 $.ajax({
-                    url: "Data8.json",
+                    url: "json/Data8.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
@@ -328,7 +328,7 @@ $(document).ready(function () {
                 break;
             case "9"://all data for the tables section
                 $.ajax({
-                    url: "CCData.json",
+                    url: "json/CCData.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
@@ -359,7 +359,7 @@ $(document).ready(function () {
                 break;
             case "10"://cap current and cap voltage
                 $.ajax({
-                    url: "CAP.json",
+                    url: "json/CAP.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
@@ -378,7 +378,7 @@ $(document).ready(function () {
                 break;
             case "11"://plc triggers section values
                 $.ajax({
-                    url: "PLCControl.json",
+                    url: "json/PLCControl.json",
                     dataType: 'json',
                     type: "get",
                     cache: false,
@@ -511,7 +511,7 @@ $(document).ready(function () {
         interval = setTimeout(intervalFunction, intervalDuration);
     }
     $("#LogCreateButton").click(function (e) {
-        url = "Outputs.htm";
+        url = "htm/Outputs.htm";
         name = 'DB16.DBX16.0';
         sdata = escape(name) + '=1';
         $.post(url, sdata, function () {
@@ -520,7 +520,7 @@ $(document).ready(function () {
         });
     });
     $("#LogOpenButton").click(function (e) {
-        url = "Outputs.htm";
+        url = "htm/Outputs.htm";
         name = 'DB16.DBX16.1';
         sdata = escape(name) + '=1';
         $.post(url, sdata, function () {
@@ -529,7 +529,7 @@ $(document).ready(function () {
         });
     });
     $("#LogClearButton").click(function (e) {
-        url = "Outputs.htm";
+        url = "htm/Outputs.htm";
         name = 'DB16.DBX16.2';
         sdata = escape(name) + '=1';
         $.post(url, sdata, function () {
@@ -538,7 +538,7 @@ $(document).ready(function () {
         });
     });
     $("#LogDeleteButton").click(function (e) {
-        url = "Outputs.htm";
+        url = "htm/Outputs.htm";
         name = 'DB16.DBX16.3';
         sdata = escape(name) + '=1';
         $.post(url, sdata, function () {
@@ -547,7 +547,7 @@ $(document).ready(function () {
         });
     });
     $("#LogWriteButton").click(function (e) {
-        url = "Outputs.htm";
+        url = "htm/Outputs.htm";
         name = 'DB16.DBX16.5';
         sdata = escape(name) + '=1';
         $.post(url, sdata, function () {
@@ -564,28 +564,28 @@ $(document).ready(function () {
     //     $.post(url, sdata);
     // });
     $("#DataLengthButton").click(function () {
-        url = "Outputs.htm";
+        url = "htm/Outputs.htm";
         name = 'DB16.DBW18';
         val = $('input[id=DataLength]').val();
         sdata = escape(name) + '=' + val;
         $.post(url, sdata);
     });
     $("#AddressButton").click(function () {
-        url = "Outputs.htm";
+        url = "htm/Outputs.htm";
         name = 'DB16.DBD20';
         val = $('input[id=StartAddress]').val();
         sdata = escape(name) + '=' + val;
         $.post(url, sdata);
     });
     $("#DTButton").click(function () {
-        url = "Outputs.htm";
+        url = "htm/Outputs.htm";
         name = 'DB16.DBD24';
         val = $('input[id=DutyCycle]').val();
         sdata = escape(name) + '=' + val;
         $.post(url, sdata);
     });
     $("#TestPeriodButton").click(function () {
-        url = "Outputs.htm";
+        url = "htm/Outputs.htm";
         name = 'DB16.DBD12';
         val = $('input[id=TestPeriod]').val();
         sdata = escape(name) + '=' + val;
@@ -643,7 +643,7 @@ $(document).ready(function () {
             } else if (res == "avada kedavra") {
                 cursed();
             }else if (res == "expecto patronum"){
-                heal();\
+                heal();
             }
         });
 
