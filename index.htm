@@ -4,22 +4,23 @@
 <head>
     <meta charset="utf-8">
     <title>Pavegen Control</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="Styles.css" />
-    <script src="smoothie.js"></script>
-    <script src="jquery-3.4.0.min.js"></script>
-    <script type="text/javascript" src="jquery.flot.min.js"></script>
-    <script type="text/javascript" src="jquery.flot.time.min.js"></script>
-    <script type="text/javascript" src="S7_framework.js"></script>
-    <script src="script.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/CSS/Styles.css" />
+    <script src="scripts/smoothie.js"></script>
+    <script src="scripts/jquery-3.4.0.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.flot.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.flot.time.min.js"></script>
+    <script type="text/javascript" src="scripts/S7_framework.js"></script>
+    <script type="text/javascript" src="scripts/mgGlitch.min.js"></script>
+    <script type="text/javascript" src="scripts/script.js"></script>
 </head>
 
 <body>
     <div class="wrapper">
         <div class="header">
-            <img src="logo.png">
+            <img src="assets/img/logo.png">
             <div id="time"></div>
         </div>
-        <div class="grid-container" style="width:98%; margin: auto">
+        <div class="grid-container" style="width:98%; margin: auto;">
 
             <div class="CCData areaColor">
                 <h1 style="margin-bottom:10%">Charge Controller Data</h1>
@@ -170,7 +171,7 @@
                     <div>
                         <fieldset>
                             <legend>Starting Address</legend>
-                            <input id="StartAddress" name='DB16.DBD4' type="text" placeholder="40001"/>
+                            <input id="StartAddress" name='DB16.DBD4' type="text" placeholder="40001" />
                             <button id="AddressButton" type="submit">Submit</button>
                             <label id="startAddressCurrentValue">Value= </label><br>
                         </fieldset>
@@ -178,7 +179,7 @@
                     <div>
                         <fieldset>
                             <legend>Data Length</legend>
-                            <input id="DataLength" name='DB16.DBW2' type="text" placeholder="68"/>
+                            <input id="DataLength" name='DB16.DBW2' type="text" placeholder="68" />
                             <button id="DataLengthButton" type="submit">Submit</button>
                             <label id="DataLengthCurrentValue">Value= </label><br>
                         </fieldset>
