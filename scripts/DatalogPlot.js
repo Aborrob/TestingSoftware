@@ -3,9 +3,8 @@ $(document).ready(function () {
 	var chosenChart = 1;
 	S7Framework.initialize(plcType, "");
 	$("#updData").click(function () {
-		console.log("Chart index selected \n\n" + chosenChart);
 		chosenChart = document.querySelector("#chartIndex").value;
-
+		console.log("Chart index selected \n\n" + chosenChart);
 		S7Framework.readDataLog("logging", "Read Datalog Failed", decodeCSV);//read the dataLog with the name logging and give the data to the function decodeCSV
 	});
 
