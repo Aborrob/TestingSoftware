@@ -1,51 +1,5 @@
 "use strict"; // Defines that JavaScript code should be executed in "strict mode".
-// SIMATIC S7 PLC Controller Framework - using jQuery Framework
 
-// changeLog
-// V0.1.__ - 2017-____
-// insert Option in AJAX Call for DataLoagf read functionality --> CACHE:False
-
-// V0.1.12 - 2017-01-16
-// change behaviour of read and write functions
-// combine them into one general function and call them from each other
-// change behaviour of "readDataLog" --> move "history.replaceState" out of "allways" event to the end of the function call!
-
-// V0.1.11 - 2016-11-07
-// add String.prototype.includes, ass IE dont'support it as standard functionality
-
-// V0.1.10 - 2016-10-19
-// add FileBrowser functionality,
-// adjustments for FW 1.8.4 --> 2.0.1 and FW 4.1.3 --> 4.2.0
-
-// V0.1.9 - 2016-10-12
-// READ and WRITE - remove bug with unknown variable DATA in case of post fails...
-
-// V0.1.8 - 2016-03-14
-// var initializedRetVal insert to store init status
-
-// V0.1.7 - 2015-11-16
-// loginCheck() --> eingefügt
-// AJAX Start / STOP Event eingefügt
-// showHideIndicator() --> eingefügt, verhindert anzeige des Ladindikators
-// change function Names to camelCasing
-
-// V0.1.6 - 2015-11-12
-// String.prototype.trim --> eingefügt
-
-// V0.1.5 - 2015-11-03
-// menuHighlight() --> eingefügt
-// readDataLog() --> eingefügt
-
-// V0.1.4 - 2015-09-16
-// Change ALERT Windows to --> console.ERROR()
-
-// V0.1.3 - 2015-09-11
-// insert INIT Function
-// Insert AJAX request Storage
-// Insert AJAX Abort function
-
-// V0.1.2 - Date: 2015-09-04
-// Change conversation for LREAL --> add Fct HexToLongFloat
 
 var S7Framework = (function($, undefined){
 	// type of variable - 0=Bool, 1=unsigned INT, 2=signed INT, 3=real, 4=LReal, 5=String 

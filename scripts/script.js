@@ -66,7 +66,7 @@ $(document).ready(function () {
         'DutyCycle': 10,
         'WritingOutputState': 0
     };
-    var plcType = "1200";
+
     var interval = null;
     var clearFlag = 0;
     var request_time = null;
@@ -399,7 +399,7 @@ $(document).ready(function () {
                             document.querySelector('#ReadingCurrentValue').innerHTML = "Status: Reading is ON";
                         }
                         if (ccObject.WritingOutputState == 0 && writeRequestFlag == 1) {
-                            $.post("Outputs.htm", 'DB16.DBX16.5=0')
+                            $.post("htm/Outputs.htm", 'DB16.DBX16.5=0')
                             writeRequestFlag = 0;
                         }
                         document.querySelector('#startAddressCurrentValue').innerHTML = "Value= " + ccObject.StartAddress;
