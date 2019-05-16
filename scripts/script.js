@@ -66,7 +66,11 @@ $(document).ready(function () {
         'DutyCycle': 10,
         'WritingOutputState': 0
     };
-
+    var TestInfo = {
+        title: "",
+        SerialNmber: "",
+        Description: ""
+    }
     var interval = null;
     var clearFlag = 0;
     var request_time = null;
@@ -585,27 +589,48 @@ $(document).ready(function () {
     });
     document.querySelector(".Tabs").onclick = function (e) {
         if (e.target.classList.contains("Tab1")) {
+            document.querySelector(".MiscButtonsMain").style.display = "grid";
             document.querySelector(".MiscButtons").classList.remove("hidden");
+            document.querySelector(".GenericButtons").classList.remove("hidden");
+            document.querySelector(".CylinderButtons").classList.remove("hidden");
             document.querySelector(".TestInfo").classList.add("hidden");
             document.querySelector("#DatalogGraph").classList.add("hidden");
 
         }
         if (e.target.classList.contains("Tab2")) {
             document.querySelector(".MiscButtons").classList.add("hidden");
+            document.querySelector(".MiscButtonsMain").style.display = "initial";
+            document.querySelector(".GenericButtons").classList.add("hidden");
+            document.querySelector(".CylinderButtons").classList.add("hidden");
             document.querySelector(".TestInfo").classList.add("hidden");
             document.querySelector("#DatalogGraph").classList.remove("hidden");
         }
         if (e.target.classList.contains("Tab3")) {
             document.querySelector(".MiscButtons").classList.add("hidden");
+            document.querySelector(".MiscButtonsMain").style.display = "initial";
+            document.querySelector(".GenericButtons").classList.add("hidden");
+            document.querySelector(".CylinderButtons").classList.add("hidden");
             document.querySelector(".TestInfo").classList.remove("hidden");
             document.querySelector("#DatalogGraph").classList.add("hidden");
         }
     }
-    var TestInfo = {
-        title: "",
-        SerialNmber: "",
-        Description: ""
+
+    // Cylinder Control________________
+    document.querySelector(".CylinderButtons").onclick = function (e) {
+        if (e.target.id == "StopCylinder") {
+            console.log("CylinderStoppp");
+        } else if (e.target.id == "StartCylinder") {
+            console.log("StartCylinder");
+
+        } else if (e.target.id == "OpenCylinder") {
+            console.log("OpenCylinder");
+
+        } else if (e.target.id == "CloseCylinder") {
+            console.log("CloseCylinder");
+
+        }
     }
+
     document.querySelector(".TestInfo button").onclick = function (e) {
         TestInfo.title = e.target.parentElement.children[2].value;
         TestInfo.SerialNmber = e.target.parentElement.children[4].value;
