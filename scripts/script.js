@@ -587,11 +587,18 @@ $(document).ready(function () {
         if (e.target.classList.contains("Tab1")) {
             document.querySelector(".MiscButtons").classList.remove("hidden");
             document.querySelector(".TestInfo").classList.add("hidden");
+            document.querySelector("#DatalogGraph").classList.add("hidden");
 
         }
         if (e.target.classList.contains("Tab2")) {
             document.querySelector(".MiscButtons").classList.add("hidden");
+            document.querySelector(".TestInfo").classList.add("hidden");
+            document.querySelector("#DatalogGraph").classList.remove("hidden");
+        }
+        if (e.target.classList.contains("Tab3")) {
+            document.querySelector(".MiscButtons").classList.add("hidden");
             document.querySelector(".TestInfo").classList.remove("hidden");
+            document.querySelector("#DatalogGraph").classList.add("hidden");
         }
     }
     var TestInfo = {

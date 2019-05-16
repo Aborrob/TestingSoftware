@@ -207,7 +207,8 @@
             <div class="MiscButtonsMain areaColor" style="height:auto">
                 <div class="Tabs">
                     <div class="Tab1 areaColor">Controls</div>
-                    <div class="Tab2 areaColor">Test Info</div>
+                    <div class="Tab2 areaColor">Historical Graph</div>
+                    <div class="Tab3 areaColor">Test Info</div>
                 </div>
                 <div class="MiscButtons hidden">
                     <a id="v12" class="v12-off button">V12 OFF</a>
@@ -216,35 +217,7 @@
                         File</a>
                 </div>
                 <div class="TestInfo">
-                    <div id="DatalogGraph" class="">
-                        <h1><span>Graph - data taken from datalog file</span></h1>
-                        <div class="graph-container">
-                            <div id="graph-placeholder"></div>
-                        </div>
-                        <select id="chartIndex" style="width: 20%;">
-                            <option value="0">TimeStamp</option>
-                            <option value="1">Bus Voltage</option>
-                            <option value="2" selected>Bus In Current</option>
-                            <option value="3">Bus Out Current</option>
-                            <option value="4">CAP Voltage</option>
-                            <option value="5">CAP Current</option>
-                            <option value="6">Bus In Power Input</option>
-                            <option value="7">Bus Out Power Input</option>
-                            <option value="8">Bus In Power Drain</option>
-                            <option value="9">Bus Out Power Drain</option>
-                            <option value="10">CAP Power Input</option>
-                            <option value="11">CAP Power Drain</option>
-                            <option value="12">Bus In Energy Generated</option>
-                            <option value="13">Bus In Energy Balance</option>
-                            <option value="14">Bus Out Energy Generated</option>
-                            <option value="15">Bus Out Energy Balance</option>
-                            <option value="16">CAP Energy Generated</option>
-                            <option value="17">CAP Energy Balance</option>
-                          </select>
-                        <!-- <input id="chartIndex" type="text" style="width: 20%;" placeholder="Chart Index"> -->
-                        <input value="Load new data" type="button" id="updData" style="width: 20%;" />
-                    </div>
-                    <fieldset class="hidden">
+                    <fieldset>
                         <legend>Test Information</legend>
                         <label>Title: </label>
                         <input type="text" name="TestTitle">
@@ -264,6 +237,34 @@
                         <p id="testDescription" style="color:rgba(0, 0, 0, 0.5)"></p>
                         <br><button>Edit Information</button>
                     </div>
+                </div>
+                <div id="DatalogGraph" class="hidden">
+                    <h1><span>Graph - data taken from datalog file</span></h1>
+                    <div class="graph-container">
+                        <div id="graph-placeholder"></div>
+                    </div>
+                    <select id="chartIndex" style="width: 20%;">
+                        <option value="0">TimeStamp</option>
+                        <option value="1">Bus Voltage</option>
+                        <option value="2" selected>Bus In Current</option>
+                        <option value="3">Bus Out Current</option>
+                        <option value="4">CAP Voltage</option>
+                        <option value="5">CAP Current</option>
+                        <option value="6">Bus In Power Input</option>
+                        <option value="7">Bus Out Power Input</option>
+                        <option value="8">Bus In Power Drain</option>
+                        <option value="9">Bus Out Power Drain</option>
+                        <option value="10">CAP Power Input</option>
+                        <option value="11">CAP Power Drain</option>
+                        <option value="12">Bus In Energy Generated</option>
+                        <option value="13">Bus In Energy Balance</option>
+                        <option value="14">Bus Out Energy Generated</option>
+                        <option value="15">Bus Out Energy Balance</option>
+                        <option value="16">CAP Energy Generated</option>
+                        <option value="17">CAP Energy Balance</option>
+                    </select>
+                    <!-- <input id="chartIndex" type="text" style="width: 20%;" placeholder="Chart Index"> -->
+                    <input value="Load new data" type="button" id="updData" style="width: 20%;" />
                 </div>
             </div>
         </div>

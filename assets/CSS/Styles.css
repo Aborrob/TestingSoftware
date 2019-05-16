@@ -91,7 +91,6 @@ th {
     padding-bottom: 2%;
     transition: opacity 2s ease-in-out;
     opacity: 1;
-
 }
 
 .areaColor {
@@ -381,7 +380,7 @@ th {
     padding-top: 2%;
     float: left;
     height: 100%;
-    width: 50%;
+    width: 33.33%;
     margin-bottom: 2%;
     border-right: 1px #ccc solid;
     border-collapse: collapse;
@@ -395,7 +394,20 @@ th {
     padding-top: 2%;
     float: left;
     height: 100%;
-    width: 50%;
+    width: 33.33%;
+    border-left: 1px #ccc solid;
+    border-collapse: collapse;
+}
+
+.Tab3 {
+    background-image: radial-gradient(rgb(56, 56, 56), black);
+    font-size: 1.5em;
+    text-align: center;
+    color: whitesmoke;
+    padding-top: 2%;
+    float: left;
+    height: 100%;
+    width: 33.33%;
     border-left: 1px #ccc solid;
     border-collapse: collapse;
 }
@@ -470,9 +482,10 @@ input::-webkit-input-placeholder {
     margin: 3% 2%;
 }
 
-.obliviate{
+.obliviate {
     opacity: 0;
 }
+
 /********************************************/
 
 /*	Graph Styles							*/
