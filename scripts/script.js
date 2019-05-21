@@ -671,23 +671,18 @@ $(document).ready(function () {
     document.querySelector(".CylinderButtons").onclick = function (e) {
         if (e.target.id == "StopCylinder") {
             $.post("htm/Outputs.htm", 'DB22.DBX0.1=0');
-            console.log("CylinderStoppp");
         } else if (e.target.id == "StartCylinder") {
-            $.post("htm/Outputs.htm", 'DB22.DBX0.1=1')
-            console.log("StartCylinder");
-            
+            $.post("htm/Outputs.htm", 'DB22.DBX0.1=1');
+
         } else if (e.target.id == "OpenCylinder") {
             $.post("htm/Outputs.htm", 'DB22.DBX0.1=0', function () {
                 $.post("htm/Outputs.htm", 'DB22.DBX0.2=1');
             })
-            console.log("OpenCylinder");
-            
-        } else if (e.target.id == "CloseCylinder") {
-                $.post("htm/Outputs.htm", 'DB22.DBX0.1=0', function () {
-                    $.post("htm/Outputs.htm", 'DB22.DBX0.3=1');
-                })
-            console.log("CloseCylinder");
 
+        } else if (e.target.id == "CloseCylinder") {
+            $.post("htm/Outputs.htm", 'DB22.DBX0.1=0', function () {
+                $.post("htm/Outputs.htm", 'DB22.DBX0.3=1');
+            })
         }
     }
 
@@ -701,7 +696,6 @@ $(document).ready(function () {
     // }
 
     document.querySelector("#TestModeButton").onclick = function () {
-        console.log(this);
         this.innerHTML = "Test Mode is ON";
         this.style.background = "lightgreen";
         $.post("htm/Outputs.htm", 'DB16.DBD12=2000'); //set test period to 2 s
@@ -714,9 +708,9 @@ $(document).ready(function () {
         clearFlag = 0;
         interval = setTimeout(intervalFunction, 10);
     }
+    //Start Test Button________________________Start Test Button______________
     document.querySelector("#StartTestButton").onclick = function () {
         TestInfo.SerialNmber = document.querySelector("#SerialNumberInput").value;
-        console.log(TestInfo.SerialNmber);
         $.post("htm/Outputs.htm", 'DB16.DBX16.3=1', function () {       //Delete record
             $.post("htm/Outputs.htm", 'DB16.DBX16.3=0', function () {
                 document.querySelector("#lastLogisDeleted").classList.remove("hidden"); //declare deleted
@@ -725,11 +719,14 @@ $(document).ready(function () {
                         document.querySelector("#NewRecCreated").classList.remove("hidden");//declare Created
                         document.querySelector("#NewRecOpened").classList.remove("hidden");//declare Opened
                         writeRequestFlag = 1;
-                        $.post("htm/Outputs.htm", 'DB16.DBX16.5=1', function () { //start writing
-                            document.querySelector("#WritingInProgress").classList.remove("hidden");
-                            document.querySelector("#StartTestButton").setAttribute("disabled", "disabled");
-                            document.querySelector("#StartTestButton").innerHTML = "Test In Progress";
+                        $.post("htm/Outputs.htm", 'DB22.DBX0.1=1', function () {
 
+                            $.post("htm/Outputs.htm", 'DB16.DBX16.5=1', function () { //start writing
+                                document.querySelector("#WritingInProgress").classList.remove("hidden");
+                                document.querySelector("#StartTestButton").setAttribute("disabled", "disabled");
+                                document.querySelector("#StartTestButton").innerHTML = "Test In Progress";
+
+                            })
                         })
 
                     })
