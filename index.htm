@@ -210,14 +210,14 @@
                     <div class="Tab2 areaColor">Historical Graph</div>
                     <div class="Tab3 areaColor">Test Info</div>
                 </div>
-                <div class="MiscButtons">
-                    <div class="GenericButtons">
+                <div class="MiscButtons ">
+                    <div class="GenericButtons hidden">
                         <a id="v12" class="v12-off button">V12 OFF</a>
-                        <a class="download"
+                        <a id="DownloadDataLog" class="download"
                             href="https://192.168.1.10/FileBrowser/Download?Path=%2FDataLogs%2Flogging.csv">Download Log
                             File</a>
                     </div>
-                    <div class="CylinderButtons">
+                    <div class="CylinderButtons hidden">
                         <h1>Cylider Controls</h1>
                         <button id="StopCylinder">Stop</button>
                         <button id="StartCylinder">Start</button>
@@ -225,18 +225,53 @@
                         <button id="CloseCylinder">Close</button>
                     </div>
                 </div>
-                <div class="TestInfo hidden">
-                    <fieldset>
-                        <legend>Test Information</legend>
-                        <label>Title: </label>
-                        <input type="text" name="TestTitle">
+                <div class="TestInfo">
+                    <div class="prevTest">
+                        <h1>Previous Test</h1>
+                        <label>Generator S/N:</label>
+                        <label id="prevSerial">XXXXXXXX</label><br>
+                        <label>Log File Downloaded:</label>
+                        <label id="isDataLogDownloaded" >No</label>
+                    </div>
+                    <div class="testSettings">
+                        <h1>Test Settings</h1>
+                        <label>Test Duration:</label>
+                        <label>2000 </label>
+                        <label>ms</label><br>
+                        <h2>Data Fields Logged:</h2>
+                        <ul>
+                            <li>Bus Voltage</li>
+                            <li>Bus In Current</li>
+                            <li>Bus In Energy Generated</li>
+                        </ul>
+                    </div>
+                    <div class="testLog">
+                        <h1>Diagnosis</h1>
+                        <p id="lastLogisDeleted" class="hidden">Last Log is Deleted</p>
+                        <p id="NewRecCreated" class="hidden">New Record Created Successfully</p>
+                        <p id="NewRecOpened" class="hidden">New record Opened Successfully</p>
+                        <p id="WritingInProgress" class="hidden">Writing in Progress</p>
+                    </div>
+                    <div class="nextTest">
+                        <h1>Next Test</h1>
                         <label>Serial Number: </label>
-                        <input type="text" name="SerialNumber">
-                        <label>Description: </label>
-                        <textarea rows="4" cols="20" style="vertical-align:top"></textarea>
-                        <Button>Submit</Button>
-                    </fieldset>
-                    <div class="submitted hidden">
+                        <input id="SerialNumberInput" type="text" name="SerialNumber" placeholder="Enter Serial Number">
+                        <button id="StartTestButton">Start Test</button>
+                    </div>
+                    <div class="testMode">
+                        <button id="TestModeButton">Enable Test Mode</button>
+                    </div>
+                    <!-- <fieldset> -->
+                    <!-- <legend>Test Information</legend> -->
+                    <!-- <label>Title: </label> -->
+                    <!-- <input type="text" name="TestTitle"> -->
+                    <!-- <label>Serial Number: </label>
+                        <input type="text" name="SerialNumber"> -->
+                    <!-- <label>Description: </label> -->
+                    <!-- <textarea rows="4" cols="20" style="vertical-align:top"></textarea> -->
+                    <!-- <Button>Submit</Button> -->
+                    <!-- </fieldset> -->
+                    <!-- <div class="submitted hidden">
                         <h1 style="color:rgba(0, 0, 0, 0.877)"> Test Details Edited Successfully</h1>
                         <h1 style="margin-top: 5%">Title</h1>
                         <p id="testTitle" style="color:rgba(0, 0, 0, 0.5)"></p>
@@ -245,7 +280,7 @@
                         <h1>Description</h1>
                         <p id="testDescription" style="color:rgba(0, 0, 0, 0.5)"></p>
                         <br><button>Edit Information</button>
-                    </div>
+                    </div> -->
                 </div>
                 <div id="DatalogGraph" class="hidden">
                     <h1><span>Graph - data taken from datalog file</span></h1>

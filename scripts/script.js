@@ -121,7 +121,7 @@ $(document).ready(function () {
                 case "1":
                 case "2":
                 case "10":
-                    smoothie2.options.title.text = e.target.innerHTML + " Current (A)";
+                    smoothie2.options.title.text = e.target.innerHTML + " (A)";
                     break;
                 case "3":
                 case "4":
@@ -416,6 +416,41 @@ $(document).ready(function () {
                     }
                 });
                 break;
+            case "12"://TestMode
+                $.ajax({
+                    url: "json/TestMode.json",
+                    dataType: 'json',
+                    type: "get",
+                    cache: false,
+                    error: function () {
+                        console.warn("There has been an error with the ajax request");
+                    },
+                    success: function (data) {
+                        ccObject = data;
+
+                        request_time = new Date().getTime() - start_time;
+                        document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
+                        line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage));
+                        line2.append(new Date().getTime(), HexToReal(ccObject.BusInCurrent));
+                        if (ccObject.WritingOutputState == 0 && writeRequestFlag == 1) { //writing finished
+                            $.post("htm/Outputs.htm", 'DB16.DBX16.5=0')
+                            writeRequestFlag = 0;
+                            document.querySelector("#lastLogisDeleted").classList.add("hidden");
+                            document.querySelector("#NewRecCreated").classList.add("hidden");
+                            document.querySelector("#NewRecOpened").classList.add("hidden");
+                            document.querySelector("#WritingInProgress").classList.add("hidden");
+                            document.querySelector("#prevSerial").innerHTML = TestInfo.SerialNmber;
+                            document.querySelector("#DownloadDataLog").setAttribute("download", TestInfo.SerialNmber);
+                            document.querySelector("#DownloadDataLog").click();
+                            document.querySelector("#isDataLogDownloaded").innerHTML = "Yes";
+                            document.querySelector("#StartTestButton").innerHTML = "Start Test";
+                        }
+                        if (clearFlag == 0) {
+                            intervalFunction();
+                        }
+                    }
+                });
+                break;
         }
     }
     // __________Stop interval when pressed
@@ -587,6 +622,8 @@ $(document).ready(function () {
         sdata = escape(name) + '=' + val;
         $.post(url, sdata);
     });
+
+    // __________________Tabs________________
     document.querySelector(".Tabs").onclick = function (e) {
         if (e.target.classList.contains("Tab1")) {
             document.querySelector(".MiscButtonsMain").style.display = "grid";
@@ -594,6 +631,11 @@ $(document).ready(function () {
             document.querySelector(".GenericButtons").classList.remove("hidden");
             document.querySelector(".CylinderButtons").classList.remove("hidden");
             document.querySelector(".TestInfo").classList.add("hidden");
+            document.querySelector(".prevTest").classList.add("hidden");
+            document.querySelector(".testSettings").classList.add("hidden");
+            document.querySelector(".testLog").classList.add("hidden");
+            document.querySelector(".nextTest").classList.add("hidden");
+            document.querySelector(".testMode").style.display = "none";
             document.querySelector("#DatalogGraph").classList.add("hidden");
 
         }
@@ -603,14 +645,24 @@ $(document).ready(function () {
             document.querySelector(".GenericButtons").classList.add("hidden");
             document.querySelector(".CylinderButtons").classList.add("hidden");
             document.querySelector(".TestInfo").classList.add("hidden");
+            document.querySelector(".prevTest").classList.add("hidden");
+            document.querySelector(".testSettings").classList.add("hidden");
+            document.querySelector(".testLog").classList.add("hidden");
+            document.querySelector(".nextTest").classList.add("hidden");
+            document.querySelector(".testMode").style.display = "none";
             document.querySelector("#DatalogGraph").classList.remove("hidden");
         }
         if (e.target.classList.contains("Tab3")) {
             document.querySelector(".MiscButtons").classList.add("hidden");
-            document.querySelector(".MiscButtonsMain").style.display = "initial";
+            document.querySelector(".MiscButtonsMain").style.display = "grid";
             document.querySelector(".GenericButtons").classList.add("hidden");
             document.querySelector(".CylinderButtons").classList.add("hidden");
             document.querySelector(".TestInfo").classList.remove("hidden");
+            document.querySelector(".prevTest").classList.remove("hidden");
+            document.querySelector(".testSettings").classList.remove("hidden");
+            document.querySelector(".testLog").classList.remove("hidden");
+            document.querySelector(".nextTest").classList.remove("hidden");
+            document.querySelector(".testMode").style.display = "flex";
             document.querySelector("#DatalogGraph").classList.add("hidden");
         }
     }
@@ -618,35 +670,72 @@ $(document).ready(function () {
     // Cylinder Control________________
     document.querySelector(".CylinderButtons").onclick = function (e) {
         if (e.target.id == "StopCylinder") {
+            $.post("htm/Outputs.htm", 'DB22.DBX0.1=0');
             console.log("CylinderStoppp");
         } else if (e.target.id == "StartCylinder") {
+            $.post("htm/Outputs.htm", 'DB22.DBX0.1=1')
             console.log("StartCylinder");
-
+            
         } else if (e.target.id == "OpenCylinder") {
+            $.post("htm/Outputs.htm", 'DB22.DBX0.1=0', function () {
+                $.post("htm/Outputs.htm", 'DB22.DBX0.2=1');
+            })
             console.log("OpenCylinder");
-
+            
         } else if (e.target.id == "CloseCylinder") {
+                $.post("htm/Outputs.htm", 'DB22.DBX0.1=0', function () {
+                    $.post("htm/Outputs.htm", 'DB22.DBX0.3=1');
+                })
             console.log("CloseCylinder");
 
         }
     }
 
-    document.querySelector(".TestInfo button").onclick = function (e) {
-        TestInfo.title = e.target.parentElement.children[2].value;
-        TestInfo.SerialNmber = e.target.parentElement.children[4].value;
-        TestInfo.Description = e.target.parentElement.children[6].value;
-        console.log(TestInfo);
-        document.querySelector("#testTitle").innerHTML = TestInfo.title;
-        document.querySelector("#testSerial").innerHTML = TestInfo.SerialNmber;
-        document.querySelector("#testDescription").innerHTML = TestInfo.Description;
-        document.querySelector(".TestInfo fieldset").classList.add("hidden");
-        document.querySelector(".submitted").classList.remove("hidden");
-    }
-    document.querySelector(".submitted button").onclick = function (e) {
-        console.log(e.target.parentElement);
-        document.querySelector(".TestInfo fieldset").classList.remove("hidden");
-        e.target.parentElement.classList.add("hidden");
-    }
+    // document.querySelector(".TestInfo button").onclick = function (e) {
+    //     // TestInfo.title = e.target.parentElement.children[2].value;
+    //     TestInfo.SerialNmber = e.target.parentElement.children[4].value;
+    //     // TestInfo.Description = e.target.parentElement.children[6].value;
+    //     // document.querySelector("#testTitle").innerHTML = TestInfo.title;
+    //     // document.querySelector("#testSerial").innerHTML = TestInfo.SerialNmber;
+    //     // document.querySelector("#testDescription").innerHTML = TestInfo.Description;
+    // }
 
+    document.querySelector("#TestModeButton").onclick = function () {
+        console.log(this);
+        this.innerHTML = "Test Mode is ON";
+        this.style.background = "lightgreen";
+        $.post("htm/Outputs.htm", 'DB16.DBD12=2000'); //set test period to 2 s
+        requestIdentifier = "12";
+        smoothie2.options.title.text = "Bus In Current (A)";
+        line1.clear();
+        line2.clear();
+        smoothie1.start();
+        smoothie2.start();
+        clearFlag = 0;
+        interval = setTimeout(intervalFunction, 10);
+    }
+    document.querySelector("#StartTestButton").onclick = function () {
+        TestInfo.SerialNmber = document.querySelector("#SerialNumberInput").value;
+        console.log(TestInfo.SerialNmber);
+        $.post("htm/Outputs.htm", 'DB16.DBX16.3=1', function () {       //Delete record
+            $.post("htm/Outputs.htm", 'DB16.DBX16.3=0', function () {
+                document.querySelector("#lastLogisDeleted").classList.remove("hidden"); //declare deleted
+                $.post("htm/Outputs.htm", 'DB16.DBX16.0=1', function () { //create record
+                    $.post("htm/Outputs.htm", 'DB16.DBX16.0=0', function () {
+                        document.querySelector("#NewRecCreated").classList.remove("hidden");//declare Created
+                        document.querySelector("#NewRecOpened").classList.remove("hidden");//declare Opened
+                        writeRequestFlag = 1;
+                        $.post("htm/Outputs.htm", 'DB16.DBX16.5=1', function () { //start writing
+                            document.querySelector("#WritingInProgress").classList.remove("hidden");
+                            document.querySelector("#StartTestButton").setAttribute("disabled", "disabled");
+                            document.querySelector("#StartTestButton").innerHTML = "Test In Progress";
+
+                        })
+
+                    })
+                })
+            })
+        })
+    }
 });
-// _____Don't add lines below this line (to stay inside the onready scope)_________
+// _____Don't add lines below this line (to stay inside the onready scope)

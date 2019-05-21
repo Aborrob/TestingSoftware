@@ -1,0 +1,9 @@
+{
+    "BusVoltage": ":=DB3.DBD240:",
+    "BusInCurrent": ":=DB3.DBD236:",
+    "EnergyInGenerated": ":=DB3.DBD256:",
+    "CreateLog": ":=DB16.DBX16.0:",
+    "DeleteLog": ":=DB16.DBX16.3:",
+    "TestPeriod": ":=DB16.DBD28:",
+    "WritingOutputState": ":=M60.1:"
+}
