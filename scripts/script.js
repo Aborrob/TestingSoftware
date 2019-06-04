@@ -71,6 +71,10 @@ $(document).ready(function () {
         SerialNmber: "",
         Description: ""
     }
+    var cylinderStrted = 0;
+    var cylinderStopped = 0;
+    var DataDownloaded = 0;
+    var TestisDone = 0;
     var interval = null;
     var clearFlag = 0;
     var request_time = null;
@@ -432,18 +436,27 @@ $(document).ready(function () {
                         document.querySelector("#RequestTime").textContent = `Request time: ${request_time}`;
                         line1.append(new Date().getTime(), HexToReal(ccObject.BusVoltage));
                         line2.append(new Date().getTime(), HexToReal(ccObject.BusInCurrent));
-                        if (ccObject.WritingOutputState == 0 && writeRequestFlag == 1) { //writing finished
-                            $.post("htm/Outputs.htm", 'DB16.DBX16.5=0')
-                            writeRequestFlag = 0;
-                            document.querySelector("#lastLogisDeleted").classList.add("hidden");
-                            document.querySelector("#NewRecCreated").classList.add("hidden");
-                            document.querySelector("#NewRecOpened").classList.add("hidden");
-                            document.querySelector("#WritingInProgress").classList.add("hidden");
-                            document.querySelector("#prevSerial").innerHTML = TestInfo.SerialNmber;
-                            document.querySelector("#DownloadDataLog").setAttribute("download", TestInfo.SerialNmber);
+                        if (ccObject.WritingOutputState == 0 && writeRequestFlag == 1 && writingStarted == 1 && cylinderStrted == 1 && cylinderStopped == 0) { //writing finished
+                            $.post("htm/Outputs.htm", 'DB16.DBX16.5=0', function () {
+                                TestisDone = 1;
+                                writeRequestFlag = 0;
+                                document.querySelector("#lastLogisDeleted").classList.add("hidden");
+                                document.querySelector("#NewRecCreated").classList.add("hidden");
+                                document.querySelector("#NewRecOpened").classList.add("hidden");
+                                document.querySelector("#WritingInProgress").classList.add("hidden");
+                                document.querySelector("#prevSerial").innerHTML = TestInfo.SerialNmber;
+                                document.querySelector("#DownloadDataLog").setAttribute("download", TestInfo.SerialNmber);
+                                document.querySelector("#isDataLogDownloaded").innerHTML = "Yes/ Check Downloads directory!";
+                                document.querySelector("#StartTestButton").innerHTML = "Start Test";
+                                document.querySelector("#StartTestButton").removeAttribute("disabled");
+                            });
+
+                        }
+                        if (TestisDone == 1 && DataDownloaded == 0 && cylinderStrted == 1) {
+                            // document.querySelector("#StopCylinder").click();
+                            StopCylinderfunc();
                             document.querySelector("#DownloadDataLog").click();
-                            document.querySelector("#isDataLogDownloaded").innerHTML = "Yes";
-                            document.querySelector("#StartTestButton").innerHTML = "Start Test";
+                            DataDownloaded = 1;
                         }
                         if (clearFlag == 0) {
                             intervalFunction();
@@ -453,6 +466,8 @@ $(document).ready(function () {
                 break;
         }
     }
+
+
     // __________Stop interval when pressed
     document.querySelector("#ClearInterval").onclick = function () {
         // clearTimeout(interval);
@@ -617,7 +632,7 @@ $(document).ready(function () {
     });
     $("#TestPeriodButton").click(function () {
         url = "htm/Outputs.htm";
-        name = 'DB16.DBD12';
+        name = 'DB16.DBD28';
         val = $('input[id=TestPeriod]').val();
         sdata = escape(name) + '=' + val;
         $.post(url, sdata);
@@ -670,35 +685,52 @@ $(document).ready(function () {
     // Cylinder Control________________
     document.querySelector(".CylinderButtons").onclick = function (e) {
         if (e.target.id == "StopCylinder") {
-            $.post("htm/Outputs.htm", 'DB22.DBX0.1=0');
+            $.post("htm/Outputs.htm", 'DB22.DBX0.2=0', function () {
+                $.post("htm/Outputs.htm", 'DB22.DBX0.3=0', function () {
+                    $.post("htm/Outputs.htm", 'DB22.DBX0.1=0');
+                    $.post("htm/Outputs.htm", 'DB22.DBX0.3=1')
+                    console.log("Stopped")
+                    cylinderStopped = 1;
+                })
+            })
         } else if (e.target.id == "StartCylinder") {
-            $.post("htm/Outputs.htm", 'DB22.DBX0.1=1');
-
+            $.post("htm/Outputs.htm", 'DB22.DBX0.2=0', function () {
+                $.post("htm/Outputs.htm", 'DB22.DBX0.3=0', function () {
+                    $.post("htm/Outputs.htm", 'DB22.DBX0.1=1');
+                    console.log("Started")
+                    cylinderStrted = 1;
+                })
+            })
         } else if (e.target.id == "OpenCylinder") {
             $.post("htm/Outputs.htm", 'DB22.DBX0.1=0', function () {
-                $.post("htm/Outputs.htm", 'DB22.DBX0.2=1');
+                $.post("htm/Outputs.htm", 'DB22.DBX0.3=0', function () {
+                    $.post("htm/Outputs.htm", 'DB22.DBX0.2=1');
+                    console.log("Opened")
+                })
             })
-
         } else if (e.target.id == "CloseCylinder") {
             $.post("htm/Outputs.htm", 'DB22.DBX0.1=0', function () {
-                $.post("htm/Outputs.htm", 'DB22.DBX0.3=1');
+                $.post("htm/Outputs.htm", 'DB22.DBX0.2=0', function () {
+                    $.post("htm/Outputs.htm", 'DB22.DBX0.3=1');
+                    console.log("Closed")
+                })
             })
         }
     }
-
-    // document.querySelector(".TestInfo button").onclick = function (e) {
-    //     // TestInfo.title = e.target.parentElement.children[2].value;
-    //     TestInfo.SerialNmber = e.target.parentElement.children[4].value;
-    //     // TestInfo.Description = e.target.parentElement.children[6].value;
-    //     // document.querySelector("#testTitle").innerHTML = TestInfo.title;
-    //     // document.querySelector("#testSerial").innerHTML = TestInfo.SerialNmber;
-    //     // document.querySelector("#testDescription").innerHTML = TestInfo.Description;
-    // }
-
+    function StopCylinderfunc() {
+        $.post("htm/Outputs.htm", 'DB22.DBX0.2=0', function () {
+            $.post("htm/Outputs.htm", 'DB22.DBX0.3=0');
+            $.post("htm/Outputs.htm", 'DB22.DBX0.1=0');
+            $.post("htm/Outputs.htm", 'DB22.DBX0.3=1');
+            console.log("Stopped");
+            cylinderStopped = 1;
+            cylinderStrted = 0;
+        });
+    }
     document.querySelector("#TestModeButton").onclick = function () {
         this.innerHTML = "Test Mode is ON";
         this.style.background = "lightgreen";
-        $.post("htm/Outputs.htm", 'DB16.DBD12=2000'); //set test period to 2 s
+        $.post("htm/Outputs.htm", 'DB16.DBD28=120000'); //set test period to 2 s
         requestIdentifier = "12";
         smoothie2.options.title.text = "Bus In Current (A)";
         line1.clear();
@@ -710,22 +742,30 @@ $(document).ready(function () {
     }
     //Start Test Button________________________Start Test Button______________
     document.querySelector("#StartTestButton").onclick = function () {
+        TestisDone = 0;
+        DataDownloaded = 0;
+        writeRequestFlag = 1;
+        cylinderStrted = 0;
+        cylinderStopped = 0;
+        writingStarted = 0;
         TestInfo.SerialNmber = document.querySelector("#SerialNumberInput").value;
         $.post("htm/Outputs.htm", 'DB16.DBX16.3=1', function () {       //Delete record
-            $.post("htm/Outputs.htm", 'DB16.DBX16.3=0', function () {
+            $.post("htm/Outputs.htm", 'DB16.DBX16.3=0', function () {   //reset delete record trigger
                 document.querySelector("#lastLogisDeleted").classList.remove("hidden"); //declare deleted
                 $.post("htm/Outputs.htm", 'DB16.DBX16.0=1', function () { //create record
-                    $.post("htm/Outputs.htm", 'DB16.DBX16.0=0', function () {
+                    $.post("htm/Outputs.htm", 'DB16.DBX16.0=0', function () { // reset create record trigger
                         document.querySelector("#NewRecCreated").classList.remove("hidden");//declare Created
                         document.querySelector("#NewRecOpened").classList.remove("hidden");//declare Opened
-                        writeRequestFlag = 1;
-                        $.post("htm/Outputs.htm", 'DB22.DBX0.1=1', function () {
+                        $.post("htm/Outputs.htm", 'DB22.DBX0.1=1', function () {//start cylinder
+                            cylinderStrted = 1;
+                            $.post("htm/Outputs.htm", 'DB16.DBX16.5=0', function () {//reset trigger for writing
+                                $.post("htm/Outputs.htm", 'DB16.DBX16.5=1', function () { //start writing
+                                    writingStarted = 1;
+                                    document.querySelector("#WritingInProgress").classList.remove("hidden");
+                                    document.querySelector("#StartTestButton").setAttribute("disabled", "disabled");
+                                    document.querySelector("#StartTestButton").innerHTML = "Test In Progress";
 
-                            $.post("htm/Outputs.htm", 'DB16.DBX16.5=1', function () { //start writing
-                                document.querySelector("#WritingInProgress").classList.remove("hidden");
-                                document.querySelector("#StartTestButton").setAttribute("disabled", "disabled");
-                                document.querySelector("#StartTestButton").innerHTML = "Test In Progress";
-
+                                })
                             })
                         })
 
@@ -733,6 +773,32 @@ $(document).ready(function () {
                 })
             })
         })
+    }
+
+    //Cancel Test button
+    document.querySelector("#CancelTestButton").onclick = function () {
+        TestisDone = 0;
+        DataDownloaded = 0;
+        writeRequestFlag = 0;
+        $.post("htm/Outputs.htm", 'DB16.DBX16.5=0', function () {//reset writing trigger
+            console.log("Writing Trigger reset");
+            $.post("htm/Outputs.htm", 'DB16.DBX32.0=1', function () {//Reset writing timer
+                console.log("Writing timer reset");
+                $.post("htm/Outputs.htm", 'DB16.DBX32.0=0');
+            })
+            console.log("Test Cancelled");
+        })
+        document.querySelector("#lastLogisDeleted").classList.add("hidden");
+        document.querySelector("#NewRecCreated").classList.add("hidden");
+        document.querySelector("#NewRecOpened").classList.add("hidden");
+        document.querySelector("#WritingInProgress").classList.add("hidden");
+        document.querySelector("#prevSerial").innerHTML = TestInfo.SerialNmber;
+        document.querySelector("#DownloadDataLog").setAttribute("download", TestInfo.SerialNmber);
+        document.querySelector("#isDataLogDownloaded").innerHTML = "Yes";
+        document.querySelector("#StartTestButton").innerHTML = "Start Test";
+        document.querySelector("#StartTestButton").removeAttribute("disabled");
+        // document.querySelector("#StopCylinder").click();
+        StopCylinderfunc();
     }
 });
 // _____Don't add lines below this line (to stay inside the onready scope)

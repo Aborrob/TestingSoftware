@@ -496,6 +496,29 @@ input::-webkit-input-placeholder {
     background: rgba(240, 240, 240, 0.527);
 }
 
+#CancelTestButton {
+    margin-top: 10%;
+    width: 80%;
+    text-align: center;
+    height: 20%;
+}
+
+#DownloadDataLog {
+    display: block;
+    text-decoration: none;
+    color: black;
+    background-color: rgb(255, 255, 255);
+    margin-top: 5%;
+    width: 80%;
+    text-align: center;
+    height: 20%;
+}
+
+#DownloadDataLog:hover {
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+
 .testSettings {
     grid-area: testSettings;
     background: rgba(255, 255, 255, 0.5);

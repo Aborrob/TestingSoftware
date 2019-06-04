@@ -213,16 +213,14 @@
                 <div class="MiscButtons ">
                     <div class="GenericButtons hidden">
                         <a id="v12" class="v12-off button">V12 OFF</a>
-                        <a id="DownloadDataLog" class="download"
-                            href="https://192.168.1.10/FileBrowser/Download?Path=%2FDataLogs%2Flogging.csv">Download Log
-                            File</a>
+                        <!-- <a id="DownloadDataLog" class="download" href="http://192.168.1.10/FileBrowser/Download?Path=%2FDataLogs%2Flogging.csv" download="Test.csv">Download Log File</a> -->
                     </div>
                     <div class="CylinderButtons hidden">
                         <h1>Cylider Controls</h1>
                         <button id="StopCylinder">Stop</button>
                         <button id="StartCylinder">Start</button>
-                        <button id="OpenCylinder">Open</button>
-                        <button id="CloseCylinder">Close</button>
+                        <button id="OpenCylinder">Extend</button>
+                        <button id="CloseCylinder">Retract</button>
                     </div>
                 </div>
                 <div class="TestInfo">
@@ -232,12 +230,14 @@
                         <label id="prevSerial">XXXXXXXX</label><br>
                         <label>Log File Downloaded:</label>
                         <label id="isDataLogDownloaded" >No</label>
+                        <button id="CancelTestButton">Cancel Test</button>
+                        <a id="DownloadDataLog" href="http://192.168.1.10/FileBrowser/Download?Path=%2FDataLogs%2Flogging.csv" download="Test.csv">Download Log File</a>
                     </div>
                     <div class="testSettings">
                         <h1>Test Settings</h1>
                         <label>Test Duration:</label>
-                        <label>2000 </label>
-                        <label>ms</label><br>
+                        <label>2 Minutes </label>
+                        <br>
                         <h2>Data Fields Logged:</h2>
                         <ul>
                             <li>Bus Voltage</li>
